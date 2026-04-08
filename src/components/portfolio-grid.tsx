@@ -27,6 +27,8 @@ export function PortfolioGrid({ entries }: PortfolioGridProps) {
             key={f}
             type="button"
             onClick={() => setActive(f)}
+            aria-label={`Filter by ${f === 'all' ? 'all roles' : f}`}
+            aria-pressed={active === f}
             className={`rounded-md px-4 py-2 text-xs font-semibold capitalize transition-colors ${
               active === f
                 ? 'bg-[--color-accent] text-[--color-background]'
