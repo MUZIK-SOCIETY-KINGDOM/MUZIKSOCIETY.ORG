@@ -21,11 +21,16 @@ export async function submitInquiry(
     return { success: false, error: 'Invalid email address.' }
   }
 
+  const validSubjects = ['booking', 'collab', 'general'] as const
+  const subject = validSubjects.includes(input.subject as typeof validSubjects[number])
+    ? input.subject
+    : 'general'
+
   const supabase = await createClient()
   const { error } = await supabase.from('ms_inquiries').insert({
     name: input.name.trim(),
     email: input.email.trim().toLowerCase(),
-    subject: input.subject || 'general',
+    subject,
     message: input.message.trim(),
   })
 
