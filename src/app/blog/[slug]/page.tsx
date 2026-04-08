@@ -1,16 +1,11 @@
 import type { Metadata } from 'next'
 import { notFound } from 'next/navigation'
-import { getBlogPostBySlug, getBlogPosts } from '@/lib/queries'
+import { getBlogPostBySlug } from '@/lib/queries'
 import { MarkdownRenderer } from '@/components/markdown-renderer'
 import { formatDate } from '@/lib/utils'
 import Link from 'next/link'
 
 export const revalidate = 60
-
-export async function generateStaticParams() {
-  const posts = await getBlogPosts()
-  return posts.map((p) => ({ slug: p.slug }))
-}
 
 export async function generateMetadata({
   params,
