@@ -53,7 +53,7 @@ export async function getBlogPosts(): Promise<BlogPost[]> {
   const supabase = await createClient()
   const { data, error } = await supabase
     .from('ms_blog_posts')
-    .select('id, title, slug, excerpt, tags, published_at, created_at')
+    .select('*')
     .eq('published', true)
     .order('published_at', { ascending: false })
   if (error) return []
