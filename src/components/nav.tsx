@@ -31,6 +31,7 @@ export function Nav() {
             <Link
               key={link.href}
               href={link.href}
+              aria-current={pathname === link.href ? 'page' : undefined}
               className={`text-xs tracking-wide transition-colors ${
                 pathname === link.href
                   ? 'text-[--color-foreground]'
