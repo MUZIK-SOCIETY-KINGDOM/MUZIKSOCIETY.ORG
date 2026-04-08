@@ -23,6 +23,7 @@ export function AudioPlayer({ src }: AudioPlayerProps) {
   return (
     <div className="flex items-center gap-3 mt-3">
       <button
+        type="button"
         onClick={toggle}
         className="flex h-8 w-8 items-center justify-center rounded-full bg-[--color-accent] text-[--color-background] hover:bg-[--color-accent-dark] transition-colors text-xs"
         aria-label={playing ? 'Pause preview' : 'Play preview'}
