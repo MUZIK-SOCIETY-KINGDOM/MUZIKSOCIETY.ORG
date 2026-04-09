@@ -1,49 +1,30 @@
 'use client'
 
 import { useState } from 'react'
+import { useRouter } from 'next/navigation'
 import { createClient } from '@/lib/supabase/browser'
 
 export default function LoginPage() {
   const [email, setEmail] = useState('')
-  const [sent, setSent] = useState(false)
+  const [password, setPassword] = useState('')
   const [error, setError] = useState('')
+  const [loading, setLoading] = useState(false)
+  const router = useRouter()
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault()
     setError('')
-
-    const allowedEmail = process.env.NEXT_PUBLIC_ALLOWED_EMAIL
-    if (email !== allowedEmail) {
-      setError('Access denied.')
-      return
-    }
+    setLoading(true)
 
     const supabase = createClient()
-    const { error: authError } = await supabase.auth.signInWithOtp({
-      email,
-      options: {
-        emailRedirectTo: `${window.location.origin}/auth/callback`,
-      },
-    })
+    const { error: authError } = await supabase.auth.signInWithPassword({ email, password })
 
     if (authError) {
-      setError(authError.message)
+      setError('Invalid email or password.')
+      setLoading(false)
     } else {
-      setSent(true)
+      router.push('/admin')
     }
-  }
-
-  if (sent) {
-    return (
-      <div className="min-h-screen flex items-center justify-center px-6">
-        <div className="text-center">
-          <p className="text-(--color-accent) font-bold mb-2">Check your email.</p>
-          <p className="text-sm text-(--color-muted)">
-            Magic link sent to {email}
-          </p>
-        </div>
-      </div>
-    )
   }
 
   return (
@@ -55,15 +36,24 @@ export default function LoginPage() {
           value={email}
           onChange={(e) => setEmail(e.target.value)}
           required
-          placeholder="your@email.com"
+          placeholder="email"
+          className="w-full rounded-md border border-(--color-border) bg-(--color-surface) px-4 py-3 text-sm text-(--color-foreground) placeholder:text-(--color-muted) focus:border-(--color-accent) focus:outline-none"
+        />
+        <input
+          type="password"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+          required
+          placeholder="password"
           className="w-full rounded-md border border-(--color-border) bg-(--color-surface) px-4 py-3 text-sm text-(--color-foreground) placeholder:text-(--color-muted) focus:border-(--color-accent) focus:outline-none"
         />
         {error && <p className="text-xs text-red-400">{error}</p>}
         <button
           type="submit"
-          className="w-full rounded-md bg-(--color-accent) py-3 text-sm font-semibold text-(--color-background) hover:bg-(--color-accent-dark) transition-colors"
+          disabled={loading}
+          className="w-full rounded-md bg-(--color-accent) py-3 text-sm font-semibold text-(--color-background) hover:bg-(--color-accent-dark) disabled:opacity-50 transition-colors"
         >
-          Send Magic Link
+          {loading ? 'Signing in...' : 'Sign In'}
         </button>
       </form>
     </div>
