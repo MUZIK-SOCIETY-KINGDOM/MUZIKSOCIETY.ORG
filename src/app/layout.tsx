@@ -3,6 +3,7 @@ import { Inter } from 'next/font/google'
 import './globals.css'
 import { Nav } from '@/components/nav'
 import { Footer } from '@/components/footer'
+import { AmbientBackground } from '@/components/ambient-background'
 
 const inter = Inter({ subsets: ['latin'], variable: '--font-inter' })
 
@@ -25,6 +26,7 @@ export default function RootLayout({
   return (
     <html lang="en" className={inter.variable}>
       <body>
+        <AmbientBackground />
         <Nav />
         <main className="pt-16 page-enter">{children}</main>
         <Footer />

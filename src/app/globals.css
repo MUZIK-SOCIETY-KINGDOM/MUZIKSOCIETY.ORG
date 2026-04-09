@@ -51,6 +51,31 @@ body::before {
   opacity: 0.4;
 }
 
+/* Ambient blob animations */
+@keyframes blob-drift-1 {
+  0%   { transform: translate(0, 0) scale(1); }
+  33%  { transform: translate(-40px, 30px) scale(1.05); }
+  66%  { transform: translate(20px, -20px) scale(0.97); }
+  100% { transform: translate(0, 0) scale(1); }
+}
+
+@keyframes blob-drift-2 {
+  0%   { transform: translate(0, 0) scale(1); }
+  33%  { transform: translate(30px, -40px) scale(0.96); }
+  66%  { transform: translate(-20px, 25px) scale(1.04); }
+  100% { transform: translate(0, 0) scale(1); }
+}
+
+@keyframes blob-drift-3 {
+  0%   { transform: translate(-50%, -50%) scale(1); }
+  50%  { transform: translate(-50%, -50%) scale(1.08); }
+  100% { transform: translate(-50%, -50%) scale(1); }
+}
+
+.blob-1 { animation: blob-drift-1 22s ease-in-out infinite; }
+.blob-2 { animation: blob-drift-2 28s ease-in-out infinite; }
+.blob-3 { animation: blob-drift-3 35s ease-in-out infinite; }
+
 /* Page fade-in transition */
 @keyframes fadein {
   from { opacity: 0; transform: translateY(8px); }

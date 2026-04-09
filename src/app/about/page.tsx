@@ -1,4 +1,5 @@
 import type { Metadata } from 'next'
+import { FadeIn } from '@/components/fade-in'
 
 export const metadata: Metadata = {
   title: 'About — MuzikSociety',
@@ -27,67 +28,79 @@ export default function AboutPage() {
   return (
     <div className="mx-auto max-w-6xl px-6 py-24">
       {/* Header */}
-      <div className="mb-16">
-        <p className="mb-3 text-xs font-semibold tracking-[0.25em] text-(--color-accent) uppercase">
-          About
-        </p>
-        <h1 className="text-4xl font-extrabold tracking-tight text-(--color-foreground) md:text-6xl">
-          The Long Game.
-        </h1>
-      </div>
+      <FadeIn>
+        <div className="mb-16">
+          <p className="mb-3 text-xs font-semibold tracking-[0.25em] text-(--color-accent) uppercase">
+            About
+          </p>
+          <h1 className="text-4xl font-extrabold tracking-tight text-(--color-foreground) md:text-6xl">
+            The Long Game.
+          </h1>
+        </div>
+      </FadeIn>
 
       {/* Two-column bio */}
       <div className="grid gap-16 md:grid-cols-2 mb-24">
-        <div className="aspect-square rounded-lg bg-(--color-surface) border border-(--color-border) flex items-center justify-center">
-          <span className="text-6xl font-black tracking-tight text-(--color-border)">S</span>
-        </div>
-        <div className="flex flex-col justify-center gap-6">
-          <p className="text-base text-(--color-muted) leading-relaxed">
-            I'm Gabriel Santiago — MuzikSociety — a producer, engineer, and creator from Caguas, Puerto Rico with 20+ years across music production, mixing, mastering, development, graphic design, and content creation.
-          </p>
-          <p className="text-base text-(--color-muted) leading-relaxed">
-            I don't separate the disciplines — everything runs through the same philosophy: intention, craft, and standard.
-          </p>
-          <p className="text-base text-(--color-muted) leading-relaxed">
-            Music isn't what I do. It's how I think.
-          </p>
-        </div>
+        <FadeIn direction="right">
+          <div className="aspect-square rounded-lg bg-(--color-surface) border border-(--color-border) flex items-center justify-center">
+            <span className="text-6xl font-black tracking-tight text-(--color-border)">S</span>
+          </div>
+        </FadeIn>
+        <FadeIn direction="left" delay={0.1}>
+          <div className="flex flex-col justify-center gap-6">
+            <p className="text-base text-(--color-muted) leading-relaxed">
+              I'm Gabriel Santiago — MuzikSociety — a producer, engineer, and creator from Caguas, Puerto Rico with 20+ years across music production, mixing, mastering, development, graphic design, and content creation.
+            </p>
+            <p className="text-base text-(--color-muted) leading-relaxed">
+              I don't separate the disciplines — everything runs through the same philosophy: intention, craft, and standard.
+            </p>
+            <p className="text-base text-(--color-muted) leading-relaxed">
+              Music isn't what I do. It's how I think.
+            </p>
+          </div>
+        </FadeIn>
       </div>
 
       {/* Timeline */}
-      <div className="mb-24">
-        <h2 className="mb-10 text-lg font-bold tracking-tight text-(--color-foreground)">
-          Timeline
-        </h2>
-        <div className="relative border-l border-(--color-border) pl-8 space-y-10">
-          {timeline.map((item) => (
-            <div key={item.year} className="relative">
-              <div className="absolute -left-[2.125rem] top-1 h-3 w-3 rounded-full bg-(--color-accent)" />
-              <p className="text-xs font-semibold tracking-widest text-(--color-accent) mb-1">
-                {item.year}
-              </p>
-              <p className="text-sm text-(--color-muted)">{item.event}</p>
-            </div>
-          ))}
+      <FadeIn>
+        <div className="mb-24">
+          <h2 className="mb-10 text-lg font-bold tracking-tight text-(--color-foreground)">
+            Timeline
+          </h2>
+          <div className="relative border-l border-(--color-border) pl-8 space-y-10">
+            {timeline.map((item, i) => (
+              <FadeIn key={item.year} delay={i * 0.06}>
+                <div className="relative">
+                  <div className="absolute -left-[2.625rem] top-1 h-3 w-3 rounded-full bg-(--color-accent)" />
+                  <p className="text-xs font-semibold tracking-widest text-(--color-accent) mb-1">
+                    {item.year}
+                  </p>
+                  <p className="text-sm text-(--color-muted)">{item.event}</p>
+                </div>
+              </FadeIn>
+            ))}
+          </div>
         </div>
-      </div>
+      </FadeIn>
 
       {/* Skills strip */}
-      <div>
-        <h2 className="mb-6 text-lg font-bold tracking-tight text-(--color-foreground)">
-          Tools & Skills
-        </h2>
-        <div className="flex flex-wrap gap-2">
-          {skills.map((skill) => (
-            <span
-              key={skill}
-              className="rounded-md border border-(--color-border) px-3 py-1.5 text-xs text-(--color-muted)"
-            >
-              {skill}
-            </span>
-          ))}
+      <FadeIn>
+        <div>
+          <h2 className="mb-6 text-lg font-bold tracking-tight text-(--color-foreground)">
+            Tools & Skills
+          </h2>
+          <div className="flex flex-wrap gap-2">
+            {skills.map((skill) => (
+              <span
+                key={skill}
+                className="rounded-md border border-(--color-border) px-3 py-1.5 text-xs text-(--color-muted) hover:border-(--color-accent) hover:text-(--color-foreground) transition-colors cursor-default"
+              >
+                {skill}
+              </span>
+            ))}
+          </div>
         </div>
-      </div>
+      </FadeIn>
     </div>
   )
 }
