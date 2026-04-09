@@ -10,37 +10,43 @@ const services = [
     icon: '🎛️',
     title: 'Music Production',
     description:
-      'Full-track production from concept to master-ready. Beats, arrangements, instrumentation — built to your vision with 20 years of sonic experience behind every decision.',
+      'Full-track production from concept to master-ready. Beats, arrangements, instrumentation — built to your vision with 20+ years of sonic experience behind every decision.',
   },
   {
     icon: '🎚️',
-    title: 'Mixing',
+    title: 'Mixing & Mastering',
     description:
-      'Professional mix sessions that translate across all playback systems. Analog warmth meets digital precision. Every element in its place.',
-  },
-  {
-    icon: '💿',
-    title: 'Mastering',
-    description:
-      'Final stage polish that makes your record competitive, consistent, and loud — without sacrificing the dynamics that make it alive.',
+      'Professional mix sessions that translate across all playback systems. Final stage polish that makes your record competitive without sacrificing the dynamics that make it alive.',
   },
   {
     icon: '🎙️',
     title: 'Audio Engineering',
     description:
-      'Recording sessions, live sound reinforcement, post-production. Clean signal path, minimal noise floor, maximum impact.',
+      'Recording sessions, post-production, and sound design. Clean signal path, minimal noise floor, maximum impact.',
+  },
+  {
+    icon: '🎨',
+    title: 'Graphic Design & Content',
+    description:
+      'Visual identity, artwork, and content production for artists and brands. The same production philosophy applied to everything you put in front of an audience.',
+  },
+  {
+    icon: '🌱',
+    title: 'Artist Development & Consultation',
+    description:
+      'Career strategy, brand building, workflow optimization, and industry navigation. Two decades of hard-earned knowledge — available to you.',
+  },
+  {
+    icon: '📚',
+    title: 'Teaching & Education',
+    description:
+      'One-on-one and group sessions covering production, engineering, music business, and creative development. Learn the craft from someone who lives it.',
   },
   {
     icon: '⌨️',
     title: 'Software Development',
     description:
       'Custom tools, plugins, and platforms built for the music industry. If the tool you need doesn\'t exist, I build it.',
-  },
-  {
-    icon: '🎓',
-    title: 'Consultation',
-    description:
-      'Studio setup, workflow optimization, career strategy. Two decades of hard-earned knowledge — available by the hour.',
   },
 ]
 

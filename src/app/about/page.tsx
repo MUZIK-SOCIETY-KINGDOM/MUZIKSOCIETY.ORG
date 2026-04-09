@@ -14,9 +14,11 @@ const timeline = [
 ]
 
 const skills = [
-  'Music Production', 'Mixing', 'Mastering', 'Sound Design',
-  'Audio Engineering', 'TypeScript', 'Next.js', 'Python',
-  'Ableton Live', 'Pro Tools', 'Logic Pro', 'FL Studio',
+  'Music Production', 'Mixing', 'Mastering', 'Audio Engineering',
+  'Sound Design', 'Graphic Design', 'Content Production',
+  'Artist Development', 'Music Education', 'Software Development',
+  'AI Integration', 'Ableton Live', 'Pro Tools', 'Logic Pro', 'FL Studio',
+  'TypeScript', 'Next.js', 'Python',
 ]
 
 export default function AboutPage() {
@@ -39,16 +41,13 @@ export default function AboutPage() {
         </div>
         <div className="flex flex-col justify-center gap-6">
           <p className="text-base text-(--color-muted) leading-relaxed">
-            I'm Santi — music producer, audio engineer, and software developer based in Colombia.
-            Over 20 years in this industry have taught me one thing: the standard is yours to set.
+            I'm Gabriel Santiago — MuzikSociety — a producer, engineer, and creator from Caguas, Puerto Rico with 20+ years across music production, mixing, mastering, development, graphic design, and content creation.
           </p>
           <p className="text-base text-(--color-muted) leading-relaxed">
-            I've built sounds from scratch in bedrooms, studios, and server rooms. I write code
-            the same way I approach a mix — with intention, precision, and an ear for what doesn't
-            belong.
+            I don't separate the disciplines — everything runs through the same philosophy: intention, craft, and standard.
           </p>
           <p className="text-base text-(--color-muted) leading-relaxed">
-            MuzikSociety is the intersection of both worlds: the craft and the tools that enable it.
+            Music isn't what I do. It's how I think.
           </p>
         </div>
       </div>

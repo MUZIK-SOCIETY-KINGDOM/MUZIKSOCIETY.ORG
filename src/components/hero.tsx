@@ -5,10 +5,10 @@ export function Hero() {
     <section className="relative flex min-h-[calc(100vh-4rem)] items-center">
       <div className="mx-auto max-w-6xl px-6 py-24">
         <p className="mb-4 text-xs font-semibold tracking-[0.25em] text-(--color-accent) uppercase">
-          Producer · Engineer · Developer
+          Producer · Engineer · Developer · Creator
         </p>
         <h1 className="text-5xl font-extrabold tracking-tight text-(--color-foreground) md:text-7xl lg:text-8xl">
-          20 Years.
+          20+ Years.
           <br />
           <span className="text-(--color-muted)">One Standard.</span>
         </h1>

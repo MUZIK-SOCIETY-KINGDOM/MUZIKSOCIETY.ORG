@@ -10,7 +10,7 @@ export function Footer() {
               MUZIKSOCIETY
             </p>
             <p className="mt-1 text-xs text-(--color-muted)">
-              Producer · Engineer · Developer
+              Producer · Engineer · Developer · Creator
             </p>
           </div>
           <div className="flex flex-wrap gap-6">
@@ -29,6 +29,14 @@ export function Footer() {
                 {label}
               </Link>
             ))}
+            <a
+              href="https://instagram.com/muziksociety"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-xs text-(--color-muted) hover:text-(--color-foreground) transition-colors"
+            >
+              Instagram
+            </a>
           </div>
         </div>
         <div className="mt-8 border-t border-(--color-border) pt-8">
