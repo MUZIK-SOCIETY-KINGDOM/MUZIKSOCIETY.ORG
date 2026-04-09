@@ -14,7 +14,7 @@ const sections = [
   {
     href: '/tools',
     label: 'Tools',
-    description: 'Software and plugins built for producers.',
+    description: 'Tools built for producers, engineers, and artists.',
   },
   {
     href: '/portfolio',

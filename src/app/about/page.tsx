@@ -6,11 +6,13 @@ export const metadata: Metadata = {
 
 const timeline = [
   { year: '2004', event: 'Started producing — bedroom studio, no budget, full obsession.' },
-  { year: '2008', event: 'First major label placement. The standard was set.' },
-  { year: '2012', event: 'Built first DAW plugin. Code became part of the craft.' },
-  { year: '2016', event: 'Launched MuzikSociety — a platform for the culture.' },
-  { year: '2020', event: 'Mixed and mastered 50+ independent releases during the pandemic.' },
-  { year: '2026', event: 'Still here. Still building. Still pushing.' },
+  { year: '2008', event: 'First professional production participation. The standard was set.' },
+  { year: '2010', event: 'MuzikSociety launches as a brand.' },
+  { year: '2011', event: 'Opened first recording studio in Miami.' },
+  { year: '2018', event: 'First international job — moved to Medellín, Colombia.' },
+  { year: '2023', event: 'Opened studio in Medellín. Got into dev and AI — everything changed.' },
+  { year: '2025', event: 'Shipped SampleMonsta — first software. Code is now part of the craft.' },
+  { year: '2026', event: 'The next big mark is yours.' },
 ]
 
 const skills = [

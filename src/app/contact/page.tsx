@@ -16,7 +16,7 @@ export default function ContactPage() {
           Let's Work.
         </h1>
         <p className="mt-4 text-sm text-(--color-muted)">
-          Bookings, collabs, and general inquiries — hit me directly.
+          Bookings, collabs, and general inquiries — contact me.
         </p>
       </div>
       <ContactForm />
