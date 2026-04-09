@@ -27,15 +27,15 @@ export default async function AdminLayout({
   return (
     <div className="min-h-screen flex">
       {/* Admin sidebar */}
-      <aside className="w-56 border-r border-[--color-border] bg-[--color-surface] p-6 flex flex-col gap-2">
-        <p className="text-xs font-bold tracking-widest text-[--color-accent] mb-4 uppercase">
+      <aside className="w-56 border-r border-(--color-border) bg-(--color-surface) p-6 flex flex-col gap-2">
+        <p className="text-xs font-bold tracking-widest text-(--color-accent) mb-4 uppercase">
           Admin
         </p>
         {adminLinks.map((link) => (
           <Link
             key={link.href}
             href={link.href}
-            className="text-xs text-[--color-muted] hover:text-[--color-foreground] transition-colors py-1"
+            className="text-xs text-(--color-muted) hover:text-(--color-foreground) transition-colors py-1"
           >
             {link.label}
           </Link>

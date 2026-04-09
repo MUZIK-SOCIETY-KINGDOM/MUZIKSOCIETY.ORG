@@ -37,8 +37,8 @@ export default function LoginPage() {
     return (
       <div className="min-h-screen flex items-center justify-center px-6">
         <div className="text-center">
-          <p className="text-[--color-accent] font-bold mb-2">Check your email.</p>
-          <p className="text-sm text-[--color-muted]">
+          <p className="text-(--color-accent) font-bold mb-2">Check your email.</p>
+          <p className="text-sm text-(--color-muted)">
             Magic link sent to {email}
           </p>
         </div>
@@ -49,19 +49,19 @@ export default function LoginPage() {
   return (
     <div className="min-h-screen flex items-center justify-center px-6">
       <form onSubmit={handleSubmit} className="w-full max-w-sm space-y-4">
-        <h1 className="text-xl font-bold text-[--color-foreground] mb-6">Admin Access</h1>
+        <h1 className="text-xl font-bold text-(--color-foreground) mb-6">Admin Access</h1>
         <input
           type="email"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
           required
           placeholder="your@email.com"
-          className="w-full rounded-md border border-[--color-border] bg-[--color-surface] px-4 py-3 text-sm text-[--color-foreground] placeholder:text-[--color-muted] focus:border-[--color-accent] focus:outline-none"
+          className="w-full rounded-md border border-(--color-border) bg-(--color-surface) px-4 py-3 text-sm text-(--color-foreground) placeholder:text-(--color-muted) focus:border-(--color-accent) focus:outline-none"
         />
         {error && <p className="text-xs text-red-400">{error}</p>}
         <button
           type="submit"
-          className="w-full rounded-md bg-[--color-accent] py-3 text-sm font-semibold text-[--color-background] hover:bg-[--color-accent-dark] transition-colors"
+          className="w-full rounded-md bg-(--color-accent) py-3 text-sm font-semibold text-(--color-background) hover:bg-(--color-accent-dark) transition-colors"
         >
           Send Magic Link
         </button>

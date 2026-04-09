@@ -13,9 +13,9 @@ export default async function AdminPortfolioPage() {
 
   return (
     <div>
-      <h1 className="text-xl font-bold text-[--color-foreground] mb-8">Portfolio</h1>
-      <form action={createPortfolioEntry} className="mb-10 rounded-lg border border-[--color-border] bg-[--color-surface] p-6 space-y-4">
-        <h2 className="text-sm font-bold text-[--color-foreground]">Add Entry</h2>
+      <h1 className="text-xl font-bold text-(--color-foreground) mb-8">Portfolio</h1>
+      <form action={createPortfolioEntry} className="mb-10 rounded-lg border border-(--color-border) bg-(--color-surface) p-6 space-y-4">
+        <h2 className="text-sm font-bold text-(--color-foreground)">Add Entry</h2>
         <div className="grid gap-4 sm:grid-cols-2">
           <input name="title" required placeholder="Project Title *" className="input-field" />
           <input name="artist" placeholder="Artist / Client" className="input-field" />
@@ -30,16 +30,16 @@ export default async function AdminPortfolioPage() {
         </div>
         <div className="flex items-center gap-2">
           <input type="checkbox" id="published-p" name="published" value="true" defaultChecked />
-          <label htmlFor="published-p" className="text-xs text-[--color-muted]">Published</label>
+          <label htmlFor="published-p" className="text-xs text-(--color-muted)">Published</label>
         </div>
         <button type="submit" className="admin-btn">Add Entry</button>
       </form>
       <div className="space-y-2">
         {(entries as PortfolioEntry[] ?? []).map((entry) => (
-          <div key={entry.id} className="flex items-center justify-between rounded border border-[--color-border] bg-[--color-surface] px-4 py-3">
+          <div key={entry.id} className="flex items-center justify-between rounded border border-(--color-border) bg-(--color-surface) px-4 py-3">
             <div>
-              <p className="text-sm font-semibold text-[--color-foreground]">{entry.title}</p>
-              <p className="text-xs text-[--color-muted]">{entry.artist} · {entry.year} · {entry.role}</p>
+              <p className="text-sm font-semibold text-(--color-foreground)">{entry.title}</p>
+              <p className="text-xs text-(--color-muted)">{entry.artist} · {entry.year} · {entry.role}</p>
             </div>
             <form action={deletePortfolioEntry.bind(null, entry.id)}>
               <button type="submit" className="text-xs text-red-400 hover:text-red-300">Delete</button>

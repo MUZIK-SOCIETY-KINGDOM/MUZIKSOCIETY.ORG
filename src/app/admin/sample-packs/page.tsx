@@ -13,9 +13,9 @@ export default async function AdminSamplePacksPage() {
 
   return (
     <div>
-      <h1 className="text-xl font-bold text-[--color-foreground] mb-8">Sample Packs</h1>
-      <form action={createSamplePack} className="mb-10 rounded-lg border border-[--color-border] bg-[--color-surface] p-6 space-y-4">
-        <h2 className="text-sm font-bold text-[--color-foreground]">Add New</h2>
+      <h1 className="text-xl font-bold text-(--color-foreground) mb-8">Sample Packs</h1>
+      <form action={createSamplePack} className="mb-10 rounded-lg border border-(--color-border) bg-(--color-surface) p-6 space-y-4">
+        <h2 className="text-sm font-bold text-(--color-foreground)">Add New</h2>
         <div className="grid gap-4 sm:grid-cols-2">
           <input name="title" required placeholder="Title *" className="input-field" />
           <input name="cover_url" placeholder="Cover URL" className="input-field" />
@@ -25,16 +25,16 @@ export default async function AdminSamplePacksPage() {
         </div>
         <div className="flex items-center gap-2">
           <input type="checkbox" id="published-sp" name="published" value="true" defaultChecked />
-          <label htmlFor="published-sp" className="text-xs text-[--color-muted]">Published</label>
+          <label htmlFor="published-sp" className="text-xs text-(--color-muted)">Published</label>
         </div>
         <button type="submit" className="admin-btn">Add Sample Pack</button>
       </form>
       <div className="space-y-2">
         {(packs as SamplePack[] ?? []).map((pack) => (
-          <div key={pack.id} className="flex items-center justify-between rounded border border-[--color-border] bg-[--color-surface] px-4 py-3">
-            <p className="text-sm font-semibold text-[--color-foreground]">{pack.title}</p>
+          <div key={pack.id} className="flex items-center justify-between rounded border border-(--color-border) bg-(--color-surface) px-4 py-3">
+            <p className="text-sm font-semibold text-(--color-foreground)">{pack.title}</p>
             <div className="flex items-center gap-3">
-              <span className={`text-xs ${pack.published ? 'text-green-400' : 'text-[--color-muted]'}`}>
+              <span className={`text-xs ${pack.published ? 'text-green-400' : 'text-(--color-muted)'}`}>
                 {pack.published ? 'Live' : 'Draft'}
               </span>
               <form action={deleteSamplePack.bind(null, pack.id)}>

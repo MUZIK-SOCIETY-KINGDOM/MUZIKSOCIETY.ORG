@@ -25,7 +25,7 @@ export function AudioPlayer({ src }: AudioPlayerProps) {
       <button
         type="button"
         onClick={toggle}
-        className="flex h-8 w-8 items-center justify-center rounded-full bg-[--color-accent] text-[--color-background] hover:bg-[--color-accent-dark] transition-colors text-xs"
+        className="flex h-8 w-8 items-center justify-center rounded-full bg-(--color-accent) text-(--color-background) hover:bg-(--color-accent-dark) transition-colors text-xs"
         aria-label={playing ? 'Pause preview' : 'Play preview'}
       >
         {playing ? '⏸' : '▶'}
@@ -36,7 +36,7 @@ export function AudioPlayer({ src }: AudioPlayerProps) {
         onEnded={() => setPlaying(false)}
         className="hidden"
       />
-      <span className="text-xs text-[--color-muted]">Preview</span>
+      <span className="text-xs text-(--color-muted)">Preview</span>
     </div>
   )
 }

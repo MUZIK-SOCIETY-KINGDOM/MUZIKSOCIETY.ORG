@@ -21,7 +21,7 @@ export default async function EditBlogPostPage({
 
   return (
     <div>
-      <h1 className="text-xl font-bold text-[--color-foreground] mb-8">Edit Post</h1>
+      <h1 className="text-xl font-bold text-(--color-foreground) mb-8">Edit Post</h1>
       <form action={updateBlogPost.bind(null, id)} className="space-y-4">
         <input
           name="title"
@@ -57,7 +57,7 @@ export default async function EditBlogPostPage({
             value="true"
             defaultChecked={post.published}
           />
-          <label htmlFor="published-edit" className="text-xs text-[--color-muted]">Published</label>
+          <label htmlFor="published-edit" className="text-xs text-(--color-muted)">Published</label>
         </div>
         <button type="submit" className="admin-btn">Save Changes</button>
       </form>

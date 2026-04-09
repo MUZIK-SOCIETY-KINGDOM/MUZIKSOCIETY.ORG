@@ -48,10 +48,10 @@ export default function ServicesPage() {
   return (
     <div className="mx-auto max-w-6xl px-6 py-24">
       <div className="mb-16">
-        <p className="mb-3 text-xs font-semibold tracking-[0.25em] text-[--color-accent] uppercase">
+        <p className="mb-3 text-xs font-semibold tracking-[0.25em] text-(--color-accent) uppercase">
           Services
         </p>
-        <h1 className="text-4xl font-extrabold tracking-tight text-[--color-foreground] md:text-6xl">
+        <h1 className="text-4xl font-extrabold tracking-tight text-(--color-foreground) md:text-6xl">
           What I Do.
         </h1>
       </div>

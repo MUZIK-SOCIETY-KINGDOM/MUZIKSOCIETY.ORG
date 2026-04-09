@@ -13,9 +13,9 @@ export default async function AdminToolsPage() {
 
   return (
     <div>
-      <h1 className="text-xl font-bold text-[--color-foreground] mb-8">Tools</h1>
-      <form action={createTool} className="mb-10 rounded-lg border border-[--color-border] bg-[--color-surface] p-6 space-y-4">
-        <h2 className="text-sm font-bold text-[--color-foreground]">Add New</h2>
+      <h1 className="text-xl font-bold text-(--color-foreground) mb-8">Tools</h1>
+      <form action={createTool} className="mb-10 rounded-lg border border-(--color-border) bg-(--color-surface) p-6 space-y-4">
+        <h2 className="text-sm font-bold text-(--color-foreground)">Add New</h2>
         <div className="grid gap-4 sm:grid-cols-2">
           <input name="name" required placeholder="Name *" className="input-field" />
           <input name="cover_url" placeholder="Cover URL" className="input-field" />
@@ -25,16 +25,16 @@ export default async function AdminToolsPage() {
         </div>
         <div className="flex items-center gap-2">
           <input type="checkbox" id="published-t" name="published" value="true" defaultChecked />
-          <label htmlFor="published-t" className="text-xs text-[--color-muted]">Published</label>
+          <label htmlFor="published-t" className="text-xs text-(--color-muted)">Published</label>
         </div>
         <button type="submit" className="admin-btn">Add Tool</button>
       </form>
       <div className="space-y-2">
         {(tools as Tool[] ?? []).map((tool) => (
-          <div key={tool.id} className="flex items-center justify-between rounded border border-[--color-border] bg-[--color-surface] px-4 py-3">
-            <p className="text-sm font-semibold text-[--color-foreground]">{tool.name}</p>
+          <div key={tool.id} className="flex items-center justify-between rounded border border-(--color-border) bg-(--color-surface) px-4 py-3">
+            <p className="text-sm font-semibold text-(--color-foreground)">{tool.name}</p>
             <div className="flex items-center gap-3">
-              <span className={`text-xs ${tool.published ? 'text-green-400' : 'text-[--color-muted]'}`}>
+              <span className={`text-xs ${tool.published ? 'text-green-400' : 'text-(--color-muted)'}`}>
                 {tool.published ? 'Live' : 'Draft'}
               </span>
               <form action={deleteTool.bind(null, tool.id)}>

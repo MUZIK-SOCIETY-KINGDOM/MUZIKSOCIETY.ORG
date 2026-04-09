@@ -17,11 +17,11 @@ export function Nav() {
   const pathname = usePathname()
 
   return (
-    <header className="fixed top-0 left-0 right-0 z-50 border-b border-[--color-border] bg-[--color-background]/80 backdrop-blur-md">
+    <header className="fixed top-0 left-0 right-0 z-50 border-b border-(--color-border) bg-(--color-background)/80 backdrop-blur-md">
       <nav className="mx-auto flex max-w-6xl items-center justify-between px-6 py-4">
         <Link
           href="/"
-          className="text-sm font-bold tracking-[0.15em] text-[--color-foreground] hover:text-[--color-accent] transition-colors"
+          className="text-sm font-bold tracking-[0.15em] text-(--color-foreground) hover:text-(--color-accent) transition-colors"
         >
           MUZIKSOCIETY
         </Link>
@@ -34,8 +34,8 @@ export function Nav() {
               aria-current={pathname === link.href ? 'page' : undefined}
               className={`text-xs tracking-wide transition-colors ${
                 pathname === link.href
-                  ? 'text-[--color-foreground]'
-                  : 'text-[--color-muted] hover:text-[--color-foreground]'
+                  ? 'text-(--color-foreground)'
+                  : 'text-(--color-muted) hover:text-(--color-foreground)'
               }`}
             >
               {link.label}
@@ -43,7 +43,7 @@ export function Nav() {
           ))}
           <Link
             href="/contact"
-            className="rounded-md bg-[--color-accent] px-4 py-2 text-xs font-semibold tracking-wide text-[--color-background] hover:bg-[--color-accent-dark] transition-colors"
+            className="rounded-md bg-(--color-accent) px-4 py-2 text-xs font-semibold tracking-wide text-(--color-background) hover:bg-(--color-accent-dark) transition-colors"
           >
             Contact
           </Link>
