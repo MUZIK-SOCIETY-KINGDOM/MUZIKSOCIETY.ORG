@@ -1,4 +1,5 @@
 import type { Metadata } from 'next'
+import Image from 'next/image'
 import { FadeIn } from '@/components/fade-in'
 
 export const metadata: Metadata = {
@@ -42,8 +43,14 @@ export default function AboutPage() {
       {/* Two-column bio */}
       <div className="grid gap-16 md:grid-cols-2 mb-24">
         <FadeIn direction="right">
-          <div className="aspect-square rounded-lg bg-(--color-surface) border border-(--color-border) flex items-center justify-center">
-            <span className="text-6xl font-black tracking-tight text-(--color-border)">S</span>
+          <div className="aspect-square rounded-xl overflow-hidden bg-(--color-background) border border-(--color-border) flex items-center justify-center p-8">
+            <Image
+              src="/logo.png"
+              alt="MuzikSociety"
+              width={500}
+              height={500}
+              className="w-full h-full object-contain"
+            />
           </div>
         </FadeIn>
         <FadeIn direction="left" delay={0.1}>

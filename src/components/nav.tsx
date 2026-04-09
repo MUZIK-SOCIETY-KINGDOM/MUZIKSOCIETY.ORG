@@ -1,6 +1,7 @@
 'use client'
 
 import Link from 'next/link'
+import Image from 'next/image'
 import { usePathname } from 'next/navigation'
 
 const links = [
@@ -19,11 +20,17 @@ export function Nav() {
   return (
     <header className="fixed top-0 left-0 right-0 z-50 border-b border-(--color-border) bg-(--color-background)/80 backdrop-blur-md">
       <nav className="mx-auto flex max-w-6xl items-center justify-between px-6 py-4">
-        <Link
-          href="/"
-          className="text-sm font-bold tracking-[0.15em] text-(--color-foreground) hover:text-(--color-accent) transition-colors"
-        >
-          MUZIKSOCIETY
+        <Link href="/" className="flex items-center gap-2.5 group">
+          <Image
+            src="/logo.png"
+            alt="MuzikSociety"
+            width={32}
+            height={32}
+            className="rounded-sm opacity-90 group-hover:opacity-100 transition-opacity"
+          />
+          <span className="text-sm font-bold tracking-[0.15em] text-(--color-foreground) group-hover:text-(--color-accent) transition-colors">
+            MUZIKSOCIETY
+          </span>
         </Link>
 
         <div className="hidden items-center gap-6 md:flex">
