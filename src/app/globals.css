@@ -3,6 +3,16 @@
 
 @custom-variant dark (&:is(.dark *));
 
+:root {
+  --color-background: #0a0a0a;
+  --color-surface: #111111;
+  --color-border: #222222;
+  --color-foreground: #f5f5f5;
+  --color-muted: #888888;
+  --color-accent: #00d4ff;
+  --color-accent-dark: #009ab8;
+}
+
 @theme {
   --color-background: #0a0a0a;
   --color-surface: #111111;
