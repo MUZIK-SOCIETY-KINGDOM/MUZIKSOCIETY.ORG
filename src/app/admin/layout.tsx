@@ -10,6 +10,7 @@ const adminLinks = [
   { href: '/admin/portfolio', label: 'Portfolio' },
   { href: '/admin/blog', label: 'Blog' },
   { href: '/admin/inquiries', label: 'Inquiries' },
+  { href: '/admin/consultations', label: 'Consultations' },
 ]
 
 export default async function AdminLayout({
