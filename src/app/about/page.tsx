@@ -21,8 +21,8 @@ const skills = [
   'Music Production', 'Mixing', 'Mastering', 'Audio Engineering',
   'Sound Design', 'Graphic Design', 'Content Production',
   'Artist Development', 'Music Education', 'Software Development',
-  'AI Integration', 'Ableton Live', 'Pro Tools', 'Logic Pro', 'FL Studio',
-  'TypeScript', 'Next.js', 'Python',
+  'AI Integration', 'Ableton Live', 'Pro Tools', 'FL Studio',
+  'TypeScript', 'Next.js', 'Python', 'C++', 'JUCE',
 ]
 
 export default function AboutPage() {
@@ -43,7 +43,7 @@ export default function AboutPage() {
       {/* Two-column bio */}
       <div className="grid gap-16 md:grid-cols-2 mb-24">
         <FadeIn direction="right">
-          <div className="aspect-square rounded-xl overflow-hidden bg-(--color-background) border border-(--color-border) flex items-center justify-center p-8">
+          <div className="aspect-square rounded-xl overflow-hidden bg-(--color-background) border border-(--color-border) flex items-center justify-center p-8 mx-auto max-w-sm md:max-w-none">
             <Image
               src="/logo.png"
               alt="MuzikSociety"
