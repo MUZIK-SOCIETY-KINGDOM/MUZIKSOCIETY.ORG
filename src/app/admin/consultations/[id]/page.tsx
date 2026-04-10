@@ -2,7 +2,7 @@ import { notFound } from 'next/navigation'
 import Link from 'next/link'
 import { createClient } from '@/lib/supabase/server'
 import { ResponseEditor } from './response-editor'
-import { deleteSession } from '../actions'
+import { DeleteSessionButton } from './delete-button'
 import type { ConsultationQuestion, ConsultationResponse } from '@/lib/types'
 
 export const dynamic = 'force-dynamic'
@@ -61,17 +61,7 @@ export default async function ConsultationSessionPage({
             </span>
           </div>
         </div>
-        <form action={deleteSession.bind(null, id)}>
-          <button
-            type="submit"
-            className="text-xs text-red-400 hover:text-red-300 transition-colors"
-            onClick={(e) => {
-              if (!confirm('Delete this session? This cannot be undone.')) e.preventDefault()
-            }}
-          >
-            Delete
-          </button>
-        </form>
+        <DeleteSessionButton id={id} />
       </div>
 
       {/* Response editor (client component) */}
