@@ -56,13 +56,22 @@ export default function AboutPage() {
         <FadeIn direction="left" delay={0.1}>
           <div className="flex flex-col justify-center gap-6">
             <p className="text-base text-(--color-muted) leading-relaxed">
-              I'm Gabriel Santiago — MuzikSociety — a producer, engineer, and creator from Caguas, Puerto Rico with 20+ years across music production, mixing, mastering, development, graphic design, and content creation.
+              Santi is a music producer, audio engineer, and artist development strategist based in Medellín, Colombia — specializing in urban genres and tropical urban fusions.
             </p>
             <p className="text-base text-(--color-muted) leading-relaxed">
-              I don't separate the disciplines — everything runs through the same philosophy: intention, craft, and standard.
+              His path started in a bedroom in 2004. First studio in 2011. In 2018, a Miami artist decided to relocate his entire project to Medellín — and Santi took the call. His first international job. He never left.
             </p>
             <p className="text-base text-(--color-muted) leading-relaxed">
-              Music isn't what I do. It's how I think.
+              What separates him from a producer or engineer you can find anywhere is that he doesn't just make records — he builds artists. His Artist Development work folds production, engineering, strategy, and creative direction into a single process. One person who sees the full picture: the sound, the identity, the audience, and the long game.
+            </p>
+            <p className="text-base text-(--color-muted) leading-relaxed">
+              His signature as a creator is sampling. Not as a shortcut — as a language. Morphing, flipping, reconstructing sound into something that never existed before. He calls himself a Living Breathing Sampling Monster, and he means it.
+            </p>
+            <p className="text-base text-(--color-muted) leading-relaxed">
+              He believes creativity is the one true drug. Not for the high, but for what it demands: curiosity, discipline, exploration, and the kind of evolution that makes you genuinely better at being alive.
+            </p>
+            <p className="text-base text-(--color-foreground) leading-relaxed font-medium">
+              If you're building something that matters and you want someone who's been in the room, in the city, and in the craft since 2004 — you're in the right place.
             </p>
           </div>
         </FadeIn>
