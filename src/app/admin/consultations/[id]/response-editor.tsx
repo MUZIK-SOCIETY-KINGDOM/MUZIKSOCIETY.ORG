@@ -1,12 +1,13 @@
 'use client'
 
 import { useState, useTransition } from 'react'
-import { saveResponses, saveNotes, updateStatus } from './actions'
+import { saveResponses, saveNotes, updateStatus, deleteSessionQuestion } from './actions'
 import type { ConsultationQuestion, ConsultationResponse } from '@/lib/types'
 
 interface Props {
   sessionId: string
   questions: ConsultationQuestion[]
+  sessionQuestionIds: string[]
   existing: ConsultationResponse[]
   initialNotes: string
   initialStatus: string
@@ -23,7 +24,8 @@ function groupBySection(questions: ConsultationQuestion[]) {
   return groups
 }
 
-export function ResponseEditor({ sessionId, questions, existing, initialNotes, initialStatus }: Props) {
+export function ResponseEditor({ sessionId, questions, sessionQuestionIds, existing, initialNotes, initialStatus }: Props) {
+  const sessionQSet = new Set(sessionQuestionIds)
   const [answers, setAnswers] = useState<Record<string, string>>(() => {
     const map: Record<string, string> = {}
     for (const r of existing) {
@@ -98,10 +100,17 @@ export function ResponseEditor({ sessionId, questions, existing, initialNotes, i
             <div className="divide-y divide-(--color-border)">
               {qs.map((q) => (
                 <div key={q.id} className="px-6 py-5 space-y-2">
-                  <label className="text-sm text-(--color-foreground) leading-snug block">
-                    {q.question}
-                    {q.required && <span className="ml-1 text-red-400">*</span>}
-                  </label>
+                  <div className="flex items-start justify-between gap-2">
+                    <label className="text-sm text-(--color-foreground) leading-snug block">
+                      {q.question}
+                      {q.required && <span className="ml-1 text-red-400">*</span>}
+                    </label>
+                    {sessionQSet.has(q.id) && (
+                      <form action={deleteSessionQuestion.bind(null, sessionId, q.id)} className="shrink-0">
+                        <button type="submit" className="text-xs text-red-400 hover:text-red-300 transition-colors mt-0.5">×</button>
+                      </form>
+                    )}
+                  </div>
                   {q.type === 'textarea' ? (
                     <textarea
                       rows={3}

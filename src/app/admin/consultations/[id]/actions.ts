@@ -40,3 +40,40 @@ export async function updateStatus(sessionId: string, status: string) {
   revalidatePath(`/admin/consultations/${sessionId}`)
   revalidatePath('/admin/consultations')
 }
+
+export async function addSessionQuestion(sessionId: string, formData: FormData) {
+  const supabase = await createClient()
+
+  const { data: existing } = await supabase
+    .from('ms_consultation_questions')
+    .select('order_index')
+    .eq('session_id', sessionId)
+    .order('order_index', { ascending: false })
+    .limit(1)
+
+  const nextIndex = ((existing?.[0]?.order_index ?? 0) as number) + 1
+
+  const optionsRaw = formData.get('options') as string
+  const options = optionsRaw
+    ? optionsRaw.split('\n').map((o) => o.trim()).filter(Boolean)
+    : null
+
+  await supabase.from('ms_consultation_questions').insert({
+    session_id: sessionId,
+    template_id: null,
+    section: (formData.get('section') as string) || null,
+    question: formData.get('question') as string,
+    type: formData.get('type') as string,
+    options: options ?? null,
+    order_index: nextIndex,
+    required: formData.get('required') === 'true',
+  })
+
+  revalidatePath(`/admin/consultations/${sessionId}`)
+}
+
+export async function deleteSessionQuestion(sessionId: string, questionId: string) {
+  const supabase = await createClient()
+  await supabase.from('ms_consultation_questions').delete().eq('id', questionId).eq('session_id', sessionId)
+  revalidatePath(`/admin/consultations/${sessionId}`)
+}
