@@ -21,7 +21,7 @@ const skills = [
   'Music Production', 'Mixing', 'Mastering', 'Audio Engineering',
   'Sound Design', 'Graphic Design', 'Content Production',
   'Artist Development', 'Music Education', 'Software Development',
-  'AI Integration', 'Ableton Live', 'Pro Tools', 'FL Studio',
+  'AI Integration', 'AI Agents', 'Pro Tools', 'FL Studio',
   'TypeScript', 'Next.js', 'Python', 'C++', 'JUCE',
 ]
 
