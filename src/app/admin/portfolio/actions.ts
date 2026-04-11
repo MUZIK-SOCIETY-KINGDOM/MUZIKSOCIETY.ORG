@@ -22,6 +22,7 @@ export async function createPortfolioEntry(formData: FormData) {
     role: formData.get('role') as string,
     description: (formData.get('description') as string) || null,
     cover_url: (formData.get('cover_url') as string) || null,
+    spotify_url: (formData.get('spotify_url') as string) || null,
     published: formData.get('published') === 'true',
   })
   revalidatePath('/portfolio')

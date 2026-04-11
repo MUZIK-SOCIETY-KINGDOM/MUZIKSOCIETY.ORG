@@ -25,7 +25,8 @@ export default async function AdminPortfolioPage() {
             <option value="engineer">Engineer</option>
             <option value="developer">Developer</option>
           </select>
-          <input name="cover_url" placeholder="Cover URL" className="input-field sm:col-span-2" />
+          <input name="spotify_url" placeholder="Spotify Track URL or Embed URL" className="input-field sm:col-span-2" />
+          <input name="cover_url" placeholder="Cover URL (optional)" className="input-field sm:col-span-2" />
           <textarea name="description" placeholder="Description" className="input-field sm:col-span-2" rows={3} />
         </div>
         <div className="flex items-center gap-2">

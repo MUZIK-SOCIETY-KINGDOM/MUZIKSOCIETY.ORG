@@ -41,6 +41,7 @@ export type PortfolioEntry = {
   role: 'producer' | 'engineer' | 'developer'
   description: string | null
   cover_url: string | null
+  spotify_url: string | null
   published: boolean
   created_at: string
 }
