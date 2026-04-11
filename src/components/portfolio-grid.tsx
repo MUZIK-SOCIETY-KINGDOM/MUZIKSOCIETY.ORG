@@ -4,7 +4,7 @@ import { useState } from 'react'
 import { PortfolioCard } from '@/components/portfolio-card'
 import type { PortfolioEntry } from '@/lib/types'
 
-const filters = ['all', 'producer', 'engineer', 'developer'] as const
+const filters = ['all', 'producer', 'developer'] as const
 type Filter = typeof filters[number]
 
 type PortfolioGridProps = {

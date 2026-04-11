@@ -3,7 +3,6 @@ import type { PortfolioEntry } from '@/lib/types'
 
 const roleBadgeColor: Record<string, string> = {
   producer: 'text-(--color-accent) border-(--color-accent)',
-  engineer: 'text-purple-400 border-purple-400',
   developer: 'text-green-400 border-green-400',
 }
 

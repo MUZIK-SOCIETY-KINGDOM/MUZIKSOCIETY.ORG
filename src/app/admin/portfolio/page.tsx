@@ -23,7 +23,6 @@ export default async function AdminPortfolioPage() {
           <input name="year" type="number" placeholder="Year" className="input-field" />
           <select name="role" className="input-field">
             <option value="producer">Producer</option>
-            <option value="engineer">Engineer</option>
             <option value="developer">Developer</option>
           </select>
           <input name="url" placeholder="Website URL (for developer entries)" className="input-field sm:col-span-2" />

@@ -24,7 +24,7 @@ export default async function EditPortfolioPage({
           <input name="year" type="number" defaultValue={entry.year ?? ''} placeholder="Year" className="input-field" />
           <select name="role" defaultValue={entry.role} className="input-field">
             <option value="producer">Producer</option>
-            <option value="engineer">Engineer</option>
+
             <option value="developer">Developer</option>
           </select>
           <input name="url" defaultValue={entry.url ?? ''} placeholder="Website URL" className="input-field sm:col-span-2" />

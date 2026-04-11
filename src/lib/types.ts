@@ -38,7 +38,7 @@ export type PortfolioEntry = {
   title: string
   artist: string | null
   year: number | null
-  role: 'producer' | 'engineer' | 'developer'
+  role: 'producer' | 'developer'
   description: string | null
   cover_url: string | null
   spotify_url: string | null
