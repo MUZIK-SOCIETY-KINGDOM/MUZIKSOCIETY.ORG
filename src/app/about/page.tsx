@@ -2,18 +2,24 @@ import type { Metadata } from 'next'
 import Image from 'next/image'
 import { FadeIn } from '@/components/fade-in'
 
+type TimelineItem = {
+  year: string
+  event: string
+  image?: string
+}
+
 export const metadata: Metadata = {
   title: 'About — MuzikSociety',
 }
 
-const timeline = [
-  { year: '2004', event: 'Started producing — bedroom studio, no budget, full obsession.' },
-  { year: '2008', event: 'First professional production participation. The standard was set.' },
+const timeline: TimelineItem[] = [
+  { year: '2004', event: 'Started producing — bedroom studio, no budget, full obsession.', image: '/about/IMG_3791.PNG' },
+  { year: '2008', event: 'First professional production participation. The standard was set.', image: '/about/IMG_3796.PNG' },
   { year: '2010', event: 'MuzikSociety launches as a brand.' },
-  { year: '2011', event: 'Opened first recording studio in Miami.' },
-  { year: '2018', event: 'First international job — moved to Medellín, Colombia.' },
-  { year: '2023', event: 'Opened studio in Medellín. Got into dev and AI — everything changed.' },
-  { year: '2025', event: 'Shipped SampleMonsta — first software. Code is now part of the craft.' },
+  { year: '2011', event: 'Opened first recording studio in Miami.', image: '/about/IMG_3801.PNG' },
+  { year: '2018', event: 'First international job — moved to Medellín, Colombia.', image: '/about/IMG_3800.PNG' },
+  { year: '2023', event: 'Opened studio in Medellín. Got into dev and AI — everything changed.', image: '/about/IMG_3790.PNG' },
+  { year: '2025', event: 'Shipped SampleMonsta — first software. Code is now part of the craft.', image: '/about/IMG_3794.PNG' },
   { year: '2026', event: 'The next big mark is yours.' },
 ]
 
@@ -88,10 +94,25 @@ export default function AboutPage() {
               <FadeIn key={item.year} delay={i * 0.06}>
                 <div className="relative">
                   <div className="absolute -left-[2.625rem] top-1 h-3 w-3 rounded-full bg-(--color-accent)" />
-                  <p className="text-xs font-semibold tracking-widest text-(--color-accent) mb-1">
-                    {item.year}
-                  </p>
-                  <p className="text-sm text-(--color-muted)">{item.event}</p>
+                  <div className="flex flex-col sm:flex-row sm:items-start sm:gap-8">
+                    <div className="flex-1 min-w-0">
+                      <p className="text-xs font-semibold tracking-widest text-(--color-accent) mb-1">
+                        {item.year}
+                      </p>
+                      <p className="text-sm text-(--color-muted)">{item.event}</p>
+                    </div>
+                    {item.image && (
+                      <div className="mt-4 sm:mt-0 shrink-0 w-full sm:w-52 overflow-hidden rounded-xl border border-(--color-border)">
+                        <Image
+                          src={item.image}
+                          alt={`${item.year}`}
+                          width={400}
+                          height={300}
+                          className="w-full h-36 object-cover grayscale hover:grayscale-0 transition-all duration-500"
+                        />
+                      </div>
+                    )}
+                  </div>
                 </div>
               </FadeIn>
             ))}
