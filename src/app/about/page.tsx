@@ -15,7 +15,7 @@ export const metadata: Metadata = {
 const timeline: TimelineItem[] = [
   { year: '2004', event: 'Started producing — bedroom studio, no budget, full obsession.', image: '/about/IMG_3791.PNG' },
   { year: '2008', event: 'First professional production participation. The standard was set.', image: '/about/IMG_3796.PNG' },
-  { year: '2010', event: 'MuzikSociety launches as a brand.' },
+  { year: '2010', event: 'MuzikSociety launches as a brand.', image: '/logo.png' },
   { year: '2011', event: 'Opened first recording studio in Miami.', image: '/about/IMG_3801.PNG' },
   { year: '2018', event: 'First international job — moved to Medellín, Colombia.', image: '/about/IMG_3800.PNG' },
   { year: '2023', event: 'Opened studio in Medellín. Got into dev and AI — everything changed.', image: '/about/IMG_3790.PNG' },
@@ -46,42 +46,29 @@ export default function AboutPage() {
         </div>
       </FadeIn>
 
-      {/* Two-column bio */}
-      <div className="grid gap-16 md:grid-cols-2 mb-24">
-        <FadeIn direction="right">
-          <div className="aspect-square rounded-xl overflow-hidden bg-(--color-background) border border-(--color-border) flex items-center justify-center p-8 mx-auto max-w-sm md:max-w-none">
-            <Image
-              src="/logo.png"
-              alt="MuzikSociety"
-              width={500}
-              height={500}
-              className="w-full h-full object-contain"
-            />
-          </div>
-        </FadeIn>
-        <FadeIn direction="left" delay={0.1}>
-          <div className="flex flex-col justify-center gap-6">
-            <p className="text-base text-(--color-muted) leading-relaxed">
-              Santi is a music producer, audio engineer, and artist development strategist based in Medellín, Colombia — specializing in urban genres and tropical urban fusions.
-            </p>
-            <p className="text-base text-(--color-muted) leading-relaxed">
-              His path started in a bedroom in 2004. First studio in 2011. In 2018, a Miami artist decided to relocate his entire project to Medellín — and Santi took the call. His first international job. He never left.
-            </p>
-            <p className="text-base text-(--color-muted) leading-relaxed">
-              What separates him from a producer or engineer you can find anywhere is that he doesn't just make records — he builds artists. His Artist Development work folds production, engineering, strategy, and creative direction into a single process. One person who sees the full picture: the sound, the identity, the audience, and the long game.
-            </p>
-            <p className="text-base text-(--color-muted) leading-relaxed">
-              His signature as a creator is sampling. Not as a shortcut — as a language. Morphing, flipping, reconstructing sound into something that never existed before. He calls himself a Living Breathing Sampling Monster, and he means it.
-            </p>
-            <p className="text-base text-(--color-muted) leading-relaxed">
-              He believes creativity is the one true drug. Not for the high, but for what it demands: curiosity, discipline, exploration, and the kind of evolution that makes you genuinely better at being alive.
-            </p>
-            <p className="text-base text-(--color-foreground) leading-relaxed font-medium">
-              If you're building something that matters and you want someone who's been in the room, in the city, and in the craft since 2004 — you're in the right place.
-            </p>
-          </div>
-        </FadeIn>
-      </div>
+      {/* Bio */}
+      <FadeIn delay={0.05}>
+        <div className="mb-24 max-w-2xl flex flex-col gap-5">
+          <p className="text-base text-(--color-muted) leading-relaxed">
+            Santi is a music producer, audio engineer, and artist development strategist based in Medellín, Colombia — specializing in urban genres and tropical urban fusions.
+          </p>
+          <p className="text-base text-(--color-muted) leading-relaxed">
+            His path started in a bedroom in 2004. First studio in 2011. In 2018, a Miami artist decided to relocate his entire project to Medellín — and Santi took the call. His first international job. He never left.
+          </p>
+          <p className="text-base text-(--color-muted) leading-relaxed">
+            What separates him from a producer or engineer you can find anywhere is that he doesn't just make records — he builds artists. His Artist Development work folds production, engineering, strategy, and creative direction into a single process. One person who sees the full picture: the sound, the identity, the audience, and the long game.
+          </p>
+          <p className="text-base text-(--color-muted) leading-relaxed">
+            His signature as a creator is sampling. Not as a shortcut — as a language. Morphing, flipping, reconstructing sound into something that never existed before. He calls himself a Living Breathing Sampling Monster, and he means it.
+          </p>
+          <p className="text-base text-(--color-muted) leading-relaxed">
+            He believes creativity is the one true drug. Not for the high, but for what it demands: curiosity, discipline, exploration, and the kind of evolution that makes you genuinely better at being alive.
+          </p>
+          <p className="text-base text-(--color-foreground) leading-relaxed font-medium">
+            If you're building something that matters and you want someone who's been in the room, in the city, and in the craft since 2004 — you're in the right place.
+          </p>
+        </div>
+      </FadeIn>
 
       {/* Timeline */}
       <FadeIn>
@@ -102,13 +89,16 @@ export default function AboutPage() {
                       <p className="text-sm text-(--color-muted)">{item.event}</p>
                     </div>
                     {item.image && (
-                      <div className="mt-4 sm:mt-0 shrink-0 w-full sm:w-52 overflow-hidden rounded-xl border border-(--color-border)">
+                      <div className={`mt-4 sm:mt-0 shrink-0 w-full sm:w-52 overflow-hidden rounded-xl border border-(--color-border) ${item.image === '/logo.png' ? 'bg-(--color-background) flex items-center justify-center p-6 h-36' : ''}`}>
                         <Image
                           src={item.image}
                           alt={`${item.year}`}
                           width={400}
                           height={300}
-                          className="w-full h-36 object-cover grayscale hover:grayscale-0 transition-all duration-500"
+                          className={item.image === '/logo.png'
+                            ? 'w-auto h-full object-contain opacity-80 hover:opacity-100 transition-opacity duration-500'
+                            : 'w-full h-36 object-cover grayscale hover:grayscale-0 transition-all duration-500'
+                          }
                         />
                       </div>
                     )}
