@@ -1,3 +1,4 @@
+import Link from 'next/link'
 import { createClient } from '@/lib/supabase/server'
 import { createPortfolioEntry, deletePortfolioEntry } from './actions'
 import type { PortfolioEntry } from '@/lib/types'
@@ -42,9 +43,12 @@ export default async function AdminPortfolioPage() {
               <p className="text-sm font-semibold text-(--color-foreground)">{entry.title}</p>
               <p className="text-xs text-(--color-muted)">{entry.artist} · {entry.year} · {entry.role}</p>
             </div>
-            <form action={deletePortfolioEntry.bind(null, entry.id)}>
-              <button type="submit" className="text-xs text-red-400 hover:text-red-300">Delete</button>
-            </form>
+            <div className="flex items-center gap-3">
+              <Link href={`/admin/portfolio/${entry.id}`} className="text-xs text-(--color-muted) hover:text-(--color-foreground) transition-colors">Edit</Link>
+              <form action={deletePortfolioEntry.bind(null, entry.id)}>
+                <button type="submit" className="text-xs text-red-400 hover:text-red-300">Delete</button>
+              </form>
+            </div>
           </div>
         ))}
       </div>
