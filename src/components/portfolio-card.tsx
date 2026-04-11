@@ -45,26 +45,15 @@ function BrowserCard({ entry }: { entry: PortfolioEntry }) {
         </svg>
       </div>
 
-      {/* Screenshot or placeholder */}
+      {/* Screenshot */}
       <div className="relative overflow-hidden" style={{ aspectRatio: '16/9' }}>
-        {entry.cover_url ? (
-          <Image
-            src={entry.cover_url}
-            alt={entry.title}
-            fill
-            className="object-cover object-top group-hover:scale-[1.03] transition-transform duration-500"
-          />
-        ) : (
-          <div className="absolute inset-0 flex flex-col items-center justify-center bg-gradient-to-br from-(--color-background) via-(--color-surface) to-(--color-background) gap-2">
-            <span className="text-3xl font-black tracking-tighter text-green-400/20 group-hover:text-green-400/40 transition-colors duration-300 select-none">
-              {entry.title}
-            </span>
-            <span className="text-xs font-mono text-(--color-muted)/40 group-hover:text-(--color-muted)/70 transition-colors">
-              {domain}
-            </span>
-          </div>
-        )}
-        {/* Scan line overlay for style */}
+        <Image
+          src={entry.cover_url ?? `https://image.thum.io/get/width/1200/crop/675/noanimate/${entry.url}`}
+          alt={entry.title}
+          fill
+          unoptimized={!entry.cover_url}
+          className="object-cover object-top group-hover:scale-[1.03] transition-transform duration-500"
+        />
         <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-(--color-background)/30 pointer-events-none" />
       </div>
 
