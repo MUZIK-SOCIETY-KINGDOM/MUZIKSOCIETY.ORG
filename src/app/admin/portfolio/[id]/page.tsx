@@ -27,6 +27,7 @@ export default async function EditPortfolioPage({
             <option value="engineer">Engineer</option>
             <option value="developer">Developer</option>
           </select>
+          <input name="url" defaultValue={entry.url ?? ''} placeholder="Website URL" className="input-field sm:col-span-2" />
           <input name="spotify_url" defaultValue={entry.spotify_url ?? ''} placeholder="Spotify URL" className="input-field" />
           <input name="cover_url" defaultValue={entry.cover_url ?? ''} placeholder="Cover URL" className="input-field sm:col-span-2" />
           <textarea name="description" defaultValue={entry.description ?? ''} placeholder="Description" className="input-field sm:col-span-2" rows={3} />

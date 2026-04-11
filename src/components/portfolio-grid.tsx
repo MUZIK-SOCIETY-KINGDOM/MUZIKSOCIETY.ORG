@@ -46,7 +46,9 @@ export function PortfolioGrid({ entries }: PortfolioGridProps) {
       ) : (
         <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
           {filtered.map((entry) => (
-            <PortfolioCard key={entry.id} entry={entry} />
+            <div key={entry.id} className={entry.role === 'developer' ? 'sm:col-span-2 lg:col-span-3' : ''}>
+              <PortfolioCard entry={entry} />
+            </div>
           ))}
         </div>
       )}
