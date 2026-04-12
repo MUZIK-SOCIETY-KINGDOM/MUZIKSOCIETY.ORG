@@ -1,17 +1,8 @@
 import { createClient } from '@/lib/supabase/server'
-import { createServerClient } from '@supabase/ssr'
 import type { Instrumental, SamplePack, Tool, PortfolioEntry, BlogPost } from '@/lib/types'
 
-function createServiceClient() {
-  return createServerClient(
-    process.env.NEXT_PUBLIC_SUPABASE_URL!,
-    process.env.SUPABASE_SERVICE_ROLE_KEY!,
-    { cookies: { getAll: () => [], setAll: () => {} } }
-  )
-}
-
 export async function getInstrumentals(): Promise<Instrumental[]> {
-  const supabase = createServiceClient()
+  const supabase = await createClient()
   const { data, error } = await supabase
     .from('ms_instrumentals')
     .select('*')
@@ -22,7 +13,7 @@ export async function getInstrumentals(): Promise<Instrumental[]> {
 }
 
 export async function getSamplePacks(): Promise<SamplePack[]> {
-  const supabase = createServiceClient()
+  const supabase = await createClient()
   const { data, error } = await supabase
     .from('ms_sample_packs')
     .select('*')
@@ -33,7 +24,7 @@ export async function getSamplePacks(): Promise<SamplePack[]> {
 }
 
 export async function getTools(): Promise<Tool[]> {
-  const supabase = createServiceClient()
+  const supabase = await createClient()
   const { data, error } = await supabase
     .from('ms_tools')
     .select('*')
@@ -44,7 +35,7 @@ export async function getTools(): Promise<Tool[]> {
 }
 
 export async function getPortfolioEntries(role?: string): Promise<PortfolioEntry[]> {
-  const supabase = createServiceClient()
+  const supabase = await createClient()
   let query = supabase
     .from('ms_portfolio')
     .select('*')
@@ -59,7 +50,7 @@ export async function getPortfolioEntries(role?: string): Promise<PortfolioEntry
 }
 
 export async function getBlogPosts(): Promise<BlogPost[]> {
-  const supabase = createServiceClient()
+  const supabase = await createClient()
   const { data, error } = await supabase
     .from('ms_blog_posts')
     .select('*')
