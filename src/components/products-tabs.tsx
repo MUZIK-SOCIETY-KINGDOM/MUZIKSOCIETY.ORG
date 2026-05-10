@@ -1,62 +1,172 @@
 'use client'
 
-import { useState } from 'react'
+import { useCallback, useEffect, useRef, useState } from 'react'
 import Link from 'next/link'
 import { AudioPlayer } from '@/components/audio-player'
+import { usePlayer } from '@/contexts/player-context'
 import type { Instrumental, SamplePack, Tool } from '@/lib/types'
 
 type Tab = 'instrumentals' | 'packs' | 'plugins'
 
 type Props = {
-  instrumentals: Instrumental[]
+  initialInstrumentals: Instrumental[]
+  initialTotal: number
   packs: SamplePack[]
   plugins: Tool[]
 }
 
-function InstrumentalRow({ beat }: { beat: Instrumental }) {
+// ── Instrumentals tab ─────────────────────────────────────────────────────────
+
+const GENRES = ['Afrobeat', 'Drill', 'Fusion', 'Latin_Urbano', 'Rap', 'Reggaeton', 'Trap']
+const PAGE_SIZE = 50
+
+function TrackRow({ beat, isActive, onPlay }: { beat: Instrumental; isActive: boolean; onPlay: () => void }) {
   return (
-    <div className="flex gap-4 rounded-xl border border-(--color-border) bg-(--color-surface) p-4 hover:border-(--color-muted) transition-colors">
-      {/* Cover */}
-      <div className="shrink-0 w-20 h-20 rounded-lg overflow-hidden bg-(--color-background) flex items-center justify-center border border-(--color-border)">
-        {beat.cover_url ? (
-          // eslint-disable-next-line @next/next/no-img-element
-          <img src={beat.cover_url} alt={beat.title} className="w-full h-full object-cover" />
+    <div
+      className={`flex cursor-pointer items-center gap-3 rounded-xl border px-4 py-3 transition-all duration-200 ${
+        isActive
+          ? 'border-(--color-accent)/40 bg-(--color-accent)/5'
+          : 'border-(--color-border) bg-(--color-surface) hover:border-(--color-muted)'
+      }`}
+      onClick={onPlay}
+    >
+      {/* Play indicator / number */}
+      <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full text-sm">
+        {isActive ? (
+          <span className="text-(--color-accent) text-base">▶</span>
         ) : (
-          <span className="text-2xl text-(--color-border)">♪</span>
+          <span className="text-(--color-border) text-base">▷</span>
         )}
       </div>
 
       {/* Info */}
-      <div className="flex-1 min-w-0">
-        <div className="flex items-start justify-between gap-2 mb-2">
-          <div>
-            <h3 className="font-bold text-sm text-(--color-foreground) truncate">{beat.title}</h3>
-            <div className="flex flex-wrap gap-1.5 mt-1">
-              {beat.genre && (
-                <span className="rounded border border-(--color-border) px-1.5 py-0.5 text-[10px] text-(--color-muted)">{beat.genre}</span>
-              )}
-              {beat.bpm && (
-                <span className="rounded border border-(--color-border) px-1.5 py-0.5 text-[10px] text-(--color-muted)">{beat.bpm} BPM</span>
-              )}
-              {beat.key && (
-                <span className="rounded border border-(--color-border) px-1.5 py-0.5 text-[10px] text-(--color-muted)">{beat.key}</span>
-              )}
-            </div>
-          </div>
-          <Link
-            href={beat.external_url}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="shrink-0 rounded-md bg-(--color-accent) px-3 py-1.5 text-xs font-semibold text-(--color-background) hover:bg-(--color-accent-dark) transition-colors"
-          >
-            Buy
-          </Link>
+      <div className="min-w-0 flex-1">
+        <p className={`truncate text-sm font-semibold leading-tight ${isActive ? 'text-(--color-accent)' : 'text-(--color-foreground)'}`}>
+          {beat.title}
+        </p>
+        <div className="mt-0.5 flex flex-wrap gap-1.5">
+          {beat.genre && (
+            <span className="rounded border border-(--color-border) px-1.5 py-0.5 text-[10px] text-(--color-muted)">
+              {beat.genre.replace(/_/g, ' ')}
+            </span>
+          )}
+          {beat.subgenre && beat.subgenre !== beat.genre && (
+            <span className="rounded border border-(--color-border) px-1.5 py-0.5 text-[10px] text-(--color-muted)">
+              {beat.subgenre.replace(/_/g, ' ')}
+            </span>
+          )}
+          {beat.bpm && (
+            <span className="rounded border border-(--color-border) px-1.5 py-0.5 text-[10px] text-(--color-muted)">
+              {beat.bpm} BPM
+            </span>
+          )}
         </div>
-        {beat.preview_url && <AudioPlayer src={beat.preview_url} />}
       </div>
     </div>
   )
 }
+
+function InstrumentalsTab({ initialTracks, initialTotal }: { initialTracks: Instrumental[]; initialTotal: number }) {
+  const { currentTrack, playing, playTrack } = usePlayer()
+  const [tracks, setTracks] = useState<Instrumental[]>(initialTracks)
+  const [total, setTotal] = useState(initialTotal)
+  const [page, setPage] = useState(1)
+  const [loading, setLoading] = useState(false)
+  const [genre, setGenre] = useState('')
+  const [search, setSearch] = useState('')
+  const [debouncedSearch, setDebouncedSearch] = useState('')
+
+  const debounceRef = useRef<ReturnType<typeof setTimeout> | null>(null)
+
+  // Debounce search input
+  useEffect(() => {
+    if (debounceRef.current) clearTimeout(debounceRef.current)
+    debounceRef.current = setTimeout(() => setDebouncedSearch(search), 300)
+    return () => { if (debounceRef.current) clearTimeout(debounceRef.current) }
+  }, [search])
+
+  const fetchTracks = useCallback(async (nextPage: number, append: boolean) => {
+    setLoading(true)
+    const params = new URLSearchParams({ page: String(nextPage), limit: String(PAGE_SIZE) })
+    if (genre) params.set('genre', genre)
+    if (debouncedSearch) params.set('q', debouncedSearch)
+
+    try {
+      const res = await fetch(`/api/instrumentals?${params}`)
+      const json = await res.json()
+      setTracks((prev) => append ? [...prev, ...json.data] : json.data)
+      setTotal(json.total)
+      setPage(nextPage)
+    } finally {
+      setLoading(false)
+    }
+  }, [genre, debouncedSearch])
+
+  // Re-fetch when filters change
+  useEffect(() => {
+    fetchTracks(1, false)
+  }, [genre, debouncedSearch]) // eslint-disable-line react-hooks/exhaustive-deps
+
+  const hasMore = tracks.length < total
+
+  return (
+    <div>
+      {/* Filter bar */}
+      <div className="mb-6 flex flex-wrap items-center gap-3">
+        <input
+          type="text"
+          placeholder="Search tracks..."
+          value={search}
+          onChange={(e) => setSearch(e.target.value)}
+          className="flex-1 min-w-[180px] rounded-lg border border-(--color-border) bg-(--color-surface) px-3 py-2 text-sm text-(--color-foreground) placeholder:text-(--color-border) focus:border-(--color-accent) focus:outline-none transition-colors"
+        />
+        <select
+          value={genre}
+          onChange={(e) => setGenre(e.target.value)}
+          className="rounded-lg border border-(--color-border) bg-(--color-surface) px-3 py-2 text-sm text-(--color-muted) focus:border-(--color-accent) focus:outline-none transition-colors"
+        >
+          <option value="">All genres</option>
+          {GENRES.map((g) => (
+            <option key={g} value={g}>{g.replace(/_/g, ' ')}</option>
+          ))}
+        </select>
+        <span className="text-xs text-(--color-muted) shrink-0">
+          {total.toLocaleString()} tracks
+        </span>
+      </div>
+
+      {/* Track list */}
+      {tracks.length === 0 && !loading ? (
+        <p className="text-sm text-(--color-muted)">No tracks found.</p>
+      ) : (
+        <div className="flex flex-col gap-2">
+          {tracks.map((beat) => (
+            <TrackRow
+              key={beat.id}
+              beat={beat}
+              isActive={currentTrack?.id === beat.id}
+              onPlay={() => playTrack(beat, tracks)}
+            />
+          ))}
+        </div>
+      )}
+
+      {/* Load more */}
+      {hasMore && (
+        <button
+          type="button"
+          onClick={() => fetchTracks(page + 1, true)}
+          disabled={loading}
+          className="mt-6 w-full rounded-xl border border-(--color-border) py-3 text-sm text-(--color-muted) hover:border-(--color-muted) hover:text-(--color-foreground) transition-colors disabled:opacity-50"
+        >
+          {loading ? 'Loading...' : `Load more (${total - tracks.length} remaining)`}
+        </button>
+      )}
+    </div>
+  )
+}
+
+// ── Sample packs ──────────────────────────────────────────────────────────────
 
 function PackCard({ pack }: { pack: SamplePack }) {
   return (
@@ -88,6 +198,8 @@ function PackCard({ pack }: { pack: SamplePack }) {
   )
 }
 
+// ── Plugins ───────────────────────────────────────────────────────────────────
+
 function PluginCard({ tool }: { tool: Tool }) {
   const domain = tool.live_url
     ? tool.live_url.replace(/^https?:\/\//, '').replace(/\/$/, '')
@@ -100,7 +212,6 @@ function PluginCard({ tool }: { tool: Tool }) {
       rel="noopener noreferrer"
       className="block rounded-xl border border-(--color-border) bg-(--color-surface) overflow-hidden hover:border-green-400/40 transition-all duration-300 group"
     >
-      {/* Browser chrome */}
       <div className="bg-(--color-background) border-b border-(--color-border) px-4 py-2.5 flex items-center gap-3">
         <div className="flex gap-1.5 shrink-0">
           <div className="w-2.5 h-2.5 rounded-full bg-red-500/60 group-hover:bg-red-500 transition-colors" />
@@ -115,7 +226,6 @@ function PluginCard({ tool }: { tool: Tool }) {
         </svg>
       </div>
 
-      {/* Screenshot */}
       {tool.cover_url && (
         <div className="relative overflow-hidden border-b border-(--color-border)" style={{ aspectRatio: '16/9' }}>
           {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -128,17 +238,13 @@ function PluginCard({ tool }: { tool: Tool }) {
         </div>
       )}
 
-      {/* Info */}
       <div className="p-5">
         <h3 className="font-bold text-sm text-(--color-foreground) mb-1">{tool.name}</h3>
         {tool.description && (
           <p className="text-xs text-(--color-muted) leading-relaxed mt-1">{tool.description}</p>
         )}
         {tool.repo_url && (
-          <span
-            onClick={(e) => e.stopPropagation()}
-            className="inline-block mt-3"
-          >
+          <span onClick={(e) => e.stopPropagation()} className="inline-block mt-3">
             <a
               href={tool.repo_url}
               target="_blank"
@@ -154,76 +260,62 @@ function PluginCard({ tool }: { tool: Tool }) {
   )
 }
 
+// ── Main component ────────────────────────────────────────────────────────────
+
 const tabs: { id: Tab; label: string }[] = [
   { id: 'instrumentals', label: 'Instrumentals' },
   { id: 'packs', label: 'Sample Packs' },
   { id: 'plugins', label: 'Plugins' },
 ]
 
-export function ProductsTabs({ instrumentals, packs, plugins }: Props) {
+export function ProductsTabs({ initialInstrumentals, initialTotal, packs, plugins }: Props) {
   const [active, setActive] = useState<Tab>('instrumentals')
-
-  const counts: Record<Tab, number> = {
-    instrumentals: instrumentals.length,
-    packs: packs.length,
-    plugins: plugins.length,
-  }
 
   return (
     <>
       {/* Tab bar */}
       <div className="mb-10 flex gap-2 flex-wrap border-b border-(--color-border) pb-0">
-        {tabs.map(({ id, label }) => (
-          <button
-            key={id}
-            type="button"
-            onClick={() => setActive(id)}
-            className={`relative pb-3 px-1 text-sm font-semibold transition-colors ${
-              active === id
-                ? 'text-(--color-foreground)'
-                : 'text-(--color-muted) hover:text-(--color-foreground)'
-            }`}
-          >
-            {label}
-            {counts[id] > 0 && (
-              <span className={`ml-2 text-xs ${active === id ? 'text-(--color-accent)' : 'text-(--color-border)'}`}>
-                {counts[id]}
-              </span>
-            )}
-            {active === id && (
-              <span className="absolute bottom-0 left-0 right-0 h-0.5 bg-(--color-accent) rounded-full" />
-            )}
-          </button>
-        ))}
+        {tabs.map(({ id, label }) => {
+          const count = id === 'instrumentals' ? initialTotal : id === 'packs' ? packs.length : plugins.length
+          return (
+            <button
+              key={id}
+              type="button"
+              onClick={() => setActive(id)}
+              className={`relative pb-3 px-1 text-sm font-semibold transition-colors ${
+                active === id
+                  ? 'text-(--color-foreground)'
+                  : 'text-(--color-muted) hover:text-(--color-foreground)'
+              }`}
+            >
+              {label}
+              {count > 0 && (
+                <span className={`ml-2 text-xs ${active === id ? 'text-(--color-accent)' : 'text-(--color-border)'}`}>
+                  {count}
+                </span>
+              )}
+              {active === id && (
+                <span className="absolute bottom-0 left-0 right-0 h-0.5 bg-(--color-accent) rounded-full" />
+              )}
+            </button>
+          )
+        })}
       </div>
 
-      {/* Instrumentals — list rows */}
       {active === 'instrumentals' && (
-        instrumentals.length === 0 ? (
-          <p className="text-sm text-(--color-muted)">No instrumentals published yet.</p>
-        ) : (
-          <div className="flex flex-col gap-3">
-            {instrumentals.map((beat) => (
-              <InstrumentalRow key={beat.id} beat={beat} />
-            ))}
-          </div>
-        )
+        <InstrumentalsTab initialTracks={initialInstrumentals} initialTotal={initialTotal} />
       )}
 
-      {/* Sample Packs — square grid */}
       {active === 'packs' && (
         packs.length === 0 ? (
           <p className="text-sm text-(--color-muted)">No sample packs published yet.</p>
         ) : (
           <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-            {packs.map((pack) => (
-              <PackCard key={pack.id} pack={pack} />
-            ))}
+            {packs.map((pack) => <PackCard key={pack.id} pack={pack} />)}
           </div>
         )
       )}
 
-      {/* Plugins */}
       {active === 'plugins' && (
         <>
           <p className="text-sm text-(--color-muted) leading-relaxed mb-8 max-w-2xl">
@@ -234,9 +326,7 @@ export function ProductsTabs({ instrumentals, packs, plugins }: Props) {
             <p className="text-sm text-(--color-muted)">No plugins published yet.</p>
           ) : (
             <div className="grid gap-5 sm:grid-cols-2">
-              {plugins.map((tool) => (
-                <PluginCard key={tool.id} tool={tool} />
-              ))}
+              {plugins.map((tool) => <PluginCard key={tool.id} tool={tool} />)}
             </div>
           )}
         </>

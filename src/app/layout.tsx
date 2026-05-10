@@ -4,6 +4,8 @@ import './globals.css'
 import { Nav } from '@/components/nav'
 import { Footer } from '@/components/footer'
 import { AmbientBackground } from '@/components/ambient-background'
+import { PlayerProvider } from '@/contexts/player-context'
+import { BottomPlayer } from '@/components/bottom-player'
 
 const inter = Inter({ subsets: ['latin'], variable: '--font-inter' })
 
@@ -26,10 +28,13 @@ export default function RootLayout({
   return (
     <html lang="en" className={inter.variable}>
       <body>
-        <AmbientBackground />
-        <Nav />
-        <main className="pt-16 page-enter">{children}</main>
-        <Footer />
+        <PlayerProvider>
+          <AmbientBackground />
+          <Nav />
+          <main className="pt-16 page-enter">{children}</main>
+          <Footer />
+          <BottomPlayer />
+        </PlayerProvider>
       </body>
     </html>
   )

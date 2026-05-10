@@ -2,6 +2,8 @@ export type Instrumental = {
   id: string
   title: string
   genre: string | null
+  subgenre: string | null
+  mood: string | null
   bpm: number | null
   key: string | null
   cover_url: string | null

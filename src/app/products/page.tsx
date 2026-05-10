@@ -1,6 +1,8 @@
 import type { Metadata } from 'next'
-import { getInstrumentals, getSamplePacks, getTools } from '@/lib/queries'
+import { getSamplePacks, getTools } from '@/lib/queries'
+import { createClient } from '@/lib/supabase/server'
 import { ProductsTabs } from '@/components/products-tabs'
+import type { Instrumental } from '@/lib/types'
 
 export const revalidate = 60
 
@@ -9,14 +11,25 @@ export const metadata: Metadata = {
 }
 
 export default async function ProductsPage() {
-  const [instrumentals, packs, plugins] = await Promise.all([
-    getInstrumentals(),
+  const supabase = await createClient()
+
+  const [
+    { data: initialInstrumentals, count },
+    packs,
+    plugins,
+  ] = await Promise.all([
+    supabase
+      .from('ms_instrumentals')
+      .select('*', { count: 'exact' })
+      .eq('published', true)
+      .order('created_at', { ascending: false })
+      .range(0, 49),
     getSamplePacks(),
     getTools(),
   ])
 
   return (
-    <div className="mx-auto max-w-6xl px-6 py-24">
+    <div className="mx-auto max-w-6xl px-6 py-24 pb-32">
       <div className="mb-16">
         <p className="mb-3 text-xs font-semibold tracking-[0.25em] text-(--color-accent) uppercase">
           Products
@@ -29,7 +42,12 @@ export default async function ProductsPage() {
         </p>
       </div>
 
-      <ProductsTabs instrumentals={instrumentals} packs={packs} plugins={plugins} />
+      <ProductsTabs
+        initialInstrumentals={(initialInstrumentals ?? []) as Instrumental[]}
+        initialTotal={count ?? 0}
+        packs={packs}
+        plugins={plugins}
+      />
     </div>
   )
 }
