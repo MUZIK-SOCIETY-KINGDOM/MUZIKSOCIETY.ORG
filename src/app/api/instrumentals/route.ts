@@ -1,4 +1,5 @@
 import { createClient } from '@/lib/supabase/server'
+import { fixDriveUrl } from '@/lib/utils'
 import { NextResponse } from 'next/server'
 
 export const dynamic = 'force-dynamic'
@@ -30,8 +31,14 @@ export async function GET(request: Request) {
     return NextResponse.json({ error: error.message }, { status: 500 })
   }
 
+  const rows = (data ?? []).map((row) => ({
+    ...row,
+    preview_url: fixDriveUrl(row.preview_url),
+    external_url: fixDriveUrl(row.external_url),
+  }))
+
   return NextResponse.json({
-    data: data ?? [],
+    data: rows,
     total: count ?? 0,
     page,
     limit,

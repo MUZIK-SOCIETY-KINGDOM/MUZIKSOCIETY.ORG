@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import { getSamplePacks, getTools } from '@/lib/queries'
 import { createClient } from '@/lib/supabase/server'
+import { fixDriveUrl } from '@/lib/utils'
 import { ProductsTabs } from '@/components/products-tabs'
 import type { Instrumental } from '@/lib/types'
 
@@ -28,6 +29,12 @@ export default async function ProductsPage() {
     getTools(),
   ])
 
+  const fixedInstrumentals = (initialInstrumentals ?? []).map((row) => ({
+    ...row,
+    preview_url: fixDriveUrl(row.preview_url),
+    external_url: fixDriveUrl(row.external_url),
+  })) as Instrumental[]
+
   return (
     <div className="mx-auto max-w-6xl px-6 py-24 pb-32">
       <div className="mb-16">
@@ -43,7 +50,7 @@ export default async function ProductsPage() {
       </div>
 
       <ProductsTabs
-        initialInstrumentals={(initialInstrumentals ?? []) as Instrumental[]}
+        initialInstrumentals={fixedInstrumentals}
         initialTotal={count ?? 0}
         packs={packs}
         plugins={plugins}

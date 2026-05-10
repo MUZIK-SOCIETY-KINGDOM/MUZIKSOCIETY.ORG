@@ -14,13 +14,15 @@ interface PlayerContextValue {
   currentTrack: Instrumental | null
   queue: Instrumental[]
   playing: boolean
-  progress: number  // 0-1
-  duration: number  // seconds
+  progress: number
+  duration: number
+  shuffle: boolean
   playTrack: (track: Instrumental, queue?: Instrumental[]) => void
   togglePlay: () => void
   next: () => void
   prev: () => void
   seek: (pct: number) => void
+  toggleShuffle: () => void
 }
 
 const PlayerContext = createContext<PlayerContextValue | null>(null)
@@ -31,6 +33,13 @@ export function usePlayer() {
   return ctx
 }
 
+function pickRandom(length: number, exclude: number): number {
+  if (length <= 1) return 0
+  let idx: number
+  do { idx = Math.floor(Math.random() * length) } while (idx === exclude)
+  return idx
+}
+
 export function PlayerProvider({ children }: { children: React.ReactNode }) {
   const audioRef = useRef<HTMLAudioElement | null>(null)
   const [currentTrack, setCurrentTrack] = useState<Instrumental | null>(null)
@@ -38,8 +47,17 @@ export function PlayerProvider({ children }: { children: React.ReactNode }) {
   const [playing, setPlaying] = useState(false)
   const [progress, setProgress] = useState(0)
   const [duration, setDuration] = useState(0)
+  const [shuffle, setShuffle] = useState(false)
 
   const currentIndexRef = useRef(-1)
+  const shuffleRef = useRef(false)
+
+  const toggleShuffle = useCallback(() => {
+    setShuffle((s) => {
+      shuffleRef.current = !s
+      return !s
+    })
+  }, [])
 
   useEffect(() => {
     const audio = new Audio()
@@ -51,19 +69,23 @@ export function PlayerProvider({ children }: { children: React.ReactNode }) {
     }
     const onDurationChange = () => setDuration(audio.duration || 0)
     const onEnded = () => {
-      // Auto-advance to next track
       setQueue((q) => {
-        const nextIdx = currentIndexRef.current + 1
-        if (nextIdx < q.length) {
-          const next = q[nextIdx]
-          currentIndexRef.current = nextIdx
-          setCurrentTrack(next)
-          audio.src = next.preview_url ?? ''
-          audio.play().catch(() => {})
-          setPlaying(true)
+        let nextIdx: number
+        if (shuffleRef.current && q.length > 1) {
+          nextIdx = pickRandom(q.length, currentIndexRef.current)
         } else {
-          setPlaying(false)
+          nextIdx = currentIndexRef.current + 1
+          if (nextIdx >= q.length) {
+            setPlaying(false)
+            return q
+          }
         }
+        const next = q[nextIdx]
+        currentIndexRef.current = nextIdx
+        setCurrentTrack(next)
+        audio.src = next.preview_url ?? ''
+        audio.play().catch(() => {})
+        setPlaying(true)
         return q
       })
     }
@@ -116,8 +138,13 @@ export function PlayerProvider({ children }: { children: React.ReactNode }) {
   const next = useCallback(() => {
     const audio = audioRef.current
     if (!audio) return
-    const nextIdx = currentIndexRef.current + 1
-    if (nextIdx >= queue.length) return
+    let nextIdx: number
+    if (shuffleRef.current && queue.length > 1) {
+      nextIdx = pickRandom(queue.length, currentIndexRef.current)
+    } else {
+      nextIdx = currentIndexRef.current + 1
+      if (nextIdx >= queue.length) return
+    }
     const track = queue[nextIdx]
     currentIndexRef.current = nextIdx
     setCurrentTrack(track)
@@ -130,7 +157,6 @@ export function PlayerProvider({ children }: { children: React.ReactNode }) {
   const prev = useCallback(() => {
     const audio = audioRef.current
     if (!audio) return
-    // If more than 3s in, restart; otherwise go to previous
     if (audio.currentTime > 3) {
       audio.currentTime = 0
       return
@@ -154,7 +180,7 @@ export function PlayerProvider({ children }: { children: React.ReactNode }) {
 
   return (
     <PlayerContext.Provider
-      value={{ currentTrack, queue, playing, progress, duration, playTrack, togglePlay, next, prev, seek }}
+      value={{ currentTrack, queue, playing, progress, duration, shuffle, playTrack, togglePlay, next, prev, seek, toggleShuffle }}
     >
       {children}
     </PlayerContext.Provider>

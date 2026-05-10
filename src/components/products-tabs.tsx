@@ -15,44 +15,61 @@ type Props = {
   plugins: Tool[]
 }
 
-// ── Instrumentals tab ─────────────────────────────────────────────────────────
+// ── Genre config ──────────────────────────────────────────────────────────────
 
-const GENRES = ['Afrobeat', 'Drill', 'Fusion', 'Latin_Urbano', 'Rap', 'Reggaeton', 'Trap']
+type GenreKey = 'Afrobeat' | 'Drill' | 'Fusion' | 'Latin_Urbano' | 'Rap' | 'Reggaeton' | 'Trap'
+
+const GENRE_CONFIG: Record<GenreKey, { label: string; color: string; bg: string; glyph: string }> = {
+  Afrobeat:     { label: 'Afrobeat',      color: '#f59e0b', bg: 'rgba(245,158,11,0.08)',   glyph: 'A' },
+  Drill:        { label: 'Drill',         color: '#818cf8', bg: 'rgba(129,140,248,0.08)',  glyph: 'D' },
+  Fusion:       { label: 'Fusion',        color: '#a78bfa', bg: 'rgba(167,139,250,0.08)',  glyph: 'F' },
+  Latin_Urbano: { label: 'Latin Urbano',  color: '#f472b6', bg: 'rgba(244,114,182,0.08)', glyph: 'L' },
+  Rap:          { label: 'Rap',           color: '#fbbf24', bg: 'rgba(251,191,36,0.08)',   glyph: 'R' },
+  Reggaeton:    { label: 'Reggaeton',     color: '#22d3ee', bg: 'rgba(34,211,238,0.08)',   glyph: 'R' },
+  Trap:         { label: 'Trap',          color: '#f87171', bg: 'rgba(248,113,113,0.08)',  glyph: 'T' },
+}
+
+const GENRE_COUNTS: Record<GenreKey, number> = {
+  Afrobeat: 148, Drill: 127, Fusion: 325, Latin_Urbano: 84,
+  Rap: 125, Reggaeton: 124, Trap: 112,
+}
+
+const GENRES = Object.keys(GENRE_CONFIG) as GenreKey[]
+
 const PAGE_SIZE = 50
+
+// ── Track row ─────────────────────────────────────────────────────────────────
 
 function TrackRow({ beat, isActive, onPlay }: { beat: Instrumental; isActive: boolean; onPlay: () => void }) {
   return (
     <div
-      className={`flex cursor-pointer items-center gap-3 rounded-xl border px-4 py-3 transition-all duration-200 ${
+      className={`flex cursor-pointer items-center gap-3 rounded-xl border px-4 py-3 transition-all duration-150 ${
         isActive
           ? 'border-(--color-accent)/40 bg-(--color-accent)/5'
-          : 'border-(--color-border) bg-(--color-surface) hover:border-(--color-muted)'
+          : 'border-(--color-border) bg-(--color-surface) hover:border-(--color-muted)/60 hover:bg-(--color-background)'
       }`}
       onClick={onPlay}
     >
-      {/* Play indicator / number */}
-      <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full text-sm">
+      <div className="flex h-8 w-8 shrink-0 items-center justify-center text-sm">
         {isActive ? (
           <span className="text-(--color-accent) text-base">▶</span>
         ) : (
           <span className="text-(--color-border) text-base">▷</span>
         )}
       </div>
-
-      {/* Info */}
       <div className="min-w-0 flex-1">
         <p className={`truncate text-sm font-semibold leading-tight ${isActive ? 'text-(--color-accent)' : 'text-(--color-foreground)'}`}>
           {beat.title}
         </p>
         <div className="mt-0.5 flex flex-wrap gap-1.5">
-          {beat.genre && (
-            <span className="rounded border border-(--color-border) px-1.5 py-0.5 text-[10px] text-(--color-muted)">
-              {beat.genre.replace(/_/g, ' ')}
-            </span>
-          )}
           {beat.subgenre && beat.subgenre !== beat.genre && (
             <span className="rounded border border-(--color-border) px-1.5 py-0.5 text-[10px] text-(--color-muted)">
-              {beat.subgenre.replace(/_/g, ' ')}
+              {beat.subgenre}
+            </span>
+          )}
+          {beat.mood && (
+            <span className="rounded border border-(--color-border) px-1.5 py-0.5 text-[10px] text-(--color-muted)">
+              {beat.mood}
             </span>
           )}
           {beat.bpm && (
@@ -66,19 +83,132 @@ function TrackRow({ beat, isActive, onPlay }: { beat: Instrumental; isActive: bo
   )
 }
 
-function InstrumentalsTab({ initialTracks, initialTotal }: { initialTracks: Instrumental[]; initialTotal: number }) {
-  const { currentTrack, playing, playTrack } = usePlayer()
+// ── Genre grid ────────────────────────────────────────────────────────────────
+
+function GenreCard({
+  genreKey,
+  onBrowse,
+  onPlay,
+}: {
+  genreKey: GenreKey
+  onBrowse: () => void
+  onPlay: () => void
+}) {
+  const cfg = GENRE_CONFIG[genreKey]
+  const count = GENRE_COUNTS[genreKey]
+  return (
+    <div
+      className="group relative flex cursor-pointer flex-col justify-between overflow-hidden rounded-xl border p-5 transition-all duration-200 hover:scale-[1.02] hover:shadow-lg"
+      style={{ borderColor: cfg.color + '33', backgroundColor: cfg.bg }}
+      onClick={onBrowse}
+    >
+      {/* Background glyph */}
+      <span
+        className="pointer-events-none absolute -right-2 -bottom-4 text-8xl font-black opacity-[0.06] select-none"
+        style={{ color: cfg.color }}
+        aria-hidden
+      >
+        {cfg.glyph}
+      </span>
+
+      <div className="flex items-start justify-between gap-2">
+        <div>
+          <p className="text-sm font-bold text-(--color-foreground)">{cfg.label}</p>
+          <p className="mt-0.5 text-xs text-(--color-muted)">{count.toLocaleString()} tracks</p>
+        </div>
+        {/* Play button */}
+        <button
+          type="button"
+          aria-label={`Play ${cfg.label}`}
+          className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full border transition-all duration-150 opacity-60 group-hover:opacity-100"
+          style={{ borderColor: cfg.color + '66', color: cfg.color }}
+          onClick={(e) => { e.stopPropagation(); onPlay() }}
+        >
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M8 5v14l11-7z" />
+          </svg>
+        </button>
+      </div>
+
+      <div className="mt-4 h-0.5 w-full rounded-full opacity-20" style={{ backgroundColor: cfg.color }} />
+    </div>
+  )
+}
+
+function GenreGrid({
+  totalTracks,
+  onBrowseAll,
+  onPlayAll,
+  onBrowseGenre,
+  onPlayGenre,
+}: {
+  totalTracks: number
+  onBrowseAll: () => void
+  onPlayAll: () => void
+  onBrowseGenre: (g: GenreKey) => void
+  onPlayGenre: (g: GenreKey) => void
+}) {
+  return (
+    <div>
+      {/* Top actions */}
+      <div className="mb-6 flex flex-wrap items-center gap-3">
+        <button
+          type="button"
+          onClick={onBrowseAll}
+          className="rounded-lg border border-(--color-border) bg-(--color-surface) px-4 py-2 text-sm text-(--color-muted) hover:border-(--color-muted) hover:text-(--color-foreground) transition-colors"
+        >
+          All {totalTracks.toLocaleString()} tracks
+        </button>
+        <button
+          type="button"
+          onClick={onPlayAll}
+          className="flex items-center gap-2 rounded-lg bg-(--color-accent) px-4 py-2 text-sm font-semibold text-(--color-background) hover:opacity-90 transition-opacity"
+        >
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z" /></svg>
+          Shuffle All
+        </button>
+      </div>
+
+      {/* Genre cards */}
+      <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-4">
+        {GENRES.map((g) => (
+          <GenreCard
+            key={g}
+            genreKey={g}
+            onBrowse={() => onBrowseGenre(g)}
+            onPlay={() => onPlayGenre(g)}
+          />
+        ))}
+      </div>
+    </div>
+  )
+}
+
+// ── Track browser ─────────────────────────────────────────────────────────────
+
+function TrackBrowser({
+  initialTracks,
+  initialTotal,
+  genre,
+  onBack,
+}: {
+  initialTracks: Instrumental[]
+  initialTotal: number
+  genre: GenreKey | ''
+  onBack: () => void
+}) {
+  const { currentTrack, playing, playTrack, shuffle, toggleShuffle } = usePlayer()
   const [tracks, setTracks] = useState<Instrumental[]>(initialTracks)
   const [total, setTotal] = useState(initialTotal)
   const [page, setPage] = useState(1)
   const [loading, setLoading] = useState(false)
-  const [genre, setGenre] = useState('')
   const [search, setSearch] = useState('')
   const [debouncedSearch, setDebouncedSearch] = useState('')
-
   const debounceRef = useRef<ReturnType<typeof setTimeout> | null>(null)
+  const isFirstRender = useRef(true)
 
-  // Debounce search input
+  const cfg = genre ? GENRE_CONFIG[genre] : null
+
   useEffect(() => {
     if (debounceRef.current) clearTimeout(debounceRef.current)
     debounceRef.current = setTimeout(() => setDebouncedSearch(search), 300)
@@ -90,7 +220,6 @@ function InstrumentalsTab({ initialTracks, initialTotal }: { initialTracks: Inst
     const params = new URLSearchParams({ page: String(nextPage), limit: String(PAGE_SIZE) })
     if (genre) params.set('genre', genre)
     if (debouncedSearch) params.set('q', debouncedSearch)
-
     try {
       const res = await fetch(`/api/instrumentals?${params}`)
       const json = await res.json()
@@ -102,42 +231,81 @@ function InstrumentalsTab({ initialTracks, initialTotal }: { initialTracks: Inst
     }
   }, [genre, debouncedSearch])
 
-  // Re-fetch when filters change
+  // Re-fetch on filter change, but skip on mount (use initialTracks)
   useEffect(() => {
+    if (isFirstRender.current) { isFirstRender.current = false; return }
     fetchTracks(1, false)
-  }, [genre, debouncedSearch]) // eslint-disable-line react-hooks/exhaustive-deps
+  }, [debouncedSearch]) // eslint-disable-line react-hooks/exhaustive-deps
+
+  // Fetch when genre changes (new browser opened)
+  useEffect(() => {
+    isFirstRender.current = true
+    setSearch('')
+    setDebouncedSearch('')
+    fetchTracks(1, false)
+  }, [genre]) // eslint-disable-line react-hooks/exhaustive-deps
+
+  const handleShufflePlay = () => {
+    if (tracks.length === 0) return
+    if (!shuffle) toggleShuffle()
+    const idx = Math.floor(Math.random() * tracks.length)
+    playTrack(tracks[idx], tracks)
+  }
 
   const hasMore = tracks.length < total
 
   return (
     <div>
-      {/* Filter bar */}
-      <div className="mb-6 flex flex-wrap items-center gap-3">
+      {/* Breadcrumb */}
+      <div className="mb-6 flex items-center gap-3 flex-wrap">
+        <button
+          type="button"
+          onClick={onBack}
+          className="flex items-center gap-1.5 text-sm text-(--color-muted) hover:text-(--color-foreground) transition-colors"
+        >
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+            <path d="m15 18-6-6 6-6" />
+          </svg>
+          All Genres
+        </button>
+        {cfg && (
+          <>
+            <span className="text-(--color-border)">/</span>
+            <span className="text-sm font-semibold" style={{ color: cfg.color }}>{cfg.label}</span>
+          </>
+        )}
+        <span className="ml-auto text-xs text-(--color-muted)">{total.toLocaleString()} tracks</span>
+      </div>
+
+      {/* Controls */}
+      <div className="mb-5 flex flex-wrap items-center gap-3">
         <input
           type="text"
-          placeholder="Search tracks..."
+          placeholder="Search..."
           value={search}
           onChange={(e) => setSearch(e.target.value)}
-          className="flex-1 min-w-[180px] rounded-lg border border-(--color-border) bg-(--color-surface) px-3 py-2 text-sm text-(--color-foreground) placeholder:text-(--color-border) focus:border-(--color-accent) focus:outline-none transition-colors"
+          className="flex-1 min-w-[160px] rounded-lg border border-(--color-border) bg-(--color-surface) px-3 py-2 text-sm text-(--color-foreground) placeholder:text-(--color-border) focus:border-(--color-accent) focus:outline-none transition-colors"
         />
-        <select
-          value={genre}
-          onChange={(e) => setGenre(e.target.value)}
-          className="rounded-lg border border-(--color-border) bg-(--color-surface) px-3 py-2 text-sm text-(--color-muted) focus:border-(--color-accent) focus:outline-none transition-colors"
+        <button
+          type="button"
+          onClick={handleShufflePlay}
+          className={`flex items-center gap-2 rounded-lg border px-3 py-2 text-sm font-medium transition-colors ${
+            shuffle
+              ? 'border-(--color-accent)/40 bg-(--color-accent)/10 text-(--color-accent)'
+              : 'border-(--color-border) bg-(--color-surface) text-(--color-muted) hover:border-(--color-muted) hover:text-(--color-foreground)'
+          }`}
         >
-          <option value="">All genres</option>
-          {GENRES.map((g) => (
-            <option key={g} value={g}>{g.replace(/_/g, ' ')}</option>
-          ))}
-        </select>
-        <span className="text-xs text-(--color-muted) shrink-0">
-          {total.toLocaleString()} tracks
-        </span>
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+            <polyline points="16 3 21 3 21 8" /><line x1="4" y1="20" x2="21" y2="3" />
+            <polyline points="21 16 21 21 16 21" /><line x1="15" y1="15" x2="21" y2="21" />
+          </svg>
+          Shuffle
+        </button>
       </div>
 
       {/* Track list */}
       {tracks.length === 0 && !loading ? (
-        <p className="text-sm text-(--color-muted)">No tracks found.</p>
+        <p className="py-12 text-center text-sm text-(--color-muted)">No tracks found.</p>
       ) : (
         <div className="flex flex-col gap-2">
           {tracks.map((beat) => (
@@ -151,18 +319,88 @@ function InstrumentalsTab({ initialTracks, initialTotal }: { initialTracks: Inst
         </div>
       )}
 
-      {/* Load more */}
-      {hasMore && (
+      {loading && (
+        <div className="mt-6 flex justify-center">
+          <span className="text-xs text-(--color-muted)">Loading...</span>
+        </div>
+      )}
+
+      {hasMore && !loading && (
         <button
           type="button"
           onClick={() => fetchTracks(page + 1, true)}
-          disabled={loading}
-          className="mt-6 w-full rounded-xl border border-(--color-border) py-3 text-sm text-(--color-muted) hover:border-(--color-muted) hover:text-(--color-foreground) transition-colors disabled:opacity-50"
+          className="mt-6 w-full rounded-xl border border-(--color-border) py-3 text-sm text-(--color-muted) hover:border-(--color-muted) hover:text-(--color-foreground) transition-colors"
         >
-          {loading ? 'Loading...' : `Load more (${total - tracks.length} remaining)`}
+          Load more ({(total - tracks.length).toLocaleString()} remaining)
         </button>
       )}
     </div>
+  )
+}
+
+// ── Instrumentals tab ─────────────────────────────────────────────────────────
+
+function InstrumentalsTab({ initialTracks, initialTotal }: { initialTracks: Instrumental[]; initialTotal: number }) {
+  const { playTrack, toggleShuffle } = usePlayer()
+  const [view, setView] = useState<'genres' | 'tracks'>('genres')
+  const [selectedGenre, setSelectedGenre] = useState<GenreKey | ''>('')
+  const [browserTracks, setBrowserTracks] = useState<Instrumental[]>(initialTracks)
+  const [browserTotal, setBrowserTotal] = useState(initialTotal)
+
+  const fetchAndPlay = async (genre: GenreKey | '', startShuffle = false) => {
+    const params = new URLSearchParams({ page: '1', limit: String(PAGE_SIZE) })
+    if (genre) params.set('genre', genre)
+    const res = await fetch(`/api/instrumentals?${params}`)
+    const json = await res.json()
+    if (json.data.length > 0) {
+      if (startShuffle) {
+        toggleShuffle()
+        const idx = Math.floor(Math.random() * json.data.length)
+        playTrack(json.data[idx], json.data)
+      } else {
+        playTrack(json.data[0], json.data)
+      }
+    }
+  }
+
+  const handleBrowseGenre = (g: GenreKey) => {
+    setSelectedGenre(g)
+    setBrowserTracks([])
+    setBrowserTotal(GENRE_COUNTS[g])
+    setView('tracks')
+  }
+
+  const handleBrowseAll = () => {
+    setSelectedGenre('')
+    setBrowserTracks(initialTracks)
+    setBrowserTotal(initialTotal)
+    setView('tracks')
+  }
+
+  const handleBack = () => {
+    setView('genres')
+  }
+
+  if (view === 'genres') {
+    return (
+      <GenreGrid
+        totalTracks={initialTotal}
+        onBrowseAll={handleBrowseAll}
+        onPlayAll={() => fetchAndPlay('', true)}
+        onBrowseGenre={handleBrowseGenre}
+        onPlayGenre={(g) => fetchAndPlay(g, true)}
+      />
+    )
+  }
+
+  return (
+    <TrackBrowser
+      key={selectedGenre}
+      initialTracks={browserTracks}
+      initialTotal={browserTotal}
+      genre={selectedGenre}
+      onBack={handleBack}
+    />
   )
 }
 
@@ -176,7 +414,7 @@ function PackCard({ pack }: { pack: SamplePack }) {
           // eslint-disable-next-line @next/next/no-img-element
           <img src={pack.cover_url} alt={pack.title} className="w-full h-full object-cover" />
         ) : (
-          <span className="text-5xl">📦</span>
+          <span className="text-5xl select-none">📦</span>
         )}
       </div>
       <div className="p-5">
@@ -189,7 +427,7 @@ function PackCard({ pack }: { pack: SamplePack }) {
           href={pack.external_url}
           target="_blank"
           rel="noopener noreferrer"
-          className="mt-4 flex w-full items-center justify-center rounded-md bg-(--color-accent) py-2 text-xs font-semibold tracking-wide text-(--color-background) hover:bg-(--color-accent-dark) transition-colors"
+          className="mt-4 flex w-full items-center justify-center rounded-md bg-(--color-accent) py-2 text-xs font-semibold tracking-wide text-(--color-background) hover:opacity-90 transition-opacity"
         >
           Get on SampleMonsta
         </Link>
@@ -291,7 +529,7 @@ export function ProductsTabs({ initialInstrumentals, initialTotal, packs, plugin
               {label}
               {count > 0 && (
                 <span className={`ml-2 text-xs ${active === id ? 'text-(--color-accent)' : 'text-(--color-border)'}`}>
-                  {count}
+                  {count.toLocaleString()}
                 </span>
               )}
               {active === id && (
