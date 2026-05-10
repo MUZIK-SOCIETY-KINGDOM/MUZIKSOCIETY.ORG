@@ -6,6 +6,8 @@ import { Footer } from '@/components/footer'
 import { AmbientBackground } from '@/components/ambient-background'
 import { PlayerProvider } from '@/contexts/player-context'
 import { BottomPlayer } from '@/components/bottom-player'
+import { PromoPopup } from '@/components/promo-popup'
+import { WhatsAppButton } from '@/components/whatsapp-button'
 
 const inter = Inter({ subsets: ['latin'], variable: '--font-inter' })
 
@@ -34,6 +36,8 @@ export default function RootLayout({
           <main className="pt-16 page-enter">{children}</main>
           <Footer />
           <BottomPlayer />
+          <WhatsAppButton />
+          <PromoPopup />
         </PlayerProvider>
       </body>
     </html>

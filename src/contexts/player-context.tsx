@@ -17,6 +17,8 @@ interface PlayerContextValue {
   progress: number
   duration: number
   shuffle: boolean
+  audioLoading: boolean
+  playCount: number
   playTrack: (track: Instrumental, queue?: Instrumental[]) => void
   togglePlay: () => void
   next: () => void
@@ -42,15 +44,54 @@ function pickRandom(length: number, exclude: number): number {
 
 export function PlayerProvider({ children }: { children: React.ReactNode }) {
   const audioRef = useRef<HTMLAudioElement | null>(null)
+  const blobUrlRef = useRef<string | null>(null)
+  const abortRef = useRef<AbortController | null>(null)
+  const currentIndexRef = useRef(-1)
+  const shuffleRef = useRef(false)
+
   const [currentTrack, setCurrentTrack] = useState<Instrumental | null>(null)
   const [queue, setQueue] = useState<Instrumental[]>([])
   const [playing, setPlaying] = useState(false)
   const [progress, setProgress] = useState(0)
   const [duration, setDuration] = useState(0)
   const [shuffle, setShuffle] = useState(false)
+  const [audioLoading, setAudioLoading] = useState(false)
+  const [playCount, setPlayCount] = useState(0)
 
-  const currentIndexRef = useRef(-1)
-  const shuffleRef = useRef(false)
+  // Fetch audio as a blob so no raw URL is visible in DevTools after load
+  const loadAndPlay = useCallback(async (audio: HTMLAudioElement, url: string) => {
+    abortRef.current?.abort()
+    const controller = new AbortController()
+    abortRef.current = controller
+
+    audio.pause()
+    audio.src = ''
+    setAudioLoading(true)
+
+    try {
+      const res = await fetch(url, { signal: controller.signal })
+      if (!res.ok) throw new Error('fetch failed')
+      const blob = await res.blob()
+      if (controller.signal.aborted) return
+
+      if (blobUrlRef.current) URL.revokeObjectURL(blobUrlRef.current)
+      const objectUrl = URL.createObjectURL(blob)
+      blobUrlRef.current = objectUrl
+      audio.src = objectUrl
+      setAudioLoading(false)
+      audio.play().catch(() => {})
+    } catch (e) {
+      if ((e as Error).name === 'AbortError') return
+      // Fallback: direct URL
+      audio.src = url
+      setAudioLoading(false)
+      audio.play().catch(() => {})
+    }
+  }, [])
+
+  // Keep a stable ref so onEnded (created once) always calls the latest version
+  const loadAndPlayRef = useRef(loadAndPlay)
+  useEffect(() => { loadAndPlayRef.current = loadAndPlay }, [loadAndPlay])
 
   const toggleShuffle = useCallback(() => {
     setShuffle((s) => {
@@ -61,7 +102,7 @@ export function PlayerProvider({ children }: { children: React.ReactNode }) {
 
   useEffect(() => {
     const audio = new Audio()
-    audio.preload = 'metadata'
+    audio.preload = 'none'
     audioRef.current = audio
 
     const onTimeUpdate = () => {
@@ -83,8 +124,9 @@ export function PlayerProvider({ children }: { children: React.ReactNode }) {
         const next = q[nextIdx]
         currentIndexRef.current = nextIdx
         setCurrentTrack(next)
-        audio.src = next.preview_url ?? ''
-        audio.play().catch(() => {})
+        setProgress(0)
+        setPlayCount((c) => c + 1)
+        loadAndPlayRef.current(audio, next.preview_url ?? '')
         setPlaying(true)
         return q
       })
@@ -105,25 +147,25 @@ export function PlayerProvider({ children }: { children: React.ReactNode }) {
       audio.removeEventListener('ended', onEnded)
       audio.removeEventListener('play', onPlay)
       audio.removeEventListener('pause', onPause)
+      if (blobUrlRef.current) URL.revokeObjectURL(blobUrlRef.current)
+      abortRef.current?.abort()
     }
   }, [])
 
   const playTrack = useCallback((track: Instrumental, newQueue?: Instrumental[]) => {
     const audio = audioRef.current
     if (!audio) return
-
     const q = newQueue ?? queue
     if (newQueue) setQueue(newQueue)
-
     const idx = q.findIndex((t) => t.id === track.id)
     currentIndexRef.current = idx
-
     setCurrentTrack(track)
     setProgress(0)
-    audio.src = track.preview_url ?? ''
-    audio.play().catch(() => {})
+    setDuration(0)
+    setPlayCount((c) => c + 1)
+    loadAndPlay(audio, track.preview_url ?? '')
     setPlaying(true)
-  }, [queue])
+  }, [queue, loadAndPlay])
 
   const togglePlay = useCallback(() => {
     const audio = audioRef.current
@@ -149,10 +191,11 @@ export function PlayerProvider({ children }: { children: React.ReactNode }) {
     currentIndexRef.current = nextIdx
     setCurrentTrack(track)
     setProgress(0)
-    audio.src = track.preview_url ?? ''
-    audio.play().catch(() => {})
+    setDuration(0)
+    setPlayCount((c) => c + 1)
+    loadAndPlay(audio, track.preview_url ?? '')
     setPlaying(true)
-  }, [queue])
+  }, [queue, loadAndPlay])
 
   const prev = useCallback(() => {
     const audio = audioRef.current
@@ -167,10 +210,10 @@ export function PlayerProvider({ children }: { children: React.ReactNode }) {
     currentIndexRef.current = prevIdx
     setCurrentTrack(track)
     setProgress(0)
-    audio.src = track.preview_url ?? ''
-    audio.play().catch(() => {})
+    setDuration(0)
+    loadAndPlay(audio, track.preview_url ?? '')
     setPlaying(true)
-  }, [queue])
+  }, [queue, loadAndPlay])
 
   const seek = useCallback((pct: number) => {
     const audio = audioRef.current
@@ -180,7 +223,11 @@ export function PlayerProvider({ children }: { children: React.ReactNode }) {
 
   return (
     <PlayerContext.Provider
-      value={{ currentTrack, queue, playing, progress, duration, shuffle, playTrack, togglePlay, next, prev, seek, toggleShuffle }}
+      value={{
+        currentTrack, queue, playing, progress, duration,
+        shuffle, audioLoading, playCount,
+        playTrack, togglePlay, next, prev, seek, toggleShuffle,
+      }}
     >
       {children}
     </PlayerContext.Provider>

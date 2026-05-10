@@ -10,7 +10,7 @@ function fmt(secs: number): string {
 }
 
 export function BottomPlayer() {
-  const { currentTrack, playing, progress, duration, shuffle, togglePlay, next, prev, seek, toggleShuffle } = usePlayer()
+  const { currentTrack, playing, progress, duration, shuffle, audioLoading, togglePlay, next, prev, seek, toggleShuffle } = usePlayer()
 
   if (!currentTrack) return null
 
@@ -89,10 +89,15 @@ export function BottomPlayer() {
           <button
             type="button"
             onClick={togglePlay}
-            className="flex h-10 w-10 items-center justify-center rounded-full bg-(--color-accent) text-(--color-background) hover:opacity-90 transition-opacity"
-            aria-label={playing ? 'Pause' : 'Play'}
+            disabled={audioLoading}
+            className="flex h-10 w-10 items-center justify-center rounded-full bg-(--color-accent) text-(--color-background) hover:opacity-90 transition-opacity disabled:opacity-70"
+            aria-label={audioLoading ? 'Loading' : playing ? 'Pause' : 'Play'}
           >
-            {playing ? (
+            {audioLoading ? (
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" className="animate-spin">
+                <path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83" strokeLinecap="round"/>
+              </svg>
+            ) : playing ? (
               <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
                 <path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z" />
               </svg>
