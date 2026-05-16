@@ -1,4 +1,3 @@
-import Link from 'next/link'
 import { AudioPlayer } from '@/components/audio-player'
 import type { Instrumental } from '@/lib/types'
 
@@ -45,15 +44,6 @@ export function BeatCard({ beat }: BeatCardProps) {
         </div>
 
         {beat.preview_url && <AudioPlayer src={beat.preview_url} />}
-
-        <Link
-          href={beat.external_url}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="mt-4 flex w-full items-center justify-center rounded-md bg-(--color-accent) py-2 text-xs font-semibold tracking-wide text-(--color-background) hover:bg-(--color-accent-dark) transition-colors"
-        >
-          Buy on SampleMonsta
-        </Link>
       </div>
     </div>
   )

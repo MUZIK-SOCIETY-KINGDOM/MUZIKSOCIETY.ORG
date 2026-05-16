@@ -6,11 +6,13 @@ const mockBeat: Instrumental = {
   id: '1',
   title: 'Dark Vibes',
   genre: 'Trap',
+  subgenre: null,
+  mood: null,
   bpm: 140,
   key: 'Am',
   cover_url: null,
   preview_url: null,
-  external_url: 'https://samplemonsta.com/dark-vibes',
+  external_url: null,
   published: true,
   created_at: '2026-01-01T00:00:00Z',
 }
@@ -27,10 +29,8 @@ describe('BeatCard', () => {
     expect(screen.getByText('140 BPM')).toBeInTheDocument()
   })
 
-  it('renders a link to the external URL', () => {
+  it('does not render an audio player when preview_url is null', () => {
     render(<BeatCard beat={mockBeat} />)
-    const link = screen.getByRole('link', { name: /buy on samplemonsta/i })
-    expect(link).toHaveAttribute('href', 'https://samplemonsta.com/dark-vibes')
-    expect(link).toHaveAttribute('target', '_blank')
+    expect(screen.queryByRole('slider')).not.toBeInTheDocument()
   })
 })

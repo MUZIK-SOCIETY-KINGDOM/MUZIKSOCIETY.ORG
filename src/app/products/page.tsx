@@ -1,7 +1,7 @@
 import type { Metadata } from 'next'
 import { getSamplePacks, getTools } from '@/lib/queries'
 import { createClient } from '@/lib/supabase/server'
-import { fixDriveUrl, getAudioProxyUrl } from '@/lib/utils'
+import { getSignedAudioProxyUrl } from '@/lib/audio-token'
 import { ProductsTabs } from '@/components/products-tabs'
 import type { Instrumental } from '@/lib/types'
 
@@ -31,8 +31,8 @@ export default async function ProductsPage() {
 
   const fixedInstrumentals = (initialInstrumentals ?? []).map((row) => ({
     ...row,
-    preview_url: getAudioProxyUrl(row.preview_url),
-    external_url: fixDriveUrl(row.external_url),
+    preview_url: getSignedAudioProxyUrl(row.preview_url),
+    external_url: null,
   })) as Instrumental[]
 
   return (

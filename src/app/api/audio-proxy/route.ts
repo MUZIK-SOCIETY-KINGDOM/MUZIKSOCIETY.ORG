@@ -1,10 +1,9 @@
 import { NextRequest, NextResponse } from 'next/server'
+import { verifyAudioToken } from '@/lib/audio-token'
 
 export const runtime = 'nodejs'
 export const dynamic = 'force-dynamic'
 
-// In-memory rate limiter — resets on cold starts but provides per-instance protection.
-// For shared limits across all Vercel instances, swap for Upstash Redis.
 const ipWindow = new Map<string, { count: number; reset: number }>()
 const LIMIT = 30
 const WINDOW_MS = 60_000
@@ -22,10 +21,15 @@ function isRateLimited(ip: string): boolean {
 }
 
 export async function GET(req: NextRequest) {
-  const id = req.nextUrl.searchParams.get('id')
+  const token = req.nextUrl.searchParams.get('t')
 
-  if (!id || !/^[A-Za-z0-9_-]+$/.test(id)) {
+  if (!token) {
     return new NextResponse('Bad request', { status: 400 })
+  }
+
+  const id = verifyAudioToken(token)
+  if (!id) {
+    return new NextResponse('Forbidden', { status: 403 })
   }
 
   const ip =
@@ -54,7 +58,7 @@ export async function GET(req: NextRequest) {
   }
   headers.set('cross-origin-resource-policy', 'cross-origin')
   headers.set('access-control-allow-origin', '*')
-  headers.set('cache-control', 'public, max-age=3600')
+  headers.set('cache-control', 'private, no-store')
 
   return new NextResponse(upstream.body, { status: upstream.status, headers })
 }

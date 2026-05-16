@@ -8,7 +8,7 @@ export type Instrumental = {
   key: string | null
   cover_url: string | null
   preview_url: string | null
-  external_url: string
+  external_url: string | null
   published: boolean
   created_at: string
 }

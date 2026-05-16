@@ -1,5 +1,5 @@
 import { createClient } from '@/lib/supabase/server'
-import { fixDriveUrl, getAudioProxyUrl } from '@/lib/utils'
+import { getSignedAudioProxyUrl } from '@/lib/audio-token'
 import { NextResponse } from 'next/server'
 
 export const dynamic = 'force-dynamic'
@@ -33,8 +33,8 @@ export async function GET(request: Request) {
 
   const rows = (data ?? []).map((row) => ({
     ...row,
-    preview_url: getAudioProxyUrl(row.preview_url),
-    external_url: fixDriveUrl(row.external_url),
+    preview_url: getSignedAudioProxyUrl(row.preview_url),
+    external_url: null,
   }))
 
   return NextResponse.json({
