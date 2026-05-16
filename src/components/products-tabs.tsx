@@ -36,7 +36,7 @@ const GENRE_COUNTS: Record<GenreKey, number> = {
 
 const GENRES = Object.keys(GENRE_CONFIG) as GenreKey[]
 
-const PAGE_SIZE = 50
+const PAGE_SIZE = 25
 
 // ── Track row ─────────────────────────────────────────────────────────────────
 
@@ -197,7 +197,7 @@ function TrackBrowser({
   genre: GenreKey | ''
   onBack: () => void
 }) {
-  const { currentTrack, playing, playTrack, shuffle, toggleShuffle } = usePlayer()
+  const { currentTrack, playTrack, shuffle, toggleShuffle } = usePlayer()
   const [tracks, setTracks] = useState<Instrumental[]>(initialTracks)
   const [total, setTotal] = useState(initialTotal)
   const [page, setPage] = useState(1)
@@ -206,8 +206,10 @@ function TrackBrowser({
   const [debouncedSearch, setDebouncedSearch] = useState('')
   const debounceRef = useRef<ReturnType<typeof setTimeout> | null>(null)
   const isFirstRender = useRef(true)
+  const listRef = useRef<HTMLDivElement>(null)
 
   const cfg = genre ? GENRE_CONFIG[genre] : null
+  const totalPages = Math.ceil(total / PAGE_SIZE)
 
   useEffect(() => {
     if (debounceRef.current) clearTimeout(debounceRef.current)
@@ -215,7 +217,7 @@ function TrackBrowser({
     return () => { if (debounceRef.current) clearTimeout(debounceRef.current) }
   }, [search])
 
-  const fetchTracks = useCallback(async (nextPage: number, append: boolean) => {
+  const fetchTracks = useCallback(async (nextPage: number) => {
     setLoading(true)
     const params = new URLSearchParams({ page: String(nextPage), limit: String(PAGE_SIZE) })
     if (genre) params.set('genre', genre)
@@ -223,26 +225,25 @@ function TrackBrowser({
     try {
       const res = await fetch(`/api/instrumentals?${params}`)
       const json = await res.json()
-      setTracks((prev) => append ? [...prev, ...json.data] : json.data)
+      setTracks(json.data)
       setTotal(json.total)
       setPage(nextPage)
+      listRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' })
     } finally {
       setLoading(false)
     }
   }, [genre, debouncedSearch])
 
-  // Re-fetch on filter change, but skip on mount (use initialTracks)
   useEffect(() => {
     if (isFirstRender.current) { isFirstRender.current = false; return }
-    fetchTracks(1, false)
+    fetchTracks(1)
   }, [debouncedSearch]) // eslint-disable-line react-hooks/exhaustive-deps
 
-  // Fetch when genre changes (new browser opened)
   useEffect(() => {
     isFirstRender.current = true
     setSearch('')
     setDebouncedSearch('')
-    fetchTracks(1, false)
+    fetchTracks(1)
   }, [genre]) // eslint-disable-line react-hooks/exhaustive-deps
 
   const handleShufflePlay = () => {
@@ -252,10 +253,8 @@ function TrackBrowser({
     playTrack(tracks[idx], tracks)
   }
 
-  const hasMore = tracks.length < total
-
   return (
-    <div>
+    <div ref={listRef}>
       {/* Breadcrumb */}
       <div className="mb-6 flex items-center gap-3 flex-wrap">
         <button
@@ -304,7 +303,13 @@ function TrackBrowser({
       </div>
 
       {/* Track list */}
-      {tracks.length === 0 && !loading ? (
+      {loading ? (
+        <div className="flex flex-col gap-2">
+          {Array.from({ length: PAGE_SIZE }).map((_, i) => (
+            <div key={i} className="h-[62px] rounded-xl border border-(--color-border) bg-(--color-surface) animate-pulse" />
+          ))}
+        </div>
+      ) : tracks.length === 0 ? (
         <p className="py-12 text-center text-sm text-(--color-muted)">No tracks found.</p>
       ) : (
         <div className="flex flex-col gap-2">
@@ -319,20 +324,35 @@ function TrackBrowser({
         </div>
       )}
 
-      {loading && (
-        <div className="mt-6 flex justify-center">
-          <span className="text-xs text-(--color-muted)">Loading...</span>
+      {/* Pagination */}
+      {totalPages > 1 && (
+        <div className="mt-6 flex items-center justify-between gap-3">
+          <button
+            type="button"
+            disabled={page <= 1 || loading}
+            onClick={() => fetchTracks(page - 1)}
+            className="flex items-center gap-1.5 rounded-lg border border-(--color-border) px-4 py-2.5 text-sm text-(--color-muted) transition-colors hover:border-(--color-muted) hover:text-(--color-foreground) disabled:pointer-events-none disabled:opacity-30"
+          >
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+              <path d="m15 18-6-6 6-6" />
+            </svg>
+            Prev
+          </button>
+          <span className="text-xs text-(--color-muted)">
+            {page} / {totalPages}
+          </span>
+          <button
+            type="button"
+            disabled={page >= totalPages || loading}
+            onClick={() => fetchTracks(page + 1)}
+            className="flex items-center gap-1.5 rounded-lg border border-(--color-border) px-4 py-2.5 text-sm text-(--color-muted) transition-colors hover:border-(--color-muted) hover:text-(--color-foreground) disabled:pointer-events-none disabled:opacity-30"
+          >
+            Next
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+              <path d="m9 18 6-6-6-6" />
+            </svg>
+          </button>
         </div>
-      )}
-
-      {hasMore && !loading && (
-        <button
-          type="button"
-          onClick={() => fetchTracks(page + 1, true)}
-          className="mt-6 w-full rounded-xl border border-(--color-border) py-3 text-sm text-(--color-muted) hover:border-(--color-muted) hover:text-(--color-foreground) transition-colors"
-        >
-          Load more ({(total - tracks.length).toLocaleString()} remaining)
-        </button>
       )}
     </div>
   )
