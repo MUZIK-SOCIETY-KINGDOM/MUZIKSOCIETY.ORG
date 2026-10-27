@@ -136,28 +136,6 @@ function ServiceBlock({ s, color, tools }: { s: Service; color: string; tools: s
             </div>
           </div>
         )}
-        {s.brandkits && s.brandkits.length > 0 && (
-          <div>
-            <Label>Manuales de marca que hemos hecho</Label>
-            <div className="grid grid-cols-2 gap-3 sm:grid-cols-3">
-              {s.brandkits.map((b) => (
-                <a key={b.pdf} href={b.pdf} target="_blank" rel="noopener noreferrer" className="group block">
-                  <Image
-                    src={b.cover}
-                    alt={`Manual de marca de ${b.name}`}
-                    width={480}
-                    height={620}
-                    className="aspect-[17/22] w-full rounded-md border object-cover transition-opacity group-hover:opacity-80"
-                    style={{ borderColor: color }}
-                  />
-                  <p className="mt-1 text-xs text-(--color-muted)">
-                    {b.name} · <span style={{ color }}>Ver PDF</span>
-                  </p>
-                </a>
-              ))}
-            </div>
-          </div>
-        )}
         <div className="flex flex-col gap-4 border-t pt-5 sm:flex-row sm:items-center sm:justify-between" style={{ borderColor: color }}>
           <div>
             <p className="text-sm font-semibold text-(--color-foreground)">Cotización a la medida</p>
@@ -203,6 +181,12 @@ export default function ServicesPage() {
         >
           Descargar catálogo (PDF)
         </a>
+        <a
+          href="#marcas"
+          className="rounded-md border border-(--color-accent) px-4 py-2 text-xs tracking-wider text-(--color-accent) uppercase transition-colors hover:text-(--color-foreground)"
+        >
+          Manuales de marca
+        </a>
         {catalog.categories.map((c) => (
           <a
             key={c.key}
@@ -227,6 +211,31 @@ export default function ServicesPage() {
                 <ServiceBlock key={s.code} s={s} color={c.color} tools={c.tools} />
               ))}
           </div>
+          {services
+            .filter((s) => s.cat === c.key && s.brandkits && s.brandkits.length > 0)
+            .map((s) => (
+              <div key={`bk-${s.code}`} id="marcas" className="mt-8 scroll-mt-24">
+                <h3 className="text-lg font-semibold text-(--color-foreground)">Manuales de marca que hemos hecho</h3>
+                <p className="mt-1 text-sm text-(--color-muted)">Identidad completa para artistas del estudio. Toca una portada para ver el PDF.</p>
+                <div className="mt-4 grid grid-cols-2 gap-4 sm:grid-cols-3">
+                  {s.brandkits!.map((b) => (
+                    <a key={b.pdf} href={b.pdf} target="_blank" rel="noopener noreferrer" className="block transition-opacity hover:opacity-80">
+                      <Image
+                        src={b.cover}
+                        alt={`Manual de marca de ${b.name}`}
+                        width={480}
+                        height={620}
+                        className="aspect-[17/22] w-full rounded-md border object-cover"
+                        style={{ borderColor: c.color }}
+                      />
+                      <p className="mt-2 text-sm text-(--color-foreground)">
+                        {b.name} · <span style={{ color: c.color }}>Ver PDF</span>
+                      </p>
+                    </a>
+                  ))}
+                </div>
+              </div>
+            ))}
         </section>
       ))}
 
