@@ -60,7 +60,7 @@ function ServiceBlock({ s, color, tools }: { s: Service; color: string; tools: s
   return (
     <details
       id={s.code.toLowerCase()}
-      className="group rounded-lg border border-(--color-border) bg-(--color-surface) open:border-(--c)"
+      className="group scroll-mt-24 rounded-lg border border-(--color-border) bg-(--color-surface) open:border-(--c)"
       style={{ '--c': color } as React.CSSProperties}
     >
       <summary className="flex cursor-pointer list-none items-start gap-4 p-6 [&::-webkit-details-marker]:hidden">
@@ -181,6 +181,33 @@ export default function ServicesPage() {
         inglés. En música, los splits se acuerdan por escrito desde el inicio.
       </p>
 
+      <OpenOnHash />
+      <div className="mt-8">
+        <p className="mb-3 text-xs tracking-[0.18em] text-(--color-muted) uppercase">Trabajo reciente</p>
+        <div className="-mx-4 flex snap-x gap-4 overflow-x-auto px-4 pb-2">
+          {showcase.map((m) => (
+            <a
+              key={m.src}
+              href={m.href}
+              className="group shrink-0 snap-start"
+            >
+              <Image
+                src={m.src}
+                alt={m.label}
+                width={m.w}
+                height={m.h}
+                className="h-44 w-auto rounded-md border object-cover transition-opacity group-hover:opacity-80 sm:h-56"
+                style={{ borderColor: m.color }}
+              />
+              <p className="mt-2 text-sm text-(--color-foreground)">{m.label}</p>
+              <p className="text-xs" style={{ color: m.color }}>
+                {m.kind} →
+              </p>
+            </a>
+          ))}
+        </div>
+      </div>
+
       <div className="mt-8 flex flex-wrap items-center gap-3">
         <a
           href={PDF}
@@ -205,33 +232,6 @@ export default function ServicesPage() {
             {c.name}
           </a>
         ))}
-      </div>
-
-      <OpenOnHash />
-      <div className="mt-12">
-        <p className="mb-3 text-xs tracking-[0.18em] text-(--color-muted) uppercase">Trabajo reciente</p>
-        <div className="-mx-4 flex snap-x gap-4 overflow-x-auto px-4 pb-2">
-          {showcase.map((m) => (
-            <a
-              key={m.src}
-              href={m.href}
-              className="group shrink-0 snap-start"
-            >
-              <Image
-                src={m.src}
-                alt={m.label}
-                width={m.w}
-                height={m.h}
-                className="h-44 w-auto rounded-md border object-cover transition-opacity group-hover:opacity-80 sm:h-56"
-                style={{ borderColor: m.color }}
-              />
-              <p className="mt-2 text-sm text-(--color-foreground)">{m.label}</p>
-              <p className="text-xs" style={{ color: m.color }}>
-                {m.kind} →
-              </p>
-            </a>
-          ))}
-        </div>
       </div>
 
       {catalog.categories.map((c) => (
