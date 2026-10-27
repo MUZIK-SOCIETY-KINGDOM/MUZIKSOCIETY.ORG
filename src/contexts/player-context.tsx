@@ -44,8 +44,7 @@ function pickRandom(length: number, exclude: number): number {
 
 export function PlayerProvider({ children }: { children: React.ReactNode }) {
   const audioRef = useRef<HTMLAudioElement | null>(null)
-  const blobUrlRef = useRef<string | null>(null)
-  const abortRef = useRef<AbortController | null>(null)
+  const preloadRef = useRef<HTMLAudioElement | null>(null)
   const currentIndexRef = useRef(-1)
   const shuffleRef = useRef(false)
 
@@ -58,35 +57,14 @@ export function PlayerProvider({ children }: { children: React.ReactNode }) {
   const [audioLoading, setAudioLoading] = useState(false)
   const [playCount, setPlayCount] = useState(0)
 
-  // Fetch audio as a blob so no raw URL is visible in DevTools after load
-  const loadAndPlay = useCallback(async (audio: HTMLAudioElement, url: string) => {
-    abortRef.current?.abort()
-    const controller = new AbortController()
-    abortRef.current = controller
-
+  // Stream straight from the proxy: playback starts after the first chunk
+  // (Range requests) instead of waiting for the whole file to download
+  const loadAndPlay = useCallback((audio: HTMLAudioElement, url: string) => {
+    if (!url) return
     audio.pause()
-    audio.src = ''
     setAudioLoading(true)
-
-    try {
-      const res = await fetch(url, { signal: controller.signal })
-      if (!res.ok) throw new Error('fetch failed')
-      const blob = await res.blob()
-      if (controller.signal.aborted) return
-
-      if (blobUrlRef.current) URL.revokeObjectURL(blobUrlRef.current)
-      const objectUrl = URL.createObjectURL(blob)
-      blobUrlRef.current = objectUrl
-      audio.src = objectUrl
-      setAudioLoading(false)
-      audio.play().catch(() => {})
-    } catch (e) {
-      if ((e as Error).name === 'AbortError') return
-      // Fallback: direct URL
-      audio.src = url
-      setAudioLoading(false)
-      audio.play().catch(() => {})
-    }
+    audio.src = url
+    audio.play().catch(() => {})
   }, [])
 
   // Keep a stable ref so onEnded (created once) always calls the latest version
@@ -102,8 +80,14 @@ export function PlayerProvider({ children }: { children: React.ReactNode }) {
 
   useEffect(() => {
     const audio = new Audio()
-    audio.preload = 'none'
+    audio.preload = 'auto'
     audioRef.current = audio
+
+    // Hidden element that warms up the next track in the queue
+    const preloader = new Audio()
+    preloader.preload = 'auto'
+    preloader.muted = true
+    preloadRef.current = preloader
 
     const onTimeUpdate = () => {
       if (audio.duration) setProgress(audio.currentTime / audio.duration)
@@ -133,12 +117,16 @@ export function PlayerProvider({ children }: { children: React.ReactNode }) {
     }
     const onPlay = () => setPlaying(true)
     const onPause = () => setPlaying(false)
+    const onReady = () => setAudioLoading(false)
 
     audio.addEventListener('timeupdate', onTimeUpdate)
     audio.addEventListener('durationchange', onDurationChange)
     audio.addEventListener('ended', onEnded)
     audio.addEventListener('play', onPlay)
     audio.addEventListener('pause', onPause)
+    audio.addEventListener('playing', onReady)
+    audio.addEventListener('canplay', onReady)
+    audio.addEventListener('error', onReady)
 
     return () => {
       audio.pause()
@@ -147,10 +135,25 @@ export function PlayerProvider({ children }: { children: React.ReactNode }) {
       audio.removeEventListener('ended', onEnded)
       audio.removeEventListener('play', onPlay)
       audio.removeEventListener('pause', onPause)
-      if (blobUrlRef.current) URL.revokeObjectURL(blobUrlRef.current)
-      abortRef.current?.abort()
+      audio.removeEventListener('playing', onReady)
+      audio.removeEventListener('canplay', onReady)
+      audio.removeEventListener('error', onReady)
+      preloader.src = ''
     }
   }, [])
+
+  // Preload the next track in order so skipping or auto-advance starts fast
+  useEffect(() => {
+    const preloader = preloadRef.current
+    if (!preloader || !currentTrack || shuffle) return
+    const idx = queue.findIndex((t) => t.id === currentTrack.id)
+    const nextUrl = idx >= 0 ? queue[idx + 1]?.preview_url : null
+    if (!nextUrl) return
+    const timer = setTimeout(() => {
+      if (preloader.src !== new URL(nextUrl, location.href).href) preloader.src = nextUrl
+    }, 3000)
+    return () => clearTimeout(timer)
+  }, [currentTrack, queue, shuffle])
 
   const playTrack = useCallback((track: Instrumental, newQueue?: Instrumental[]) => {
     const audio = audioRef.current

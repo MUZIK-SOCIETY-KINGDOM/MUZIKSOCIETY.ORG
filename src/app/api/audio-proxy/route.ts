@@ -5,7 +5,7 @@ export const runtime = 'nodejs'
 export const dynamic = 'force-dynamic'
 
 const ipWindow = new Map<string, { count: number; reset: number }>()
-const LIMIT = 30
+const LIMIT = 120
 const WINDOW_MS = 60_000
 
 function isRateLimited(ip: string): boolean {
@@ -58,7 +58,8 @@ export async function GET(req: NextRequest) {
   }
   headers.set('cross-origin-resource-policy', 'cross-origin')
   headers.set('access-control-allow-origin', '*')
-  headers.set('cache-control', 'private, no-store')
+  // Token URLs are unique and expire in 15 min, so the browser may reuse them
+  headers.set('cache-control', 'private, max-age=900')
 
   return new NextResponse(upstream.body, { status: upstream.status, headers })
 }
