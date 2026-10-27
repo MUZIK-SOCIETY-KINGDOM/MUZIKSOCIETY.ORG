@@ -9,14 +9,14 @@ jest.mock('@/app/contact/actions', () => ({
 describe('ContactForm', () => {
   it('renders all form fields', () => {
     render(<ContactForm />)
-    expect(screen.getByLabelText(/name/i)).toBeInTheDocument()
+    expect(screen.getByLabelText(/nombre/i)).toBeInTheDocument()
     expect(screen.getByLabelText(/email/i)).toBeInTheDocument()
-    expect(screen.getByLabelText(/subject/i)).toBeInTheDocument()
-    expect(screen.getByLabelText(/message/i)).toBeInTheDocument()
+    expect(screen.getByLabelText(/asunto/i)).toBeInTheDocument()
+    expect(screen.getByLabelText(/mensaje/i)).toBeInTheDocument()
   })
 
   it('shows a submit button', () => {
     render(<ContactForm />)
-    expect(screen.getByRole('button', { name: /send message/i })).toBeInTheDocument()
+    expect(screen.getByRole('button', { name: /enviar mensaje/i })).toBeInTheDocument()
   })
 })

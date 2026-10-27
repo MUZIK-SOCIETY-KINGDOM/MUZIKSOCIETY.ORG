@@ -9,26 +9,26 @@ type TimelineItem = {
 }
 
 export const metadata: Metadata = {
-  title: 'About — MuzikSociety',
+  title: 'Sobre mí — MuzikSociety',
 }
 
 const timeline: TimelineItem[] = [
-  { year: '2004', event: 'Started producing — bedroom studio, no budget, full obsession.', image: '/about/IMG_3791.PNG' },
-  { year: '2008', event: 'First professional production participation. The standard was set.', image: '/about/IMG_3796.PNG' },
-  { year: '2010', event: 'MuzikSociety launches as a brand.', image: '/logo.png' },
-  { year: '2011', event: 'Opened first recording studio in Miami.', image: '/about/IMG_3801.PNG' },
-  { year: '2018', event: 'First international job — moved to Medellín, Colombia.', image: '/about/IMG_3800.PNG' },
-  { year: '2023', event: 'Opened studio in Medellín. Got into dev and AI — everything changed.', image: '/about/IMG_3790.PNG' },
-  { year: '2025', event: 'Shipped SampleMonsta — first software. Code is now part of the craft.', image: '/about/IMG_3794.PNG' },
-  { year: '2026', event: 'The next big mark is yours.' },
+  { year: '2004', event: 'Empecé a producir: estudio en el cuarto, sin presupuesto, pura obsesión.', image: '/about/IMG_3791.PNG' },
+  { year: '2008', event: 'Primera participación en una producción profesional. Ahí se fijó el estándar.', image: '/about/IMG_3796.PNG' },
+  { year: '2010', event: 'Nace MuzikSociety como marca.', image: '/logo.png' },
+  { year: '2011', event: 'Abrí mi primer estudio de grabación en Miami.', image: '/about/IMG_3801.PNG' },
+  { year: '2018', event: 'Primer trabajo internacional: me mudé a Medellín, Colombia.', image: '/about/IMG_3800.PNG' },
+  { year: '2023', event: 'Abrí estudio en Medellín. Entré al desarrollo y la IA, y todo cambió.', image: '/about/IMG_3790.PNG' },
+  { year: '2025', event: 'Lancé SampleMonsta, mi primer software. El código ya es parte del oficio.', image: '/about/IMG_3794.PNG' },
+  { year: '2026', event: 'Lancé Varia, Ruido e ILI. La próxima marca grande es la tuya.' },
 ]
 
 const skills = [
-  'Music Production', 'Mixing', 'Mastering', 'Audio Engineering',
-  'Sound Design', 'Graphic Design', 'Content Production',
-  'Artist Development', 'Music Education', 'Software Development',
-  'AI Integration', 'AI Agents', 'Pro Tools', 'FL Studio',
-  'TypeScript', 'Next.js', 'Python', 'C++', 'JUCE',
+  'Producción musical', 'Mezcla', 'Master', 'Ingeniería de audio',
+  'Diseño sonoro', 'Composición', 'Dirección vocal', 'Diseño gráfico',
+  'Producción de contenido', 'Desarrollo de artistas', 'Educación musical',
+  'Desarrollo de software', 'Integración de IA', 'Agentes de IA', 'Automatización',
+  'Pro Tools', 'FL Studio', 'TypeScript', 'Next.js', 'Python', 'C++', 'JUCE',
 ]
 
 export default function AboutPage() {
@@ -38,10 +38,10 @@ export default function AboutPage() {
       <FadeIn>
         <div className="mb-16">
           <p className="mb-3 text-xs font-semibold tracking-[0.25em] text-(--color-accent) uppercase">
-            About
+            Sobre mí
           </p>
           <h1 className="text-4xl font-extrabold tracking-tight text-(--color-foreground) md:text-6xl">
-            The Long Game.
+            El largo plazo.
           </h1>
         </div>
       </FadeIn>
@@ -50,22 +50,29 @@ export default function AboutPage() {
       <FadeIn delay={0.05}>
         <div className="mb-24 max-w-2xl flex flex-col gap-5">
           <p className="text-base text-(--color-muted) leading-relaxed">
-            Santi is a music producer, audio engineer, and artist development strategist based in Medellín, Colombia — specializing in urban genres and tropical urban fusions.
+            Soy Gabriel Santiago, Santi: productor, ingeniero de audio y desarrollador de software, radicado en Medellín, Colombia. Bilingüe, español e inglés. Me especializo en géneros urbanos y fusiones urbano-tropicales.
           </p>
           <p className="text-base text-(--color-muted) leading-relaxed">
-            His path started in a bedroom in 2004. First studio in 2011. In 2018, a Miami artist decided to relocate his entire project to Medellín — and Santi took the call. His first international job. He never left.
+            Más de 100 canciones publicadas, producidas, mezcladas y masterizadas para más de 60 artistas, incluidos 3 álbumes completos. Créditos con Nicky Jam, Ñengo Flow, Yaga &amp; Mackie, Kario &amp; Yaret, Jadiel, Guelo Star y Juno The Hitmaker. Sesiones en Miami Recording Studios, Criteria, Circle House, Midtown y Miami Beach Studios.
           </p>
           <p className="text-base text-(--color-muted) leading-relaxed">
-            What separates him from a producer or engineer you can find anywhere is that he doesn't just make records — he builds artists. His Artist Development work folds production, engineering, strategy, and creative direction into a single process. One person who sees the full picture: the sound, the identity, the audience, and the long game.
+            Empecé en un cuarto en 2004. Primer estudio en 2011, en Miami. En 2018 un artista de Miami decidió mudar todo su proyecto a Medellín y yo tomé la llamada. Fue mi primer trabajo internacional, y nunca me fui.
           </p>
           <p className="text-base text-(--color-muted) leading-relaxed">
-            His signature as a creator is sampling. Not as a shortcut — as a language. Morphing, flipping, reconstructing sound into something that never existed before. He calls himself a Living Breathing Sampling Monster, and he means it.
+            Lo que me separa de un productor o ingeniero que encuentras en cualquier lado es que no solo hago canciones: construyo artistas. Mi trabajo de desarrollo de artista junta producción, ingeniería, estrategia y dirección creativa en un solo proceso. Una persona que ve el cuadro completo: el sonido, la identidad, el público y el largo plazo.
           </p>
           <p className="text-base text-(--color-muted) leading-relaxed">
-            He believes creativity is the one true drug. Not for the high, but for what it demands: curiosity, discipline, exploration, and the kind of evolution that makes you genuinely better at being alive.
+            En tecnología, creé solo, de principio a fin, SampleMonsta: un plugin de audio con IA (C++/JUCE) que usan cerca de 10.000 productores, con su tienda, licencias y servidor. En 2026 lancé Varia, Ruido e ILI. Construyo sitios y plataformas como samplemonsta.com y vibradb.com, y los sistemas de IA y automatización con los que opero mi propio negocio.
+          </p>
+          <p className="text-base text-(--color-muted) leading-relaxed">
+            Mi firma como creador es el sampleo. No como atajo, sino como lenguaje: transformar, voltear y reconstruir el sonido hasta que sea algo que nunca existió. Me llamo a mí mismo un Living Breathing Sampling Monster, y lo digo en serio.
+          </p>
+          <p className="text-base italic text-(--color-foreground) leading-relaxed">
+            “Quiero que cada artista sea mejor artista con cada sesión que tiene conmigo.”
           </p>
           <p className="text-base text-(--color-foreground) leading-relaxed font-medium">
-            If you're building something that matters and you want someone who's been in the room, in the city, and in the craft since 2004 — you're in the right place.
+            Si estás construyendo algo que importa y quieres a alguien que ha estado en el cuarto, en la ciudad y en el oficio desde 2004, estás en el lugar correcto.{' '}
+            <a href="/services" className="text-(--color-accent) hover:underline">Mira lo que hago →</a>
           </p>
         </div>
       </FadeIn>
@@ -74,7 +81,7 @@ export default function AboutPage() {
       <FadeIn>
         <div className="mb-24">
           <h2 className="mb-10 text-lg font-bold tracking-tight text-(--color-foreground)">
-            Timeline
+            Trayectoria
           </h2>
           <div className="relative border-l border-(--color-border) pl-8 space-y-10">
             {timeline.map((item, i) => (
@@ -114,7 +121,7 @@ export default function AboutPage() {
       <FadeIn>
         <div>
           <h2 className="mb-6 text-lg font-bold tracking-tight text-(--color-foreground)">
-            Tools & Skills
+            Herramientas y habilidades
           </h2>
           <div className="flex flex-wrap gap-2">
             {skills.map((skill) => (

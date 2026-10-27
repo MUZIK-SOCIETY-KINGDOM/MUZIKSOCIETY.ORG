@@ -33,7 +33,7 @@ export function PackCard({ pack }: PackCardProps) {
           rel="noopener noreferrer"
           className="mt-4 flex w-full items-center justify-center rounded-md bg-(--color-accent) py-2 text-xs font-semibold tracking-wide text-(--color-background) hover:bg-(--color-accent-dark) transition-colors"
         >
-          Get it on SampleMonsta
+          Consíguelo en SampleMonsta
         </Link>
       </div>
     </div>

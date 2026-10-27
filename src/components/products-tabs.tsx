@@ -165,7 +165,7 @@ function GenreGrid({
           className="flex items-center gap-2 rounded-lg bg-(--color-accent) px-4 py-2 text-sm font-semibold text-(--color-background) hover:opacity-90 transition-opacity"
         >
           <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z" /></svg>
-          Shuffle All
+          Aleatorio
         </button>
       </div>
 
@@ -265,7 +265,7 @@ function TrackBrowser({
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
             <path d="m15 18-6-6 6-6" />
           </svg>
-          All Genres
+          Todos los géneros
         </button>
         {cfg && (
           <>
@@ -298,7 +298,7 @@ function TrackBrowser({
             <polyline points="16 3 21 3 21 8" /><line x1="4" y1="20" x2="21" y2="3" />
             <polyline points="21 16 21 21 16 21" /><line x1="15" y1="15" x2="21" y2="21" />
           </svg>
-          Shuffle
+          Aleatorio
         </button>
       </div>
 
@@ -310,7 +310,7 @@ function TrackBrowser({
           ))}
         </div>
       ) : tracks.length === 0 ? (
-        <p className="py-12 text-center text-sm text-(--color-muted)">No tracks found.</p>
+        <p className="py-12 text-center text-sm text-(--color-muted)">No se encontraron tracks.</p>
       ) : (
         <div className="flex flex-col gap-2">
           {tracks.map((beat) => (
@@ -336,7 +336,7 @@ function TrackBrowser({
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
               <path d="m15 18-6-6 6-6" />
             </svg>
-            Prev
+            Anterior
           </button>
           <span className="text-xs text-(--color-muted)">
             {page} / {totalPages}
@@ -347,7 +347,7 @@ function TrackBrowser({
             onClick={() => fetchTracks(page + 1)}
             className="flex items-center gap-1.5 rounded-lg border border-(--color-border) px-4 py-2.5 text-sm text-(--color-muted) transition-colors hover:border-(--color-muted) hover:text-(--color-foreground) disabled:pointer-events-none disabled:opacity-30"
           >
-            Next
+            Siguiente
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
               <path d="m9 18 6-6-6-6" />
             </svg>
@@ -449,7 +449,7 @@ function PackCard({ pack }: { pack: SamplePack }) {
           rel="noopener noreferrer"
           className="mt-4 flex w-full items-center justify-center rounded-md bg-(--color-accent) py-2 text-xs font-semibold tracking-wide text-(--color-background) hover:opacity-90 transition-opacity"
         >
-          Get on SampleMonsta
+          Consíguelo en SampleMonsta
         </Link>
       </div>
     </div>
@@ -521,7 +521,7 @@ function PluginCard({ tool }: { tool: Tool }) {
 // ── Main component ────────────────────────────────────────────────────────────
 
 const tabs: { id: Tab; label: string }[] = [
-  { id: 'instrumentals', label: 'Instrumentals' },
+  { id: 'instrumentals', label: 'Instrumentales' },
   { id: 'packs', label: 'Sample Packs' },
   { id: 'plugins', label: 'Plugins' },
 ]
@@ -566,7 +566,7 @@ export function ProductsTabs({ initialInstrumentals, initialTotal, packs, plugin
 
       {active === 'packs' && (
         packs.length === 0 ? (
-          <p className="text-sm text-(--color-muted)">No sample packs published yet.</p>
+          <p className="text-sm text-(--color-muted)">Todavía no hay sample packs publicados.</p>
         ) : (
           <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
             {packs.map((pack) => <PackCard key={pack.id} pack={pack} />)}
@@ -577,11 +577,11 @@ export function ProductsTabs({ initialInstrumentals, initialTotal, packs, plugin
       {active === 'plugins' && (
         <>
           <p className="text-sm text-(--color-muted) leading-relaxed mb-8 max-w-2xl">
-            Software built from real workflows. These are tools I use, built to solve problems I had —
-            available for other producers and developers to use and build on.
+            Software nacido de flujos de trabajo reales. Son herramientas que uso, hechas para resolver problemas que tuve,
+            disponibles para que otros productores y desarrolladores las usen y construyan sobre ellas.
           </p>
           {plugins.length === 0 ? (
-            <p className="text-sm text-(--color-muted)">No plugins published yet.</p>
+            <p className="text-sm text-(--color-muted)">Todavía no hay plugins publicados.</p>
           ) : (
             <div className="grid gap-5 sm:grid-cols-2">
               {plugins.map((tool) => <PluginCard key={tool.id} tool={tool} />)}

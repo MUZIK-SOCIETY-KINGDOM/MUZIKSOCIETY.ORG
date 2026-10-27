@@ -5,10 +5,10 @@ import Image from 'next/image'
 import { usePathname } from 'next/navigation'
 
 const links = [
-  { href: '/about', label: 'About' },
-  { href: '/services', label: 'Services' },
-  { href: '/products', label: 'Products' },
-  { href: '/portfolio', label: 'Portfolio' },
+  { href: '/about', label: 'Sobre mí' },
+  { href: '/services', label: 'Servicios' },
+  { href: '/products', label: 'Productos' },
+  { href: '/portfolio', label: 'Portafolio' },
   { href: '/blog', label: 'Blog' },
 ]
 
@@ -50,7 +50,7 @@ export function Nav() {
             href="/contact"
             className="rounded-md bg-(--color-accent) px-4 py-2 text-xs font-semibold tracking-wide text-(--color-background) hover:bg-(--color-accent-dark) transition-colors"
           >
-            Contact
+            Contacto
           </Link>
         </div>
       </nav>

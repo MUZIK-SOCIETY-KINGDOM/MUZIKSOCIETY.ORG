@@ -8,7 +8,7 @@ import type { Instrumental } from '@/lib/types'
 export const revalidate = 60
 
 export const metadata: Metadata = {
-  title: 'Products — MuzikSociety',
+  title: 'Productos — MuzikSociety',
 }
 
 export default async function ProductsPage() {
@@ -39,13 +39,13 @@ export default async function ProductsPage() {
     <div className="mx-auto max-w-6xl px-6 py-24 pb-32">
       <div className="mb-16">
         <p className="mb-3 text-xs font-semibold tracking-[0.25em] text-(--color-accent) uppercase">
-          Products
+          Productos
         </p>
         <h1 className="text-4xl font-extrabold tracking-tight text-(--color-foreground) md:text-6xl">
-          The Store.
+          La tienda.
         </h1>
         <p className="mt-4 text-sm text-(--color-muted)">
-          Beats, sample packs, and tools built for producers.
+          Beats, sample packs y herramientas hechas para productores.
         </p>
       </div>
 

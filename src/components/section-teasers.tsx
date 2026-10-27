@@ -15,38 +15,38 @@ import {
 const sections = [
   {
     href: '/instrumentals',
-    label: 'Instrumentals',
-    description: 'Original beats — listen, preview, buy.',
+    label: 'Instrumentales',
+    description: 'Beats originales: escucha, prueba y compra.',
     icon: Music2,
   },
   {
     href: '/sample-packs',
     label: 'Sample Packs',
-    description: 'Production-ready samples and loops.',
+    description: 'Samples y loops listos para producir.',
     icon: Layers,
   },
   {
     href: '/tools',
-    label: 'Tools',
-    description: 'Tools built for producers, engineers, and artists.',
+    label: 'Herramientas',
+    description: 'Herramientas para productores, ingenieros y artistas.',
     icon: Code2,
   },
   {
     href: '/portfolio',
-    label: 'Portfolio',
-    description: '20+ years of credits, sessions, and releases.',
+    label: 'Portafolio',
+    description: 'Más de 20 años de créditos, sesiones y lanzamientos.',
     icon: Award,
   },
   {
     href: '/services',
-    label: 'Services',
-    description: 'Production, mixing, mastering, and development.',
+    label: 'Servicios',
+    description: '34 servicios: música, educación, carrera, contenido y tecnología.',
     icon: Zap,
   },
   {
     href: '/blog',
     label: 'Blog',
-    description: 'Thoughts, process, and industry rambles.',
+    description: 'Ideas, proceso y la industria por dentro.',
     icon: BookOpen,
   },
 ]

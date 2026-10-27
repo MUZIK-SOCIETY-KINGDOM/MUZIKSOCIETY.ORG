@@ -12,12 +12,12 @@ import { WhatsAppButton } from '@/components/whatsapp-button'
 const inter = Inter({ subsets: ['latin'], variable: '--font-inter' })
 
 export const metadata: Metadata = {
-  title: 'MuzikSociety — Producer · Engineer · Developer',
+  title: 'MuzikSociety — Productor · Ingeniero · Desarrollador',
   description:
-    'Santi — Music Producer, Audio Engineer, and Developer with 20+ years in the industry.',
+    'Gabriel Santiago (Santi): productor, ingeniero de audio y desarrollador de software. Más de 20 años en la música, más de 100 canciones publicadas. Música, contenido y tecnología para artistas y negocios.',
   openGraph: {
     title: 'MuzikSociety',
-    description: 'Producer · Engineer · Developer',
+    description: 'Productor · Ingeniero · Desarrollador',
     url: 'https://muziksociety.org',
   },
 }
@@ -28,7 +28,7 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="en" className={inter.variable}>
+    <html lang="es" className={inter.variable}>
       <body>
         <PlayerProvider>
           <AmbientBackground />

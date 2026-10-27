@@ -15,7 +15,7 @@ export function Hero() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, ease, delay: 0.1 }}
         >
-          Producer · Engineer · Developer · Creator
+          Productor · Ingeniero · Desarrollador · Creador
         </motion.p>
 
         <motion.h1
@@ -24,9 +24,9 @@ export function Hero() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, ease, delay: 0.2 }}
         >
-          20+ Years.
+          Más de 20 años.
           <br />
-          <span className="text-(--color-muted)">One Standard.</span>
+          <span className="text-(--color-muted)">Un solo estándar.</span>
         </motion.h1>
 
         <motion.p
@@ -35,9 +35,9 @@ export function Hero() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, ease, delay: 0.35 }}
         >
-          Crafting sounds that move people.
+          Más de 100 canciones publicadas, créditos con Nicky Jam, Ñengo Flow y Yaga &amp; Mackie.
           <br />
-          Building tools that move industries.
+          Y el software que usan cerca de 10.000 productores.
         </motion.p>
 
         <motion.div
@@ -47,16 +47,16 @@ export function Hero() {
           transition={{ duration: 0.6, ease, delay: 0.5 }}
         >
           <Link
-            href="/contact"
+            href="/services"
             className="rounded-md bg-(--color-accent) px-6 py-3 text-sm font-semibold tracking-wide text-(--color-background) hover:bg-(--color-accent-dark) transition-colors"
           >
-            Book a Session
+            Ver servicios
           </Link>
           <Link
             href="/portfolio"
             className="rounded-md border border-(--color-border) px-6 py-3 text-sm font-semibold tracking-wide text-(--color-foreground) hover:border-(--color-muted) transition-colors"
           >
-            Browse Work
+            Ver portafolio
           </Link>
         </motion.div>
       </div>

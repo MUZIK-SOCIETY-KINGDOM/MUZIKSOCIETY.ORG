@@ -26,7 +26,7 @@ export function ContactForm() {
       form.reset()
     } else {
       setStatus('error')
-      setErrorMsg(result.error ?? 'Something went wrong.')
+      setErrorMsg(result.error ?? 'Algo salió mal. Intenta de nuevo o escríbeme por WhatsApp.')
     }
   }
 
@@ -43,7 +43,7 @@ export function ContactForm() {
     <form onSubmit={handleSubmit} className="space-y-6">
       <div>
         <label htmlFor="name" className="block text-xs font-semibold text-(--color-foreground) mb-2">
-          Name
+          Nombre
         </label>
         <input
           id="name"
@@ -51,7 +51,7 @@ export function ContactForm() {
           type="text"
           required
           className="w-full rounded-md border border-(--color-border) bg-(--color-surface) px-4 py-3 text-sm text-(--color-foreground) placeholder:text-(--color-muted) focus:border-(--color-accent) focus:outline-none transition-colors"
-          placeholder="Your name"
+          placeholder="Tu nombre"
         />
       </div>
 
@@ -65,28 +65,28 @@ export function ContactForm() {
           type="email"
           required
           className="w-full rounded-md border border-(--color-border) bg-(--color-surface) px-4 py-3 text-sm text-(--color-foreground) placeholder:text-(--color-muted) focus:border-(--color-accent) focus:outline-none transition-colors"
-          placeholder="your@email.com"
+          placeholder="tu@correo.com"
         />
       </div>
 
       <div>
         <label htmlFor="subject" className="block text-xs font-semibold text-(--color-foreground) mb-2">
-          Subject
+          Asunto
         </label>
         <select
           id="subject"
           name="subject"
           className="w-full rounded-md border border-(--color-border) bg-(--color-surface) px-4 py-3 text-sm text-(--color-foreground) focus:border-(--color-accent) focus:outline-none transition-colors"
         >
-          <option value="booking">Booking</option>
-          <option value="collab">Collaboration</option>
-          <option value="general">General Inquiry</option>
+          <option value="booking">Sesión</option>
+          <option value="collab">Colaboración</option>
+          <option value="general">Consulta general</option>
         </select>
       </div>
 
       <div>
         <label htmlFor="message" className="block text-xs font-semibold text-(--color-foreground) mb-2">
-          Message
+          Mensaje
         </label>
         <textarea
           id="message"
@@ -94,7 +94,7 @@ export function ContactForm() {
           required
           rows={6}
           className="w-full rounded-md border border-(--color-border) bg-(--color-surface) px-4 py-3 text-sm text-(--color-foreground) placeholder:text-(--color-muted) focus:border-(--color-accent) focus:outline-none transition-colors resize-none"
-          placeholder="Tell me about your project..."
+          placeholder="Cuéntame de tu proyecto..."
         />
       </div>
 
@@ -107,7 +107,7 @@ export function ContactForm() {
         disabled={status === 'loading'}
         className="w-full rounded-md bg-(--color-accent) py-3 text-sm font-semibold tracking-wide text-(--color-background) hover:bg-(--color-accent-dark) disabled:opacity-50 transition-colors"
       >
-        {status === 'loading' ? 'Sending…' : 'Send Message'}
+        {status === 'loading' ? 'Enviando…' : 'Enviar mensaje'}
       </button>
     </form>
   )

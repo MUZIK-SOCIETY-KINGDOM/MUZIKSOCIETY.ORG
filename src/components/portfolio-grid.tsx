@@ -42,7 +42,7 @@ export function PortfolioGrid({ entries }: PortfolioGridProps) {
 
       {/* Grid */}
       {filtered.length === 0 ? (
-        <p className="text-sm text-(--color-muted)">No entries in this category yet.</p>
+        <p className="text-sm text-(--color-muted)">Todavía no hay trabajos en esta categoría.</p>
       ) : (
         <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
           {filtered.map((entry) => (

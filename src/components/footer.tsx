@@ -19,17 +19,17 @@ export function Footer() {
                 MUZIKSOCIETY
               </p>
               <p className="mt-0.5 text-xs text-(--color-muted)">
-                Producer · Engineer · Developer · Creator
+                Productor · Ingeniero · Desarrollador · Creador
               </p>
             </div>
           </div>
           <div className="flex flex-wrap gap-6">
             {[
-              ['About', '/about'],
-              ['Services', '/services'],
-              ['Portfolio', '/portfolio'],
+              ['Sobre mí', '/about'],
+              ['Servicios', '/services'],
+              ['Portafolio', '/portfolio'],
               ['Blog', '/blog'],
-              ['Contact', '/contact'],
+              ['Contacto', '/contact'],
             ].map(([label, href]) => (
               <Link
                 key={href}
@@ -51,7 +51,7 @@ export function Footer() {
         </div>
         <div className="mt-8 border-t border-(--color-border) pt-8">
           <p className="text-xs text-(--color-muted)">
-            © {new Date().getFullYear()} MuzikSociety. All rights reserved.
+            © {new Date().getFullYear()} MuzikSociety. Todos los derechos reservados.
           </p>
         </div>
       </div>

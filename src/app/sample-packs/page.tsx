@@ -18,15 +18,15 @@ export default async function SamplePacksPage() {
           Sample Packs
         </p>
         <h1 className="text-4xl font-extrabold tracking-tight text-(--color-foreground) md:text-6xl">
-          The Arsenal.
+          El arsenal.
         </h1>
         <p className="mt-4 text-sm text-(--color-muted)">
-          Production-ready samples, loops, and kits. Available on SampleMonsta.
+          Samples, loops y kits listos para producir. Disponibles en SampleMonsta.
         </p>
       </div>
 
       {packs.length === 0 ? (
-        <p className="text-sm text-(--color-muted)">No packs yet — check back soon.</p>
+        <p className="text-sm text-(--color-muted)">Todavía no hay packs. Vuelve pronto.</p>
       ) : (
         <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
           {packs.map((pack) => (

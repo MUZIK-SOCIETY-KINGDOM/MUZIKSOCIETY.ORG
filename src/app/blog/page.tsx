@@ -18,12 +18,12 @@ export default async function BlogPage() {
           Blog
         </p>
         <h1 className="text-4xl font-extrabold tracking-tight text-(--color-foreground) md:text-6xl">
-          The Rambles.
+          Lo que pienso.
         </h1>
       </div>
 
       {posts.length === 0 ? (
-        <p className="text-sm text-(--color-muted)">No posts yet — come back soon.</p>
+        <p className="text-sm text-(--color-muted)">Todavía no hay publicaciones. Vuelve pronto.</p>
       ) : (
         <div className="space-y-4">
           {posts.map((post) => (
