@@ -2,6 +2,7 @@ import type { Metadata } from 'next'
 import Image from 'next/image'
 import catalog from '@/data/servicios.json'
 import OpenOnHash from './open-on-hash'
+import ShowcaseStrip from './showcase-strip'
 
 // Data comes from briefs/capabilities/build_catalogo_cliente.py (public mode), same source as the PDF.
 // Edit the catalog there and re-run `python build_catalogo_cliente.py public`; never edit the JSON by hand.
@@ -184,28 +185,7 @@ export default function ServicesPage() {
       <OpenOnHash />
       <div className="mt-8">
         <p className="mb-3 text-xs tracking-[0.18em] text-(--color-muted) uppercase">Trabajo reciente</p>
-        <div className="-mx-4 flex snap-x gap-4 overflow-x-auto px-4 pb-2">
-          {showcase.map((m) => (
-            <a
-              key={m.src}
-              href={m.href}
-              className="group shrink-0 snap-start"
-            >
-              <Image
-                src={m.src}
-                alt={m.label}
-                width={m.w}
-                height={m.h}
-                className="h-44 w-auto rounded-md border object-cover transition-opacity group-hover:opacity-80 sm:h-56"
-                style={{ borderColor: m.color }}
-              />
-              <p className="mt-2 text-sm text-(--color-foreground)">{m.label}</p>
-              <p className="text-xs" style={{ color: m.color }}>
-                {m.kind} →
-              </p>
-            </a>
-          ))}
-        </div>
+        <ShowcaseStrip items={showcase} />
       </div>
 
       <div className="mt-8 flex flex-wrap items-center gap-3">
