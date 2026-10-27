@@ -43,7 +43,7 @@ export default function ShowcaseStrip({ items }: { items: ShowcaseItem[] }) {
     <div className="relative -mx-4">
       <div
         ref={ref}
-        className="flex snap-x gap-4 overflow-x-auto px-4 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+        className="flex snap-x scroll-px-4 gap-4 overflow-x-auto px-4 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
         style={{ maskImage: mask, WebkitMaskImage: mask }}
       >
         {items.map((m) => (
