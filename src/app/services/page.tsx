@@ -23,6 +23,7 @@ type Service = {
   extra: Extra[]
   important?: string | null
   gallery: { src: string; caption: string }[]
+  brandkits?: { pdf: string; cover: string; name: string }[]
 }
 
 const WHATSAPP = 'https://wa.me/573006864470'
@@ -131,6 +132,28 @@ function ServiceBlock({ s, color, tools }: { s: Service; color: string; tools: s
                   />
                   <figcaption className="mt-1 text-xs text-(--color-muted)">{g.caption}</figcaption>
                 </figure>
+              ))}
+            </div>
+          </div>
+        )}
+        {s.brandkits && s.brandkits.length > 0 && (
+          <div>
+            <Label>Manuales de marca que hemos hecho</Label>
+            <div className="grid grid-cols-2 gap-3 sm:grid-cols-3">
+              {s.brandkits.map((b) => (
+                <a key={b.pdf} href={b.pdf} target="_blank" rel="noopener noreferrer" className="group block">
+                  <Image
+                    src={b.cover}
+                    alt={`Manual de marca de ${b.name}`}
+                    width={480}
+                    height={620}
+                    className="aspect-[17/22] w-full rounded-md border object-cover transition-opacity group-hover:opacity-80"
+                    style={{ borderColor: color }}
+                  />
+                  <p className="mt-1 text-xs text-(--color-muted)">
+                    {b.name} · <span style={{ color }}>Ver PDF</span>
+                  </p>
+                </a>
               ))}
             </div>
           </div>
