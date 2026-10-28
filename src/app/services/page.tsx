@@ -30,6 +30,14 @@ type Service = {
 
 const WHATSAPP = 'https://wa.me/573006864470'
 const PDF = '/MuzikSociety-catalogo-servicios.pdf'
+// Short line under each category title, keyed by catalog category key.
+const BLURB: Record<string, string> = {
+  A: 'De la idea a la canción lista. Los splits se acuerdan por escrito desde el inicio.',
+  B: 'Clases y mentoría para producir y mezclar mejor.',
+  C: 'Plan, dirección y negocio para tu carrera.',
+  D: 'Contenido y piezas visuales para que tu música se vea.',
+  E: 'Webs, apps, IA y plugins hechos a la medida.',
+}
 
 function quoteLink(s: Service) {
   const text = `Hola Santi, me interesa ${s.code} · ${s.name}. ¿Me armas una cotización?`
@@ -57,11 +65,12 @@ function Bullets({ items, color }: { items: string[]; color: string }) {
   )
 }
 
-function ServiceBlock({ s, color, tools }: { s: Service; color: string; tools: string }) {
+function ServiceBlock({ s, color, tools, open }: { s: Service; color: string; tools: string; open?: boolean }) {
   return (
     <details
+      open={open}
       id={s.code.toLowerCase()}
-      className="group scroll-mt-24 rounded-lg border border-(--color-border) bg-(--color-surface) open:border-(--c)"
+      className="group scroll-mt-24 rounded-lg sm:open:col-span-2 border border-(--color-border) bg-(--color-surface) transition-colors hover:border-(--c)/50 open:border-(--c)"
       style={{ '--c': color } as React.CSSProperties}
     >
       <summary className="flex cursor-pointer list-none items-start gap-4 p-6 [&::-webkit-details-marker]:hidden">
@@ -162,6 +171,7 @@ export default function ServicesPage() {
   const services = catalog.services as Service[]
 
   const colorOf = (cat: string) => catalog.categories.find((c) => c.key === cat)?.color ?? '#F2B705'
+  const brandkits = services.flatMap((s) => (s.brandkits ?? []).map((b) => ({ ...b, color: colorOf(s.cat) })))
   // Top-of-page gallery: every image the catalog shows, each linking to its section.
   const showcase = services.flatMap((s) => [
     ...(s.brandkits ?? []).map((b) => ({ src: b.cover, label: b.name, kind: 'Manual de marca', href: '#marcas', color: colorOf(s.cat), w: 340, h: 440 })),
@@ -177,9 +187,8 @@ export default function ServicesPage() {
         Lo que hago.
       </h1>
       <p className="max-w-2xl text-base leading-relaxed text-(--color-muted)">
-        Música, carrera, contenido y tecnología para artistas y negocios. Cada proyecto se cotiza a la
-        medida, según el alcance y los tiempos. Trabajo presencial en Medellín o remoto, en español o
-        inglés. En música, los splits se acuerdan por escrito desde el inicio.
+        Música, carrera, contenido y tecnología para artistas y negocios. Cotización a la medida, en
+        Medellín o remoto, en español o inglés.
       </p>
 
       <OpenOnHash />
@@ -210,49 +219,60 @@ export default function ServicesPage() {
           >
             <span className="h-2.5 w-2.5" style={{ background: c.color }} />
             {c.name}
+            <span className="text-(--color-muted)/60">{services.filter((s) => s.cat === c.key).length}</span>
           </a>
         ))}
       </div>
 
-      {catalog.categories.map((c) => (
-        <section key={c.key} id={`cat-${c.key.toLowerCase()}`} className="mt-20 scroll-mt-24">
-          <div className="mb-6 flex items-center gap-3 border-l-4 pl-4" style={{ borderColor: c.color }}>
-            <h2 className="text-2xl font-bold tracking-tight text-(--color-foreground)">{c.name}</h2>
-          </div>
-          <div className="grid gap-4">
-            {services
-              .filter((s) => s.cat === c.key)
-              .map((s) => (
-                <ServiceBlock key={s.code} s={s} color={c.color} tools={c.tools} />
-              ))}
-          </div>
-          {services
-            .filter((s) => s.cat === c.key && s.brandkits && s.brandkits.length > 0)
-            .map((s) => (
-              <div key={`bk-${s.code}`} id="marcas" className="mt-8 scroll-mt-24">
-                <h3 className="text-lg font-semibold text-(--color-foreground)">Manuales de marca que hemos hecho</h3>
-                <p className="mt-1 text-sm text-(--color-muted)">Identidad completa para artistas del estudio. Toca una portada para ver el PDF.</p>
-                <div className="mt-4 grid grid-cols-2 gap-4 sm:grid-cols-3">
-                  {s.brandkits!.map((b) => (
-                    <a key={b.pdf} href={b.pdf} target="_blank" rel="noopener noreferrer" className="block transition-opacity hover:opacity-80">
-                      <Image
-                        src={b.cover}
-                        alt={`Manual de marca de ${b.name}`}
-                        width={480}
-                        height={620}
-                        className="aspect-[17/22] w-full rounded-md border object-cover"
-                        style={{ borderColor: c.color }}
-                      />
-                      <p className="mt-2 text-sm text-(--color-foreground)">
-                        {b.name} · <span style={{ color: c.color }}>Ver PDF</span>
-                      </p>
-                    </a>
-                  ))}
-                </div>
+      {catalog.categories.map((c, ci) => {
+        const list = services.filter((s) => s.cat === c.key)
+        return (
+          <section key={c.key} id={`cat-${c.key.toLowerCase()}`} className="mt-24 scroll-mt-24">
+            <div className="mb-8 flex flex-col gap-2 border-b border-(--color-border) pb-5 sm:flex-row sm:items-end sm:justify-between">
+              <div className="border-l-4 pl-4" style={{ borderColor: c.color }}>
+                <h2 className="text-2xl font-bold tracking-tight text-(--color-foreground) md:text-3xl">{c.name}</h2>
+                {BLURB[c.key] && <p className="mt-2 max-w-xl text-sm text-(--color-muted)">{BLURB[c.key]}</p>}
               </div>
+              <p className="text-xs tracking-[0.18em] text-(--color-muted) uppercase">
+                {list.length} {list.length === 1 ? 'servicio' : 'servicios'}
+              </p>
+            </div>
+            <div className="grid items-start gap-3 sm:grid-cols-2">
+              {list.map((s, i) => (
+                <ServiceBlock key={s.code} s={s} color={c.color} tools={c.tools} open={ci === 0 && i === 0} />
+              ))}
+            </div>
+          </section>
+        )
+      })}
+
+      {brandkits.length > 0 && (
+        <section id="marcas" className="mt-24 scroll-mt-24">
+          <div className="mb-8 border-b border-(--color-border) pb-5">
+            <h2 className="text-2xl font-bold tracking-tight text-(--color-foreground) md:text-3xl">Manuales de marca</h2>
+            <p className="mt-2 max-w-xl text-sm text-(--color-muted)">
+              Identidad completa para artistas del estudio. Toca una portada para ver el PDF.
+            </p>
+          </div>
+          <div className="grid grid-cols-2 gap-4 sm:grid-cols-3">
+            {brandkits.map((b) => (
+              <a key={b.pdf} href={b.pdf} target="_blank" rel="noopener noreferrer" className="group block">
+                <Image
+                  src={b.cover}
+                  alt={`Manual de marca de ${b.name}`}
+                  width={480}
+                  height={620}
+                  className="aspect-[17/22] w-full rounded-md border object-cover transition-opacity group-hover:opacity-80"
+                  style={{ borderColor: b.color }}
+                />
+                <p className="mt-2 text-sm text-(--color-foreground)">
+                  {b.name} · <span style={{ color: b.color }}>Ver PDF</span>
+                </p>
+              </a>
             ))}
+          </div>
         </section>
-      ))}
+      )}
 
       <div className="mt-24 rounded-lg border border-(--color-border) bg-(--color-surface) p-8 text-center">
         <p className="text-xl font-semibold text-(--color-foreground)">¿No ves lo que buscas?</p>
