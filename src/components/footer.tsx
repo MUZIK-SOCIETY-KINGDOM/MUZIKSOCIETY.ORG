@@ -1,7 +1,9 @@
 import Link from 'next/link'
 import Image from 'next/image'
+import { getLang } from '@/lib/lang-server'
 
-export function Footer() {
+export async function Footer() {
+  const en = (await getLang()) === 'en'
   return (
     <footer className="border-t border-(--color-border) bg-(--color-background) py-12">
       <div className="mx-auto max-w-6xl px-6">
@@ -19,17 +21,17 @@ export function Footer() {
                 MUZIKSOCIETY
               </p>
               <p className="mt-0.5 text-xs text-(--color-muted)">
-                Productor · Ingeniero · Desarrollador · Creador
+                {en ? 'Producer · Engineer · Developer · Creator' : 'Productor · Ingeniero · Desarrollador · Creador'}
               </p>
             </div>
           </div>
           <div className="flex flex-wrap gap-6">
             {[
-              ['Sobre mí', '/about'],
-              ['Servicios', '/services'],
-              ['Portafolio', '/portfolio'],
+              [en ? 'About' : 'Sobre mí', '/about'],
+              [en ? 'Services' : 'Servicios', '/services'],
+              [en ? 'Portfolio' : 'Portafolio', '/portfolio'],
               ['Blog', '/blog'],
-              ['Contacto', '/contact'],
+              [en ? 'Contact' : 'Contacto', '/contact'],
             ].map(([label, href]) => (
               <Link
                 key={href}
@@ -51,7 +53,7 @@ export function Footer() {
         </div>
         <div className="mt-8 border-t border-(--color-border) pt-8">
           <p className="text-xs text-(--color-muted)">
-            © {new Date().getFullYear()} MuzikSociety. Todos los derechos reservados.
+            © {new Date().getFullYear()} MuzikSociety. {en ? 'All rights reserved.' : 'Todos los derechos reservados.'}
           </p>
         </div>
       </div>

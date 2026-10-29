@@ -4,9 +4,10 @@ import type { SamplePack } from '@/lib/types'
 
 type PackCardProps = {
   pack: SamplePack
+  en?: boolean
 }
 
-export function PackCard({ pack }: PackCardProps) {
+export function PackCard({ pack, en = false }: PackCardProps) {
   return (
     <div className="rounded-lg border border-(--color-border) bg-(--color-surface) overflow-hidden hover:border-(--color-muted) transition-colors">
       <div className="aspect-square bg-(--color-background) flex items-center justify-center border-b border-(--color-border)">
@@ -33,7 +34,7 @@ export function PackCard({ pack }: PackCardProps) {
           rel="noopener noreferrer"
           className="mt-4 flex w-full items-center justify-center rounded-md bg-(--color-accent) py-2 text-xs font-semibold tracking-wide text-(--color-background) hover:bg-(--color-accent-dark) transition-colors"
         >
-          Consíguelo en SampleMonsta
+          {en ? 'Get it on SampleMonsta' : 'Consíguelo en SampleMonsta'}
         </Link>
       </div>
     </div>

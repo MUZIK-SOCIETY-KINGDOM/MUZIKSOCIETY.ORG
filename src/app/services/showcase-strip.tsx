@@ -31,7 +31,7 @@ export default function ShowcaseStrip({ items }: { items: ShowcaseItem[] }) {
   const arrow = (dir: number, show: boolean) => (
     <button
       type="button"
-      aria-label={dir < 0 ? 'Anterior' : 'Siguiente'}
+      aria-label={dir < 0 ? 'Previous' : 'Next'}
       onClick={() => go(dir)}
       className={`absolute top-[5.5rem] z-10 hidden h-10 w-10 -translate-y-1/2 items-center justify-center rounded-full border border-(--color-border) bg-(--color-background)/80 text-lg text-(--color-foreground) backdrop-blur transition-opacity hover:border-(--color-accent) hover:text-(--color-accent) sm:top-28 sm:flex ${dir < 0 ? 'left-2' : 'right-2'} ${show ? 'opacity-100' : 'pointer-events-none opacity-0'}`}
     >

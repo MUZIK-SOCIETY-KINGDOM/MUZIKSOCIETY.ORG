@@ -3,6 +3,7 @@
 import { useState } from 'react'
 import { PortfolioCard } from '@/components/portfolio-card'
 import type { PortfolioEntry } from '@/lib/types'
+import { useLang } from '@/contexts/lang-context'
 
 const filters = ['all', 'producer', 'developer'] as const
 type Filter = typeof filters[number]
@@ -13,6 +14,7 @@ type PortfolioGridProps = {
 
 export function PortfolioGrid({ entries }: PortfolioGridProps) {
   const [active, setActive] = useState<Filter>('all')
+  const en = useLang() === 'en'
 
   const filtered = active === 'all'
     ? entries
@@ -35,14 +37,14 @@ export function PortfolioGrid({ entries }: PortfolioGridProps) {
                 : 'border border-(--color-border) text-(--color-muted) hover:border-(--color-muted)'
             }`}
           >
-            {f}
+            {en ? f : { all: 'todo', producer: 'productor', developer: 'desarrollador' }[f]}
           </button>
         ))}
       </div>
 
       {/* Grid */}
       {filtered.length === 0 ? (
-        <p className="text-sm text-(--color-muted)">Todavía no hay trabajos en esta categoría.</p>
+        <p className="text-sm text-(--color-muted)">{en ? 'No work in this category yet.' : 'Todavía no hay trabajos en esta categoría.'}</p>
       ) : (
         <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
           {filtered.map((entry) => (

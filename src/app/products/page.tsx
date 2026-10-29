@@ -5,14 +5,16 @@ import { createClient } from '@/lib/supabase/server'
 import { getSignedAudioProxyUrl } from '@/lib/audio-token'
 import { ProductsTabs } from '@/components/products-tabs'
 import type { Instrumental } from '@/lib/types'
+import { getLang } from '@/lib/lang-server'
 
 export const revalidate = 60
 
-export const metadata: Metadata = {
-  title: 'Productos — MuzikSociety',
+export async function generateMetadata(): Promise<Metadata> {
+  return { title: (await getLang()) === 'en' ? 'Products — MuzikSociety' : 'Productos — MuzikSociety' }
 }
 
 export default async function ProductsPage() {
+  const en = (await getLang()) === 'en'
   const supabase = await createClient()
 
   const [
@@ -38,13 +40,13 @@ export default async function ProductsPage() {
     <div className="mx-auto max-w-6xl px-6 py-24 pb-32">
       <div className="mb-16">
         <p className="mb-3 text-xs font-semibold tracking-[0.25em] text-(--color-accent) uppercase">
-          Productos
+          {en ? 'Products' : 'Productos'}
         </p>
         <h1 className="text-4xl font-extrabold tracking-tight text-(--color-foreground) md:text-6xl">
-          La tienda.
+          {en ? 'The store.' : 'La tienda.'}
         </h1>
         <p className="mt-4 text-sm text-(--color-muted)">
-          Beats, sample packs y herramientas hechas para productores.
+          {en ? 'Beats, sample packs and tools made for producers.' : 'Beats, sample packs y herramientas hechas para productores.'}
         </p>
       </div>
 

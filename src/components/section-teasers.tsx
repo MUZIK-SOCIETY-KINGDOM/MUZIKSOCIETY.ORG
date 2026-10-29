@@ -11,47 +11,49 @@ import {
   BookOpen,
   ChevronRight,
 } from 'lucide-react'
+import { useLang } from '@/contexts/lang-context'
 
 const sections = [
   {
     href: '/instrumentals',
-    label: 'Instrumentales',
-    description: 'Beats originales: escucha, prueba y compra.',
+    label: { es: 'Instrumentales', en: 'Instrumentals' },
+    description: { es: 'Beats originales: escucha, prueba y compra.', en: 'Original beats: listen, try and buy.' },
     icon: Music2,
   },
   {
     href: '/sample-packs',
-    label: 'Sample Packs',
-    description: 'Samples y loops listos para producir.',
+    label: { es: 'Sample Packs', en: 'Sample Packs' },
+    description: { es: 'Samples y loops listos para producir.', en: 'Samples and loops ready to produce with.' },
     icon: Layers,
   },
   {
     href: '/tools',
-    label: 'Herramientas',
-    description: 'Herramientas para productores, ingenieros y artistas.',
+    label: { es: 'Herramientas', en: 'Tools' },
+    description: { es: 'Herramientas para productores, ingenieros y artistas.', en: 'Tools for producers, engineers and artists.' },
     icon: Code2,
   },
   {
     href: '/portfolio',
-    label: 'Portafolio',
-    description: 'Más de 20 años de créditos, sesiones y lanzamientos.',
+    label: { es: 'Portafolio', en: 'Portfolio' },
+    description: { es: 'Más de 20 años de créditos, sesiones y lanzamientos.', en: '20+ years of credits, sessions and releases.' },
     icon: Award,
   },
   {
     href: '/services',
-    label: 'Servicios',
-    description: '34 servicios: música, educación, carrera, contenido y tecnología.',
+    label: { es: 'Servicios', en: 'Services' },
+    description: { es: '34 servicios: música, educación, carrera, contenido y tecnología.', en: '34 services: music, education, career, content and tech.' },
     icon: Zap,
   },
   {
     href: '/blog',
-    label: 'Blog',
-    description: 'Ideas, proceso y la industria por dentro.',
+    label: { es: 'Blog', en: 'Blog' },
+    description: { es: 'Ideas, proceso y la industria por dentro.', en: 'Ideas, process and the industry from the inside.' },
     icon: BookOpen,
   },
 ]
 
 export function SectionTeasers() {
+  const lang = useLang()
   return (
     <section>
       <div className="mx-auto max-w-6xl px-4 py-12 sm:px-6 sm:py-20">
@@ -78,10 +80,10 @@ export function SectionTeasers() {
                   {/* Text */}
                   <div className="flex flex-col gap-1 flex-1 min-w-0">
                     <span className="text-sm font-semibold tracking-[0.1em] text-(--color-foreground) uppercase sm:text-xs sm:tracking-[0.15em] sm:text-(--color-accent)">
-                      {s.label}
+                      {s.label[lang]}
                     </span>
                     <span className="text-xs text-(--color-muted) group-hover:text-(--color-foreground) transition-colors leading-relaxed">
-                      {s.description}
+                      {s.description[lang]}
                     </span>
                   </div>
 

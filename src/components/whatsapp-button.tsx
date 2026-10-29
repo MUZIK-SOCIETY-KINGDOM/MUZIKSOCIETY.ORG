@@ -1,17 +1,19 @@
 'use client'
 
 import { usePlayer } from '@/contexts/player-context'
+import { useLang } from '@/contexts/lang-context'
 
 export function WhatsAppButton() {
   const { currentTrack } = usePlayer()
+  const label = useLang() === 'en' ? 'Message us on WhatsApp' : 'Contáctanos por WhatsApp'
 
   return (
     <a
       href="https://wa.me/573006864470"
       target="_blank"
       rel="noopener noreferrer"
-      aria-label="Contáctanos por WhatsApp"
-      title="Contáctanos por WhatsApp"
+      aria-label={label}
+      title={label}
       style={{ bottom: currentTrack ? '88px' : '24px' }}
       className="fixed right-5 z-[150] flex h-14 w-14 items-center justify-center rounded-full bg-[#25D366] text-white shadow-lg transition-[bottom] duration-300 hover:bg-[#1ebe5d] hover:scale-105 active:scale-95"
     >

@@ -3,10 +3,37 @@
 import Image from 'next/image'
 import Link from 'next/link'
 import { motion } from 'motion/react'
+import { useLang } from '@/contexts/lang-context'
 
 const ease = [0.22, 1, 0.36, 1] as const
 
+const T = {
+  es: {
+    kicker: 'Productor · Ingeniero · Desarrollador · Creador',
+    title: 'Más de 20 años.',
+    titleMuted: 'Un solo estándar.',
+    line1: 'Más de 100 canciones publicadas, créditos con Nicky Jam, Ñengo Flow y Yaga & Mackie.',
+    line2: 'Y el software que usan más de 12.000 productores.',
+    services: 'Ver servicios',
+    portfolio: 'Ver portafolio',
+    alt: 'Santi trabajando en el estudio',
+    caption: 'En el estudio',
+  },
+  en: {
+    kicker: 'Producer · Engineer · Developer · Creator',
+    title: '20+ years.',
+    titleMuted: 'One standard.',
+    line1: '100+ released songs, credits with Nicky Jam, Ñengo Flow and Yaga & Mackie.',
+    line2: 'And the software 12,000+ producers use.',
+    services: 'See services',
+    portfolio: 'See portfolio',
+    alt: 'Santi working in the studio',
+    caption: 'In the studio',
+  },
+}
+
 export function Hero() {
+  const t = T[useLang()]
   return (
     <section className="relative flex min-h-[calc(100vh-4rem)] items-center">
       <div className="mx-auto grid w-full max-w-6xl items-center gap-12 px-6 py-20 lg:grid-cols-[1.35fr_1fr] lg:gap-16">
@@ -17,7 +44,7 @@ export function Hero() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, ease, delay: 0.1 }}
         >
-          Productor · Ingeniero · Desarrollador · Creador
+          {t.kicker}
         </motion.p>
 
         <motion.h1
@@ -26,9 +53,9 @@ export function Hero() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, ease, delay: 0.2 }}
         >
-          Más de 20 años.
+          {t.title}
           <br />
-          <span className="text-(--color-muted)">Un solo estándar.</span>
+          <span className="text-(--color-muted)">{t.titleMuted}</span>
         </motion.h1>
 
         <motion.p
@@ -37,9 +64,9 @@ export function Hero() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, ease, delay: 0.35 }}
         >
-          Más de 100 canciones publicadas, créditos con Nicky Jam, Ñengo Flow y Yaga &amp; Mackie.
+          {t.line1}
           <br />
-          Y el software que usan más de 12.000 productores.
+          {t.line2}
         </motion.p>
 
         <motion.div
@@ -52,13 +79,13 @@ export function Hero() {
             href="/services"
             className="rounded-md bg-(--color-accent) px-6 py-3 text-sm font-semibold tracking-wide text-(--color-background) hover:bg-(--color-accent-dark) transition-colors"
           >
-            Ver servicios
+            {t.services}
           </Link>
           <Link
             href="/portfolio"
             className="rounded-md border border-(--color-border) px-6 py-3 text-sm font-semibold tracking-wide text-(--color-foreground) hover:border-(--color-muted) transition-colors"
           >
-            Ver portafolio
+            {t.portfolio}
           </Link>
         </motion.div>
         </div>
@@ -72,7 +99,7 @@ export function Hero() {
           <div className="relative aspect-[4/5] overflow-hidden rounded-xl border border-(--color-border) bg-(--color-surface)">
             <Image
               src="/about/IMG_3790.PNG"
-              alt="Santi trabajando en el estudio"
+              alt={t.alt}
               fill
               priority
               sizes="(min-width: 1024px) 480px, 100vw"
@@ -81,7 +108,7 @@ export function Hero() {
             <div className="absolute inset-0 bg-gradient-to-t from-(--color-background)/80 via-transparent to-transparent" />
           </div>
           <figcaption className="absolute bottom-4 left-4 right-4 flex items-center justify-between text-[10px] font-semibold tracking-[0.25em] text-(--color-foreground)/80 uppercase">
-            <span>En el estudio</span>
+            <span>{t.caption}</span>
             <span className="text-(--color-accent)">Miami → Medellín</span>
           </figcaption>
         </motion.figure>

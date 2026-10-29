@@ -7,6 +7,7 @@ import { usePlayer } from '@/contexts/player-context'
 import type { Instrumental, SamplePack } from '@/lib/types'
 import { SoftwareCard } from '@/components/software-card'
 import type { Software } from '@/data/software'
+import { useLang } from '@/contexts/lang-context'
 
 type Tab = 'instrumentals' | 'packs' | 'plugins'
 
@@ -200,6 +201,7 @@ function TrackBrowser({
   onBack: () => void
 }) {
   const { currentTrack, playTrack, shuffle, toggleShuffle } = usePlayer()
+  const en = useLang() === 'en'
   const [tracks, setTracks] = useState<Instrumental[]>(initialTracks)
   const [total, setTotal] = useState(initialTotal)
   const [page, setPage] = useState(1)
@@ -267,7 +269,7 @@ function TrackBrowser({
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
             <path d="m15 18-6-6 6-6" />
           </svg>
-          Todos los géneros
+          {en ? 'All genres' : 'Todos los géneros'}
         </button>
         {cfg && (
           <>
@@ -282,7 +284,7 @@ function TrackBrowser({
       <div className="mb-5 flex flex-wrap items-center gap-3">
         <input
           type="text"
-          placeholder="Search..."
+          placeholder={en ? 'Search...' : 'Buscar...'}
           value={search}
           onChange={(e) => setSearch(e.target.value)}
           className="flex-1 min-w-[160px] rounded-lg border border-(--color-border) bg-(--color-surface) px-3 py-2 text-sm text-(--color-foreground) placeholder:text-(--color-border) focus:border-(--color-accent) focus:outline-none transition-colors"
@@ -312,7 +314,7 @@ function TrackBrowser({
           ))}
         </div>
       ) : tracks.length === 0 ? (
-        <p className="py-12 text-center text-sm text-(--color-muted)">No se encontraron tracks.</p>
+        <p className="py-12 text-center text-sm text-(--color-muted)">{en ? 'No tracks found.' : 'No se encontraron tracks.'}</p>
       ) : (
         <div className="flex flex-col gap-2">
           {tracks.map((beat) => (
@@ -429,6 +431,7 @@ function InstrumentalsTab({ initialTracks, initialTotal }: { initialTracks: Inst
 // ── Sample packs ──────────────────────────────────────────────────────────────
 
 function PackCard({ pack }: { pack: SamplePack }) {
+  const en = useLang() === 'en'
   return (
     <div className="rounded-xl border border-(--color-border) bg-(--color-surface) overflow-hidden hover:border-(--color-muted) transition-colors">
       <div className="aspect-square bg-(--color-background) flex items-center justify-center border-b border-(--color-border)">
@@ -451,7 +454,7 @@ function PackCard({ pack }: { pack: SamplePack }) {
           rel="noopener noreferrer"
           className="mt-4 flex w-full items-center justify-center rounded-md bg-(--color-accent) py-2 text-xs font-semibold tracking-wide text-(--color-background) hover:opacity-90 transition-opacity"
         >
-          Consíguelo en SampleMonsta
+          {en ? 'Get it on SampleMonsta' : 'Consíguelo en SampleMonsta'}
         </Link>
       </div>
     </div>
@@ -462,20 +465,23 @@ function PackCard({ pack }: { pack: SamplePack }) {
 
 // ── Main component ────────────────────────────────────────────────────────────
 
-const tabs: { id: Tab; label: string }[] = [
-  { id: 'instrumentals', label: 'Instrumentales' },
+const tabs: { id: Tab; label: string; labelEn?: string }[] = [
+  { id: 'instrumentals', label: 'Instrumentales', labelEn: 'Instrumentals' },
   { id: 'packs', label: 'Sample Packs' },
   { id: 'plugins', label: 'Plugins' },
 ]
 
 export function ProductsTabs({ initialInstrumentals, initialTotal, packs, plugins }: Props) {
   const [active, setActive] = useState<Tab>('instrumentals')
+  const lang = useLang()
+  const en = lang === 'en'
 
   return (
     <>
       {/* Tab bar */}
       <div className="mb-10 flex gap-2 flex-wrap border-b border-(--color-border) pb-0">
-        {tabs.map(({ id, label }) => {
+        {tabs.map(({ id, label: labelEs, labelEn }) => {
+          const label = lang === 'en' ? labelEn ?? labelEs : labelEs
           const count = id === 'instrumentals' ? initialTotal : id === 'packs' ? packs.length : plugins.length
           return (
             <button
@@ -508,7 +514,7 @@ export function ProductsTabs({ initialInstrumentals, initialTotal, packs, plugin
 
       {active === 'packs' && (
         packs.length === 0 ? (
-          <p className="text-sm text-(--color-muted)">Todavía no hay sample packs publicados.</p>
+          <p className="text-sm text-(--color-muted)">{en ? 'No sample packs published yet.' : 'Todavía no hay sample packs publicados.'}</p>
         ) : (
           <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
             {packs.map((pack) => <PackCard key={pack.id} pack={pack} />)}
@@ -519,14 +525,15 @@ export function ProductsTabs({ initialInstrumentals, initialTotal, packs, plugin
       {active === 'plugins' && (
         <>
           <p className="text-sm text-(--color-muted) leading-relaxed mb-8 max-w-2xl">
-            Software nacido de flujos de trabajo reales. Son herramientas que uso, hechas para resolver problemas que tuve,
-            disponibles para que otros productores y desarrolladores las usen y construyan sobre ellas.
+            {en
+              ? 'Software born from real workflows. Tools I use, built to solve problems I had, available for other producers and developers to use and build on.'
+              : 'Software nacido de flujos de trabajo reales. Son herramientas que uso, hechas para resolver problemas que tuve, disponibles para que otros productores y desarrolladores las usen y construyan sobre ellas.'}
           </p>
           {plugins.length === 0 ? (
-            <p className="text-sm text-(--color-muted)">Todavía no hay plugins publicados.</p>
+            <p className="text-sm text-(--color-muted)">{en ? 'No plugins published yet.' : 'Todavía no hay plugins publicados.'}</p>
           ) : (
             <div className="grid gap-5 sm:grid-cols-2">
-              {plugins.map((p) => <SoftwareCard key={p.name} p={p} />)}
+              {plugins.map((p) => <SoftwareCard key={p.name} p={p} lang={lang} />)}
             </div>
           )}
         </>

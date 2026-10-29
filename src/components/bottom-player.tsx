@@ -62,7 +62,7 @@ export function BottomPlayer() {
             className={`flex h-8 w-8 items-center justify-center rounded-full transition-colors ${
               shuffle ? 'text-(--color-accent)' : 'text-(--color-border) hover:text-(--color-muted)'
             }`}
-            aria-label="Aleatorio"
+            aria-label="Shuffle"
             title="Shuffle"
           >
             <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -91,7 +91,7 @@ export function BottomPlayer() {
             onClick={togglePlay}
             disabled={audioLoading}
             className="flex h-10 w-10 items-center justify-center rounded-full bg-(--color-accent) text-(--color-background) hover:opacity-90 transition-opacity disabled:opacity-70"
-            aria-label={audioLoading ? 'Cargando' : playing ? 'Pausa' : 'Reproducir'}
+            aria-label={audioLoading ? 'Loading' : playing ? 'Pause' : 'Play'}
           >
             {audioLoading ? (
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" className="animate-spin">

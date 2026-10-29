@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import { getBlogPosts } from '@/lib/queries'
 import { PostCard } from '@/components/post-card'
+import { getLang } from '@/lib/lang-server'
 
 export const revalidate = 60
 
@@ -9,6 +10,7 @@ export const metadata: Metadata = {
 }
 
 export default async function BlogPage() {
+  const en = (await getLang()) === 'en'
   const posts = await getBlogPosts()
 
   return (
@@ -18,12 +20,14 @@ export default async function BlogPage() {
           Blog
         </p>
         <h1 className="text-4xl font-extrabold tracking-tight text-(--color-foreground) md:text-6xl">
-          Lo que pienso.
+          {en ? 'What I think.' : 'Lo que pienso.'}
         </h1>
       </div>
 
       {posts.length === 0 ? (
-        <p className="text-sm text-(--color-muted)">Todavía no hay publicaciones. Vuelve pronto.</p>
+        <p className="text-sm text-(--color-muted)">
+          {en ? 'No posts yet. Check back soon.' : 'Todavía no hay publicaciones. Vuelve pronto.'}
+        </p>
       ) : (
         <div className="space-y-4">
           {posts.map((post) => (

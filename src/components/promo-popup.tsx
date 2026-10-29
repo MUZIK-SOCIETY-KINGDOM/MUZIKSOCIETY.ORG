@@ -2,9 +2,28 @@
 
 import { useEffect, useState } from 'react'
 import { usePlayer } from '@/contexts/player-context'
+import { useLang } from '@/contexts/lang-context'
+
+const T = {
+  es: {
+    close: 'Cerrar',
+    title: '¿Te está gustando lo que escuchas?',
+    body: 'Estos instrumentales son solo puntos de partida — versiones en baja calidad para que te des una idea del vibe. Para la versión completa, producción a la medida y la máxima calidad de sonido, estamos aquí para ti.',
+    contact: 'Contactar',
+    dismiss: 'Haz clic en cualquier lugar para cerrar',
+  },
+  en: {
+    close: 'Close',
+    title: 'Liking what you hear?',
+    body: 'These instrumentals are just starting points: low-quality previews so you can get the vibe. For the full version, custom production and top sound quality, we’re here for you.',
+    contact: 'Get in touch',
+    dismiss: 'Click anywhere to close',
+  },
+}
 
 export function PromoPopup() {
   const { playCount } = usePlayer()
+  const t = T[useLang()]
   const [visible, setVisible] = useState(false)
 
   useEffect(() => {
@@ -29,7 +48,7 @@ export function PromoPopup() {
           type="button"
           onClick={() => setVisible(false)}
           className="absolute right-4 top-4 flex h-7 w-7 items-center justify-center rounded-full text-(--color-muted) hover:text-(--color-foreground) transition-colors"
-          aria-label="Cerrar"
+          aria-label={t.close}
         >
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round">
             <line x1="18" y1="6" x2="6" y2="18" />
@@ -43,11 +62,11 @@ export function PromoPopup() {
         </div>
 
         <h2 className="mb-3 text-xl font-bold text-(--color-foreground)">
-          ¿Te está gustando lo que escuchas?
+          {t.title}
         </h2>
 
         <p className="mb-6 text-sm leading-relaxed text-(--color-muted)">
-          Estos instrumentales son solo puntos de partida — versiones en baja calidad para que te des una idea del vibe. Para la versión completa, producción a la medida y la máxima calidad de sonido, estamos aquí para ti.
+          {t.body}
         </p>
 
         <div className="flex flex-col gap-3 sm:flex-row">
@@ -69,12 +88,12 @@ export function PromoPopup() {
             onClick={() => setVisible(false)}
             className="flex flex-1 items-center justify-center gap-2 rounded-xl border border-(--color-accent) py-3 text-sm font-semibold text-(--color-accent) transition-colors hover:bg-(--color-accent)/10"
           >
-            Contactar
+            {t.contact}
           </a>
         </div>
 
         <p className="mt-4 text-[11px] text-(--color-border)">
-          Haz clic en cualquier lugar para cerrar
+          {t.dismiss}
         </p>
       </div>
     </div>

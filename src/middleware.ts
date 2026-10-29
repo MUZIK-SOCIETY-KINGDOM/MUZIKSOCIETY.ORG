@@ -1,7 +1,14 @@
 import { createServerClient } from '@supabase/ssr'
 import { NextResponse, type NextRequest } from 'next/server'
+import { LANG_COOKIE, langFromAcceptLanguage } from '@/lib/lang'
 
 export async function middleware(request: NextRequest) {
+  // First visit: pick the language from the browser, so this render already uses it.
+  const newLang = request.cookies.has(LANG_COOKIE)
+    ? null
+    : langFromAcceptLanguage(request.headers.get('accept-language'))
+  if (newLang) request.cookies.set(LANG_COOKIE, newLang)
+
   let supabaseResponse = NextResponse.next({ request })
 
   const supabase = createServerClient(
@@ -27,6 +34,14 @@ export async function middleware(request: NextRequest) {
 
   // Refresh session — keeps auth tokens alive
   await supabase.auth.getUser()
+
+  if (newLang) {
+    supabaseResponse.cookies.set(LANG_COOKIE, newLang, {
+      path: '/',
+      maxAge: 60 * 60 * 24 * 365,
+      sameSite: 'lax',
+    })
+  }
 
   return supabaseResponse
 }

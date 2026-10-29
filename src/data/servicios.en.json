@@ -1,0 +1,997 @@
+{
+  "version": "v5 2026-10-25",
+  "categories": [
+    {
+      "key": "A",
+      "name": "Music",
+      "color": "#F2B705",
+      "tools": "FL Studio, Pro Tools."
+    },
+    {
+      "key": "B",
+      "name": "Education",
+      "color": "#3FA7D6",
+      "tools": "FL Studio, Pro Tools."
+    },
+    {
+      "key": "C",
+      "name": "Career",
+      "color": "#9B5DE5",
+      "tools": "FL Studio, Pro Tools, Claude, ChatGPT."
+    },
+    {
+      "key": "D",
+      "name": "Content",
+      "color": "#F15BB5",
+      "tools": "Claude / Claude Code, ChatGPT, Codex, DeepSeek, Qwen, n8n. Local or commercial systems, depending on your setup and the application."
+    },
+    {
+      "key": "E",
+      "name": "Technology",
+      "color": "#00C2A8",
+      "tools": "Claude / Claude Code, Codex, ChatGPT, DeepSeek, Qwen, n8n. Local or commercial systems, depending on your setup and the application."
+    }
+  ],
+  "services": [
+    {
+      "code": "A1",
+      "cat": "A",
+      "name": "Full Song",
+      "promise": "From idea to a song ready to release.",
+      "forWho": "Artists who want a finished song with a professional sound, without building a team.",
+      "includes": [
+        "Production, songwriting, recording, mix and master",
+        "Master WAV, instrumental mix with its stems, acapella and show track",
+        "Raw stems if you ask for them",
+        "Progress from each session delivered the same day",
+        "Instruments played by AI or semi-human players",
+        "3 revisions"
+      ],
+      "steps": [
+        "We plan: idea, references and the splits agreement",
+        "12–16 hours in sessions of 4–8 h",
+        "Revisions pinpointed to the exact minute:second, with references",
+        "Final delivery of all files"
+      ],
+      "extra": [],
+      "important": "The idea is locked in with your references before we start. Once it's underway, it doesn't change. A completely new idea gets paid for again.",
+      "gallery": [],
+      "brandkits": []
+    },
+    {
+      "code": "A2",
+      "cat": "A",
+      "name": "Production",
+      "promise": "The beat and arrangement your song needs.",
+      "forWho": "Artists or songwriters who already have lyrics or an idea and need the music.",
+      "includes": [
+        "Custom-produced instrumental",
+        "Instruments played by AI or semi-human players",
+        "Instrumental mixed in WAV + stems (individual channels)",
+        "Raw stems if you ask for them",
+        "3 revisions"
+      ],
+      "steps": [
+        "You bring 3 references or your idea",
+        "We produce in session",
+        "You review and we adjust",
+        "File delivery"
+      ],
+      "extra": [],
+      "important": "The idea is locked in with your references before we start. Once it's underway, it doesn't change. A completely new idea gets paid for again.",
+      "gallery": [],
+      "brandkits": []
+    },
+    {
+      "code": "A3",
+      "cat": "A",
+      "name": "Mix",
+      "promise": "Make your song sound clear, big and ready to compete.",
+      "forWho": "Artists and producers with a recorded song who need a professional mix.",
+      "includes": [
+        "Full technical mix: EQ, compression, dynamics and effects",
+        "24-bit WAV + instrumental",
+        "3 revisions"
+      ],
+      "steps": [
+        "You send WAV stems from bar 1, with no printed effects",
+        "Include a rough mix and 1–3 references",
+        "We mix and send you the first version",
+        "Revisions and final delivery"
+      ],
+      "extra": [
+        {
+          "title": "Technical and creative",
+          "body": "Standard mixing is technical: making everything sound clean, balanced and powerful. If I hear something creative that could add to the song (an effect, a cut, an arrangement change), I'll suggest it and you decide. Creative contributions are charged separately."
+        }
+      ],
+      "important": null,
+      "gallery": [],
+      "brandkits": []
+    },
+    {
+      "code": "A4",
+      "cat": "A",
+      "name": "Master",
+      "promise": "The final step: loudness, brightness and consistency on every platform.",
+      "forWho": "For anyone with a finished mix who wants it ready to release.",
+      "includes": [
+        "Master for digital platforms",
+        "WAV + MP3",
+        "3 revisions"
+      ],
+      "steps": [
+        "You send the mix with headroom",
+        "Include 1–2 references",
+        "You receive the master",
+        "Adjustments if you need them"
+      ],
+      "extra": [
+        {
+          "title": "Two options",
+          "body": [
+            "Digital: in-the-box master, with digital processors and effects",
+            "Analog: master through analog gear, supervised by me from start to finish"
+          ]
+        }
+      ],
+      "important": null,
+      "gallery": [],
+      "brandkits": []
+    },
+    {
+      "code": "A5",
+      "cat": "A",
+      "name": "Songwriting",
+      "promise": "Lyrics and melody written for your voice and your style.",
+      "forWho": "Artists who need a song written or help finishing their own.",
+      "includes": [
+        "Lyrics + melody",
+        "Recorded guide vocal",
+        "Signed non-disclosure agreement (NDA)",
+        "3 revisions"
+      ],
+      "steps": [
+        "We talk about the idea, the story and the style",
+        "We sign the NDA",
+        "We write and record the guide vocal",
+        "You review, we adjust, and we sign the splits"
+      ],
+      "extra": [
+        {
+          "title": "What's yours",
+          "body": "The final version of the song is yours. Drafts and ideas discarded during the process are not part of the agreement."
+        }
+      ],
+      "important": null,
+      "gallery": [],
+      "brandkits": []
+    },
+    {
+      "code": "A6",
+      "cat": "A",
+      "name": "Backing Vocals & Topline",
+      "promise": "Harmonies, doubles and ad-libs that lift the song.",
+      "forWho": "Artists with a nearly finished song who need backing vocals or a topline melody.",
+      "includes": [
+        "Backing vocals, harmonies, doubles and ad-libs",
+        "Topline guide",
+        "WAV files"
+      ],
+      "steps": [
+        "We listen to the song and define the approach",
+        "We sign the split before recording",
+        "We record",
+        "File delivery"
+      ],
+      "extra": [],
+      "important": null,
+      "gallery": [],
+      "brandkits": []
+    },
+    {
+      "code": "A7",
+      "cat": "A",
+      "name": "Vocal Direction",
+      "promise": "Get your best take, with someone who knows what to listen for.",
+      "forWho": "Artists about to record who want a professional performance.",
+      "includes": [
+        "Warm-up and preparation",
+        "Recording in sections",
+        "Comping the best takes",
+        "WAV delivery"
+      ],
+      "steps": [
+        "We book the session (2 h minimum)",
+        "We warm up and record in sections",
+        "We assemble the final take",
+        "You walk away with the files"
+      ],
+      "extra": [],
+      "important": null,
+      "gallery": [],
+      "brandkits": []
+    },
+    {
+      "code": "A8",
+      "cat": "A",
+      "name": "Album or EP",
+      "promise": "A full project with a consistent sound from start to finish.",
+      "forWho": "Artists ready to release a body of work, not just a single.",
+      "includes": [
+        "Every song goes through the full A1 process",
+        "3 revisions per song",
+        "Final leveling and sequencing of the project",
+        "Masters with metadata"
+      ],
+      "steps": [
+        "We plan the project and the schedule",
+        "We sign the completion commitment",
+        "We produce song by song",
+        "We close with the project's leveling"
+      ],
+      "extra": [],
+      "important": null,
+      "gallery": [],
+      "brandkits": []
+    },
+    {
+      "code": "A9",
+      "cat": "A",
+      "name": "Work for hire",
+      "promise": "The song is 100% yours: songwriting, publishing and master.",
+      "forWho": "Artists or brands that need all the rights to the work.",
+      "includes": [
+        "Full song process (A1)",
+        "Assignment contract for songwriting, publishing and master",
+        "Confidential option, no credits"
+      ],
+      "steps": [
+        "We define the scope and sign the contract",
+        "We produce the full song",
+        "Delivery of all files",
+        "Rights assignment"
+      ],
+      "extra": [],
+      "important": null,
+      "gallery": [],
+      "brandkits": []
+    },
+    {
+      "code": "A10",
+      "cat": "A",
+      "name": "Studio Membership",
+      "promise": "A fixed session every week to grow steadily.",
+      "forWho": "Artists in Colombia committed to their process. Limited spots, by selection.",
+      "includes": [
+        "One 4-hour session per week",
+        "Ongoing production and support",
+        "Content plan with a piece-count goal",
+        "Career analysis and artistic development",
+        "Splits per song"
+      ],
+      "steps": [
+        "You apply and we talk",
+        "If there's a spot, we reserve your day",
+        "You pay for the week in advance",
+        "We work every week"
+      ],
+      "extra": [],
+      "important": null,
+      "gallery": [],
+      "brandkits": []
+    },
+    {
+      "code": "B1",
+      "cat": "B",
+      "name": "Production Classes",
+      "promise": "You learn by solving your own questions, not with loose theory.",
+      "forWho": "Producers at any level who want to move forward fast.",
+      "includes": [
+        "Class focused on your questions and your real project",
+        "A short take-home challenge",
+        "Progress check with the same problem in disguise"
+      ],
+      "steps": [
+        "You send me your questions before class",
+        "We solve them together, in your session",
+        "You practice with the challenge",
+        "We measure your progress"
+      ],
+      "extra": [
+        {
+          "title": "Why learn with me",
+          "body": "24 years producing, more than 100 published songs and credits with artists like Nicky Jam, Ñengo Flow and Yaga & Mackie. I teach what I use in real sessions, not textbook theory, and I stay with you until you can do it on your own."
+        },
+        {
+          "title": "What you take away",
+          "body": [
+            "Your question answered, in your own project",
+            "A method you can repeat without me",
+            "Honest feedback from someone who produces for real artists"
+          ]
+        }
+      ],
+      "important": null,
+      "gallery": [],
+      "brandkits": []
+    },
+    {
+      "code": "B2",
+      "cat": "B",
+      "name": "Mixing & Mastering Classes",
+      "promise": "Understand why it sounds like that and how to fix it.",
+      "forWho": "Producers and artists who want to mix and master their own music.",
+      "includes": [
+        "Class on your own session",
+        "A short take-home challenge",
+        "Progress check with the same problem in disguise"
+      ],
+      "steps": [
+        "We listen to your mix and find what's holding it back",
+        "Session order, levels and panning",
+        "EQ, compression and effects, step by step",
+        "Mastering and comparison with your references"
+      ],
+      "extra": [
+        {
+          "title": "Why learn with me",
+          "body": "I've been mixing and mastering for artists for 24 years, at studios like Criteria, Circle House and Midtown in Miami. We work on your song, so you hear every concept in your own music."
+        },
+        {
+          "title": "What you take away",
+          "body": [
+            "Your song, better mixed by the end of class",
+            "A mixing and mastering chain you can reuse",
+            "The ear to know what to fix and in what order"
+          ]
+        }
+      ],
+      "important": null,
+      "gallery": [],
+      "brandkits": []
+    },
+    {
+      "code": "B3",
+      "cat": "B",
+      "name": "Teacher for Schools",
+      "promise": "Music production courses designed for your institution.",
+      "forWho": "Schools, academies and universities.",
+      "includes": [
+        "Modular course (e.g., 8 classes of 2 h each)",
+        "Original class materials",
+        "Real industry experience"
+      ],
+      "steps": [
+        "Meeting to define goals",
+        "Course proposal",
+        "Contract per course or semester",
+        "Classes and follow-up"
+      ],
+      "extra": [],
+      "important": null,
+      "gallery": [],
+      "brandkits": []
+    },
+    {
+      "code": "B4",
+      "cat": "B",
+      "name": "Mentorship",
+      "promise": "Direction for your career, one hour at a time.",
+      "forWho": "Artists and producers who need direction, not technical lessons. It's Artist Development (C1), but by the hour.",
+      "includes": [
+        "1 on 1 session, in person or online",
+        "1–3 concrete tasks at the end of each session",
+        "Monthly package of 4 sessions"
+      ],
+      "steps": [
+        "You book and pay for the session",
+        "We talk about where you are and where you're going",
+        "You leave with clear tasks",
+        "We review progress in the next one"
+      ],
+      "extra": [
+        {
+          "title": "What we work on",
+          "body": [
+            "Weekly check-ins with clear goals and accountability",
+            "Content plan with a piece-count goal and tracking",
+            "Career analysis and artistic development",
+            "Splits order and session scheduling"
+          ]
+        }
+      ],
+      "important": null,
+      "gallery": [],
+      "brandkits": []
+    },
+    {
+      "code": "C1",
+      "cat": "C",
+      "name": "Artist Development",
+      "promise": "A career plan and someone who walks with you to deliver it.",
+      "forWho": "Artists who want to build an identity, a catalog and a release plan.",
+      "includes": [
+        "10 hours a month",
+        "Identity, catalog direction and feedback",
+        "Integrating technology and AI into your process",
+        "Career and release plan"
+      ],
+      "steps": [
+        "We start with a diagnostic session",
+        "We define the plan",
+        "We work month by month",
+        "We measure progress"
+      ],
+      "extra": [
+        {
+          "title": "Follow-up",
+          "body": [
+            "Weekly check-ins with clear goals and accountability",
+            "Content plan with a piece-count goal and tracking",
+            "Career analysis and artistic development",
+            "Splits order and session scheduling"
+          ]
+        }
+      ],
+      "important": null,
+      "gallery": [],
+      "brandkits": []
+    },
+    {
+      "code": "C2",
+      "cat": "C",
+      "name": "In-House Producer",
+      "promise": "Your go-to producer, every month.",
+      "forWho": "Artists or labels with a steady flow of music.",
+      "includes": [
+        "2–3 songs a month",
+        "Mixing, mastering and recording included (if there's no engineer)",
+        "Content management"
+      ],
+      "steps": [
+        "You send a clear brief with 7 days' notice",
+        "We plan all the month's sessions",
+        "We produce",
+        "Splits per song"
+      ],
+      "extra": [],
+      "important": "All sessions are planned in advance. No last-minute sessions.",
+      "gallery": [],
+      "brandkits": []
+    },
+    {
+      "code": "C3",
+      "cat": "C",
+      "name": "Executive Side & Deals",
+      "promise": "Someone on your side when an offer comes in.",
+      "forWho": "Artists who receive proposals from labels, brands or collaborations.",
+      "includes": [
+        "Reading the offer in plain language",
+        "Counteroffer and negotiation",
+        "Access to my network of contacts"
+      ],
+      "steps": [
+        "We sign the agreement before negotiating",
+        "We review the offer",
+        "We negotiate",
+        "Your lawyer reviews the final contract"
+      ],
+      "extra": [],
+      "important": null,
+      "gallery": [],
+      "brandkits": []
+    },
+    {
+      "code": "D1",
+      "cat": "D",
+      "name": "Content Engine",
+      "promise": "New content every week, in your voice and your brand. We make it.",
+      "forWho": "Artists and businesses that need to post often and have neither the time nor the team to do it.",
+      "includes": [],
+      "steps": [],
+      "extra": [
+        {
+          "title": "What it is",
+          "body": "A monthly service: we study everything you already have (videos, songs, photos, old posts, the way you talk) and turn it into new pieces every week. You approve; we produce. It's not generic content: every piece comes from your material and respects your brand."
+        },
+        {
+          "title": "How it works",
+          "body": [
+            "Week 1, diagnosis: we review your social accounts and your material and build your brand summary (colors, typography, tone, themes)",
+            "Monthly calendar: we show you what goes out and when, and you approve it before we produce",
+            "Weekly production: edited or animated reels, carousels, stories, captions and hashtags",
+            "Approval: nothing gets published without your OK",
+            "End-of-month review: what worked and what we adjust"
+          ]
+        },
+        {
+          "title": "What you get",
+          "body": [
+            "Brand summary (1x, updated whenever something changes)",
+            "Monthly calendar approved by you",
+            "The plan's pieces every week, in 1080×1920 vertical and 1080×1350 feed format",
+            "Captions and hashtags ready to paste",
+            "Simple monthly report"
+          ]
+        },
+        {
+          "title": "Piece examples",
+          "body": [
+            "Artist: a reel with your song's lyrics, behind-the-scenes cuts, a countdown to release, a studio clip",
+            "Business: tips carousel, a video explaining a service, a reel of a happy client, the offer of the week"
+          ]
+        },
+        {
+          "title": "Plans",
+          "body": [
+            "Starter: 2 pieces per week",
+            "Basic: 5 pieces per week",
+            "Full: 15 pieces per week"
+          ]
+        },
+        {
+          "title": "Content Engine vs Content Software",
+          "body": "With the Engine (D1), we make your content every week. With the Software (D2), we install the system on your team's computers so your people can do it."
+        }
+      ],
+      "important": null,
+      "gallery": [],
+      "brandkits": []
+    },
+    {
+      "code": "D2",
+      "cat": "D",
+      "name": "Content Software",
+      "promise": "The content system installed on your team's computers. Your people run it.",
+      "forWho": "Businesses, labels or teams that want to produce their own content without depending on anyone.",
+      "includes": [],
+      "steps": [],
+      "extra": [
+        {
+          "title": "What it is",
+          "body": "The same system we use to run the Content Engine, installed on your team's computers and set up with your brand. Your team writes the idea, picks the template, and the system builds the piece with your colors, your typography and your tone."
+        },
+        {
+          "title": "How it works",
+          "body": [
+            "We review your computers, your social accounts and what kind of pieces you need",
+            "We install the system and load your brand",
+            "We create your templates: reels, carousels, stories and explainer videos",
+            "We train your team with your own real pieces",
+            "2 weeks of support while they get started"
+          ]
+        },
+        {
+          "title": "What you get",
+          "body": [
+            "System installed and running on your computers",
+            "Your brand loaded: colors, typography, logo and tone",
+            "Templates for your main formats",
+            "1 training session + step-by-step written guide",
+            "2 weeks of support"
+          ]
+        },
+        {
+          "title": "What you need",
+          "body": [
+            "A computer with Windows or Mac",
+            "AI service accounts if your team wants to use commercial options (you pay them directly)"
+          ]
+        },
+        {
+          "title": "Example",
+          "body": "A label with 5 artists: each artist has their own release template, and the social media person pulls the whole week's pieces in one afternoon."
+        },
+        {
+          "title": "Content Software vs Content Engine",
+          "body": "With the Software (D2), your team produces and you control everything. With the Engine (D1), we do it for you. You can start with D1 and move to D2 when your team is ready."
+        }
+      ],
+      "important": null,
+      "gallery": [],
+      "brandkits": []
+    },
+    {
+      "code": "D3",
+      "cat": "D",
+      "name": "Video Editing",
+      "promise": "Your clips, edited so people stay until the end.",
+      "forWho": "Creators, artists and brands with footage already shot.",
+      "includes": [
+        "Reel editing with rhythm, cuts and subtitles",
+        "Style made to fit you: clean, energetic, cinematic or animated",
+        "We clone the style of a video you like: send us the reference and we recreate it with your footage",
+        "Over 50 film and animation styles to choose from (vintage newsreel, dark keynote, Swiss motion and more)",
+        "Delivery in 48–72 h",
+        "2 revisions"
+      ],
+      "steps": [
+        "You send the footage and a reference",
+        "We choose the style",
+        "We edit and you review",
+        "Final delivery"
+      ],
+      "extra": [],
+      "important": null,
+      "gallery": [],
+      "brandkits": []
+    },
+    {
+      "code": "D4",
+      "cat": "D",
+      "name": "Explainer Videos",
+      "promise": "Your idea explained in a clear animated video.",
+      "forWho": "Brands, artists and businesses that need to explain something quickly.",
+      "includes": [
+        "Script and storyboard",
+        "Animation with voiceover included",
+        "2 revisions"
+      ],
+      "steps": [
+        "Brief",
+        "You approve the script",
+        "You approve the storyboard",
+        "Render in 5–7 days"
+      ],
+      "extra": [],
+      "important": null,
+      "gallery": [],
+      "brandkits": []
+    },
+    {
+      "code": "D5",
+      "cat": "D",
+      "name": "Release Visual Pack",
+      "promise": "Everything visual for your release, in one consistent style.",
+      "forWho": "Artists about to release a single or project.",
+      "includes": [
+        "1 cover · 3000×3000 px, JPG and PNG",
+        "2 feed posts · 1080×1350 px",
+        "2 stories · 1080×1920 px",
+        "1 Spotify Canvas · 1080×1920 vertical video, 3–8 s loop",
+        "1 YouTube banner · 2560×1440 px",
+        "2 rounds of adjustments"
+      ],
+      "steps": [
+        "We talk about the release",
+        "We design the cover",
+        "We adapt the style to each piece",
+        "Full delivery"
+      ],
+      "extra": [],
+      "important": null,
+      "gallery": [],
+      "brandkits": []
+    },
+    {
+      "code": "D6",
+      "cat": "D",
+      "name": "Graphic Design",
+      "promise": "One-off graphic pieces, done well.",
+      "forWho": "Artists and businesses that need one specific piece.",
+      "includes": [
+        "Post or flyer: 1 concept, 2 revisions, 48 h",
+        "Cover: 3 concepts, 2 revisions, 3–5 days",
+        "Logo: 3 concepts, 3 revisions, vectors + 1-page brand guide"
+      ],
+      "steps": [
+        "Brief",
+        "Concepts",
+        "Revisions",
+        "File delivery"
+      ],
+      "extra": [],
+      "important": null,
+      "gallery": [],
+      "brandkits": [
+        {
+          "pdf": "/marcas/kuns-manual-de-marca.pdf",
+          "cover": "/marcas/kuns-manual-de-marca-cover.png",
+          "name": "KUNS"
+        },
+        {
+          "pdf": "/marcas/yonzy-manual-de-marca.pdf",
+          "cover": "/marcas/yonzy-manual-de-marca-cover.png",
+          "name": "YONZY"
+        },
+        {
+          "pdf": "/marcas/nini-flow-manual-de-marca.pdf",
+          "cover": "/marcas/nini-flow-manual-de-marca-cover.png",
+          "name": "NINI FLOW"
+        }
+      ]
+    },
+    {
+      "code": "E1",
+      "cat": "E",
+      "name": "Websites",
+      "promise": "A fast, clear website in your name.",
+      "forWho": "Artists, brands and businesses that need a professional presence or to sell online.",
+      "includes": [
+        "Design and development",
+        "Copy included",
+        "Accounts and code in your name",
+        "30 days of bug fixes"
+      ],
+      "steps": [
+        "Discovery and scope",
+        "Design",
+        "Development with a weekly demo",
+        "Handoff and access"
+      ],
+      "extra": [
+        {
+          "title": "Sites we built",
+          "body": [
+            "samplemonsta.com: plugin store and licensing",
+            "vibradb.com: fan database platform",
+            "muziksociety.org: portfolio"
+          ]
+        }
+      ],
+      "important": null,
+      "gallery": [],
+      "brandkits": []
+    },
+    {
+      "code": "E2",
+      "cat": "E",
+      "name": "UI/UX Design",
+      "promise": "See and test your product before you build it.",
+      "forWho": "For anyone about to build an app, platform or website who wants to validate first.",
+      "includes": [
+        "Clickable prototype in the browser",
+        "Style guide in PDF",
+        "2–3 weeks",
+        "Code, access and 30 days of support"
+      ],
+      "steps": [
+        "Discovery",
+        "Flows and screens",
+        "Prototype",
+        "Revisions and handoff"
+      ],
+      "extra": [],
+      "important": null,
+      "gallery": [
+        {
+          "src": "/servicios/samplemonsta.jpg",
+          "caption": "SampleMonsta"
+        },
+        {
+          "src": "/servicios/varia.jpg",
+          "caption": "Varia"
+        },
+        {
+          "src": "/servicios/ili.jpg",
+          "caption": "ILI"
+        }
+      ],
+      "brandkits": []
+    },
+    {
+      "code": "E3",
+      "cat": "E",
+      "name": "Custom Apps & CRMs",
+      "promise": "Your operation in a system built for you, not in Excel.",
+      "forWho": "Businesses and teams that have outgrown spreadsheets.",
+      "includes": [
+        "Discovery with your team",
+        "Data migration from Excel",
+        "Team training",
+        "30 days of bug fixes"
+      ],
+      "steps": [
+        "Discovery",
+        "Scope and pricing",
+        "Development with a weekly demo",
+        "Migration, training and handoff"
+      ],
+      "extra": [],
+      "important": null,
+      "gallery": [],
+      "brandkits": []
+    },
+    {
+      "code": "E4",
+      "cat": "E",
+      "name": "Databases",
+      "promise": "Your data organized, backed up and secure.",
+      "forWho": "Businesses whose information can't be lost.",
+      "includes": [
+        "Initial setup",
+        "Daily backup and restore test",
+        "Monthly report",
+        "Fixes within 24 business hours",
+        "Code, access and 30 days of support"
+      ],
+      "steps": [
+        "We review your data",
+        "We configure",
+        "We manage it every month",
+        "We report to you"
+      ],
+      "extra": [],
+      "important": null,
+      "gallery": [],
+      "brandkits": []
+    },
+    {
+      "code": "E5",
+      "cat": "E",
+      "name": "Digital Advertising",
+      "promise": "Ads that reach your audience, created and measured every month.",
+      "forWho": "Artists and businesses ready to invest in ad spend.",
+      "includes": [
+        "Brand and audience research",
+        "We create the pieces for each ad: video, image and copy",
+        "Several versions of each ad to test which one works: 2 ads × 2 versions = 4 pieces a month",
+        "Campaign management",
+        "Monthly report",
+        "Code, access and 30 days of support"
+      ],
+      "steps": [
+        "We study your brand and audience",
+        "We create the ads and their versions",
+        "We launch, test and optimize",
+        "Report every month"
+      ],
+      "extra": [],
+      "important": null,
+      "gallery": [],
+      "brandkits": []
+    },
+    {
+      "code": "E6",
+      "cat": "E",
+      "name": "AI Social Media",
+      "promise": "Your social media system installed: calendar, approval and publishing.",
+      "forWho": "Brands that want to post in an organized, consistent way.",
+      "includes": [
+        "Brand research",
+        "Calendar with approval",
+        "Connections only through official APIs",
+        "Code, access and 30 days of support"
+      ],
+      "steps": [
+        "Brand research",
+        "Installation",
+        "Approval calendar",
+        "Monthly content with the Content Engine (D1)"
+      ],
+      "extra": [],
+      "important": null,
+      "gallery": [],
+      "brandkits": []
+    },
+    {
+      "code": "E7",
+      "cat": "E",
+      "name": "AI Assistants",
+      "promise": "An assistant that replies, alerts and organizes for you, 24/7.",
+      "forWho": "Businesses that get a lot of messages on WhatsApp or Telegram.",
+      "includes": [
+        "Bot that replies, alerts and organizes",
+        "Official WhatsApp Business API, number in your name",
+        "Always with a handoff to a human",
+        "Monthly tuning + report",
+        "Code, access and 30 days of support"
+      ],
+      "steps": [
+        "We map your conversations",
+        "We set up the assistant",
+        "We test",
+        "We launch and adjust every month"
+      ],
+      "extra": [],
+      "important": null,
+      "gallery": [],
+      "brandkits": []
+    },
+    {
+      "code": "E8",
+      "cat": "E",
+      "name": "Automation",
+      "promise": "What you do by hand every week, done automatically.",
+      "forWho": "Businesses with repetitive tasks that eat up hours.",
+      "includes": [
+        "Process map",
+        "Automated workflow, using free tools first",
+        "Alert if the workflow fails",
+        "1-page diagram + video on how to turn it off",
+        "Code, access and 30 days of support"
+      ],
+      "steps": [
+        "We map the process (if it doesn't repeat, we don't automate it)",
+        "We build the workflow",
+        "We test",
+        "We hand it over"
+      ],
+      "extra": [],
+      "important": null,
+      "gallery": [],
+      "brandkits": []
+    },
+    {
+      "code": "E9",
+      "cat": "E",
+      "name": "Digital Products",
+      "promise": "A store that charges and delivers on its own.",
+      "forWho": "Creators who sell plugins, packs, courses or software.",
+      "includes": [
+        "Licenses or downloads by email",
+        "Free trials, activations and renewals",
+        "Simple sales dashboard",
+        "A real test purchase before handing it over",
+        "Code, access and 30 days of support"
+      ],
+      "steps": [
+        "Discovery",
+        "Setting up payments and deliveries",
+        "Test purchase",
+        "Handoff with everything in your name"
+      ],
+      "extra": [],
+      "important": null,
+      "gallery": [],
+      "brandkits": []
+    },
+    {
+      "code": "E10",
+      "cat": "E",
+      "name": "Data Analysis",
+      "promise": "Your numbers on a dashboard that answers your questions.",
+      "forWho": "Businesses that have data but no clarity.",
+      "includes": [
+        "Dashboard with 1 source and up to 5 indicators",
+        "Read-only access to your data",
+        "Review meeting + 1-page summary",
+        "Code, access and 30 days of support"
+      ],
+      "steps": [
+        "We start with 3 questions",
+        "We connect the source",
+        "We build the dashboard",
+        "We walk you through it"
+      ],
+      "extra": [],
+      "important": null,
+      "gallery": [],
+      "brandkits": []
+    },
+    {
+      "code": "E11",
+      "cat": "E",
+      "name": "VST Plugins",
+      "promise": "Your plugin idea, turned into a product.",
+      "forWho": "Brands, producers and audio companies with a plugin idea.",
+      "includes": [
+        "VST3 + AU, Windows and Mac",
+        "Tested in real DAWs",
+        "Signed installers",
+        "The code is yours",
+        "Code, access and 30 days of support"
+      ],
+      "steps": [
+        "Sound prototype",
+        "Full interface",
+        "Signed installers",
+        "Handoff"
+      ],
+      "extra": [
+        {
+          "title": "Plugins I've built",
+          "body": [
+            "SampleMonsta: drum sample generation, nearly 10,000 users",
+            "Varia, Ruido and ILI: released in 2026",
+            "BeatMonsta and Sampl4r: other projects in the family"
+          ]
+        }
+      ],
+      "important": null,
+      "gallery": [],
+      "brandkits": []
+    }
+  ]
+}
