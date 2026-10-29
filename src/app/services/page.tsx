@@ -70,18 +70,18 @@ function ServiceBlock({ s, color, tools, open }: { s: Service; color: string; to
     <details
       open={open}
       id={s.code.toLowerCase()}
-      className="group scroll-mt-24 rounded-lg sm:open:col-span-2 border border-(--color-border) bg-(--color-surface) transition-colors hover:border-(--c)/50 open:border-(--c)"
+      className="group scroll-mt-24 rounded-lg sm:open:col-span-2 border border-(--color-border) bg-(--color-surface) transition-[border-color,background-color,scale] duration-150 ease-out hover:border-(--c)/80! open:border-(--c)! [&:not([open])]:hover:scale-[1.01] [&:not([open])]:hover:bg-(--color-background) [&:not([open])]:active:scale-[0.98]"
       style={{ '--c': color } as React.CSSProperties}
     >
-      <summary className="flex cursor-pointer list-none items-start gap-4 p-6 [&::-webkit-details-marker]:hidden">
+      <summary className="flex cursor-pointer list-none items-start gap-4 p-6 select-none [&::-webkit-details-marker]:hidden">
         <span className="mt-1 text-xs font-bold tracking-wider" style={{ color }}>
           {s.code}
         </span>
         <span className="flex-1">
           <span className="block text-lg font-semibold text-(--color-foreground)">{s.name}</span>
-          <span className="mt-1 block text-sm text-(--color-muted)">{s.promise}</span>
+          <span className="mt-1 block text-sm text-(--color-muted) transition-colors group-hover:text-(--color-foreground)">{s.promise}</span>
         </span>
-        <span className="mt-1 text-(--color-muted) transition-transform group-open:rotate-45">+</span>
+        <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg border border-(--color-border) bg-(--color-background) text-(--color-muted) transition-[color,border-color,background-color,rotate] duration-150 group-hover:border-(--c)/60! group-hover:bg-(--c)/10 group-hover:text-(--c) group-open:rotate-45 group-open:text-(--c)">+</span>
       </summary>
 
       <div className="space-y-6 border-t border-(--color-border) px-6 pt-6 pb-6">
