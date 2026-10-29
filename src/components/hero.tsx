@@ -39,7 +39,7 @@ export function Hero() {
         >
           Más de 100 canciones publicadas, créditos con Nicky Jam, Ñengo Flow y Yaga &amp; Mackie.
           <br />
-          Y el software que usan cerca de 10.000 productores.
+          Y el software que usan más de 12.000 productores.
         </motion.p>
 
         <motion.div

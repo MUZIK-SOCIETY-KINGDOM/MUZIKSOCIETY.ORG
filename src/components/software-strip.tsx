@@ -1,24 +1,9 @@
 'use client'
 
-import Image from 'next/image'
 import Link from 'next/link'
 import { motion } from 'motion/react'
-import { ArrowUpRight } from 'lucide-react'
-
-const products = [
-  {
-    href: '/tools',
-    name: 'SampleMonsta',
-    line: 'Plugin de audio con IA. Lo usan cerca de 10.000 productores.',
-    src: '/servicios/samplemonsta.jpg',
-  },
-  {
-    href: '/tools',
-    name: 'Varia',
-    line: 'Lanzado en 2026, junto a Ruido e ILI.',
-    src: '/servicios/varia.jpg',
-  },
-]
+import { SoftwareCard } from '@/components/software-card'
+import { plugins } from '@/data/software'
 
 export function SoftwareStrip() {
   return (
@@ -41,39 +26,15 @@ export function SoftwareStrip() {
       </div>
 
       <div className="grid gap-4 sm:grid-cols-2">
-        {products.map((p, i) => (
+        {plugins.map((p, i) => (
           <motion.div
             key={p.name}
             initial={{ opacity: 0, y: 16 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: '-60px' }}
-            transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1], delay: i * 0.08 }}
+            transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1], delay: (i % 2) * 0.08 }}
           >
-            <Link
-              href={p.href}
-              className="group block overflow-hidden rounded-xl border border-(--color-border) bg-(--color-surface) transition-colors hover:border-(--color-accent)/40"
-            >
-              <div className="relative aspect-[16/9] overflow-hidden">
-                <Image
-                  src={p.src}
-                  alt={`Interfaz de ${p.name}`}
-                  fill
-                  sizes="(min-width: 640px) 560px, 100vw"
-                  className="object-cover transition-transform duration-500 group-hover:scale-[1.02]"
-                />
-              </div>
-              <div className="flex items-start justify-between gap-4 p-5">
-                <div>
-                  <p className="font-semibold text-(--color-foreground)">{p.name}</p>
-                  <p className="mt-1 text-sm text-(--color-muted)">{p.line}</p>
-                </div>
-                <ArrowUpRight
-                  size={18}
-                  strokeWidth={1.5}
-                  className="mt-0.5 shrink-0 text-(--color-muted) transition-colors group-hover:text-(--color-accent)"
-                />
-              </div>
-            </Link>
+            <SoftwareCard p={p} />
           </motion.div>
         ))}
       </div>

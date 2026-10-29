@@ -20,7 +20,7 @@ const timeline: TimelineItem[] = [
   { year: '2018', event: 'Primer trabajo internacional: me mudé a Medellín, Colombia.', image: '/about/IMG_3800.PNG' },
   { year: '2023', event: 'Abrí estudio en Medellín. Entré al desarrollo y la IA, y todo cambió.', image: '/about/IMG_3790.PNG' },
   { year: '2025', event: 'Lancé SampleMonsta, mi primer software. El código ya es parte del oficio.', image: '/about/IMG_3794.PNG' },
-  { year: '2026', event: 'Lancé Varia, Ruido e ILI. La próxima marca grande es la tuya.' },
+  { year: '2026', event: 'Lancé tres plugins más: Varia, ILI y Ruido. La próxima marca grande es la tuya.' },
 ]
 
 const skills = [
@@ -62,7 +62,7 @@ export default function AboutPage() {
             Lo que me separa de un productor o ingeniero que encuentras en cualquier lado es que no solo hago canciones: construyo artistas. Mi trabajo de desarrollo de artista junta producción, ingeniería, estrategia y dirección creativa en un solo proceso. Una persona que ve el cuadro completo: el sonido, la identidad, el público y el largo plazo.
           </p>
           <p className="text-base text-(--color-muted) leading-relaxed">
-            En tecnología, creé solo, de principio a fin, SampleMonsta: un plugin de audio con IA (C++/JUCE) que usan cerca de 10.000 productores, con su tienda, licencias y servidor. En 2026 lancé Varia, Ruido e ILI. Construyo sitios y plataformas como samplemonsta.com y vibradb.com, y los sistemas de IA y automatización con los que opero mi propio negocio.
+            En tecnología, creé solo, de principio a fin, SampleMonsta: un plugin de audio con IA (C++/JUCE) que usan más de 12.000 productores, con su tienda, licencias y servidor. En 2026 lancé Varia, ILI y Ruido. Construyo sitios y plataformas como samplemonsta.com y vibradb.com, y los sistemas de IA y automatización con los que opero mi propio negocio.
           </p>
           <p className="text-base text-(--color-muted) leading-relaxed">
             Mi firma como creador es el sampleo. No como atajo, sino como lenguaje: transformar, voltear y reconstruir el sonido hasta que sea algo que nunca existió. Me llamo a mí mismo un Living Breathing Sampling Monster, y lo digo en serio.
