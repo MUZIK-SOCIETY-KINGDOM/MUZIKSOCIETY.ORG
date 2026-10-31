@@ -40,7 +40,7 @@ export const plugins: Software[] = [
     line: 'Supresor de resonancias espectral: 16 bandas con detección por IA. Limpia frecuencias duras o extrae voces y drums.',
     lineEn: 'Spectral resonance suppressor: 16 bands with AI detection. Tames harsh frequencies or pulls out vocals and drums.',
     meta: 'v1.1 · VST3 · Win + Mac (Apple Silicon)',
-    src: '/software/ili.jpg',
+    src: '/software/ili-v2.png',
     href: 'https://samplemonsta.com/ili',
   },
 ]
@@ -51,7 +51,7 @@ export const platforms: Software[] = [
     line: 'Base de datos de fans y contactos: captura por QR y links, analíticas, mapa y campañas.',
     lineEn: 'A fan and contact database: capture via QR and links, analytics, map and campaigns.',
     meta: 'Web · vibradb.com',
-    src: '/software/vibradb.png',
+    src: '/software/vibradb-v2.png',
     href: 'https://vibradb.com',
   },
 ]

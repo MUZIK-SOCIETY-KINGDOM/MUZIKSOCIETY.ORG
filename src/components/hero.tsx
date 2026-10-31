@@ -98,11 +98,12 @@ export function Hero() {
         >
           <div className="relative aspect-[4/5] overflow-hidden rounded-xl border border-(--color-border) bg-(--color-surface)">
             <Image
-              src="/about/IMG_3790.PNG"
+              src="/about/IMG_3790-x2.jpg"
               alt={t.alt}
               fill
               priority
-              sizes="(min-width: 1024px) 480px, 100vw"
+              sizes="(min-width: 1024px) 720px, 100vw"
+              quality={90}
               className="object-cover object-[45%_center] saturate-[0.85]"
             />
             <div className="absolute inset-0 bg-gradient-to-t from-(--color-background)/80 via-transparent to-transparent" />

@@ -12,7 +12,8 @@ export function SoftwareCard({ p, lang = 'es' }: { p: Software; lang?: Lang }) {
             src={p.src}
             alt={lang === 'en' ? `${p.name} interface` : `Interfaz de ${p.name}`}
             fill
-            sizes="(min-width: 1024px) 370px, (min-width: 640px) 50vw, 100vw"
+            sizes="(min-width: 1152px) 560px, (min-width: 640px) 50vw, 100vw"
+            quality={90}
             className="object-cover transition-transform duration-500 group-hover:scale-[1.02]"
           />
         ) : (

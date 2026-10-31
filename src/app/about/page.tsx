@@ -20,7 +20,7 @@ const timeline: TimelineItem[] = [
   { year: '2010', event: 'Nace MuzikSociety como marca.', eventEn: 'MuzikSociety is born as a brand.', image: '/logo.png' },
   { year: '2011', event: 'Abrí mi primer estudio de grabación en Miami.', eventEn: 'Opened my first recording studio in Miami.', image: '/about/IMG_3801.PNG' },
   { year: '2018', event: 'Primer trabajo internacional: me mudé a Medellín, Colombia.', eventEn: 'First international job: moved to Medellín, Colombia.', image: '/about/IMG_3800.PNG' },
-  { year: '2023', event: 'Abrí estudio en Medellín. Entré al desarrollo y la IA, y todo cambió.', eventEn: 'Opened a studio in Medellín. Got into development and AI, and everything changed.', image: '/about/IMG_3790.PNG' },
+  { year: '2023', event: 'Abrí estudio en Medellín. Entré al desarrollo y la IA, y todo cambió.', eventEn: 'Opened a studio in Medellín. Got into development and AI, and everything changed.', image: '/about/IMG_3790-x2.jpg' },
   { year: '2025', event: 'Lancé SampleMonsta, mi primer software. El código ya es parte del oficio.', eventEn: 'Launched SampleMonsta, my first software. Code is now part of the craft.', image: '/about/IMG_3794.PNG' },
   { year: '2026', event: 'Lancé tres plugins más: Varia, ILI y Ruido. La próxima marca grande es la tuya.', eventEn: 'Launched three more plugins: Varia, ILI and Ruido. The next big brand is yours.' },
 ]
